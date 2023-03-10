@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<APPS version="0.0">
+   <States>
+      <Property id="Figure2Cell1" value="1"/>
+      <Property id="_pContainerWidth" value="1150"/>
+      <Property id="Icha30s" value="15.0"/>
+      <Property id="Tmax" value="60.0"/>
+      <Property id="Figure2Cell10" value="1"/>
+      <Property id="WithAging" value="2"/>
+      <Property id="Idch30s" value="75.0"/>
+      <Property id="Figure1Cell0" value="0"/>
+      <Property id="Figure1Cell9" value="0"/>
+      <Property id="CapaRef" value="8.0"/>
+      <Property id="Idch" value="37.5"/>
+      <Property id="Figure3Cell4" value="2"/>
+      <Property id="Figure3Cell8" value="2"/>
+      <Property id="Figure1Cell5" value="0"/>
+      <Property id="SpecificHeat" value="1300.0"/>
+      <Property id="Tmin" value="-20.0"/>
+      <Property id="Idch10s" value="  -"/>
+      <Property id="Chemistry" value="NMC-C (test)"/>
+      <Property id="Icha10s" value="  -"/>
+      <Property id="Mass" value="0.226"/>
+      <Property id="Umax" value="4.2"/>
+      <Property id="Density" value="2009.0"/>
+      <Property id="Figure2Cell0" value="1"/>
+      <Property id="Figure2Cell3" value="1"/>
+      <Property id="Figure1Cell11" value="0"/>
+      <Property id="Umin" value="2.7"/>
+      <Property id="CellName" value="Li-ion NMC-C High Power quasi-static battery cell with dynamic semi-empirical aging"/>
+      <Property id="_pContainerHeight" value="900"/>
+      <Property id="Figure2Cell11" value="1"/>
+      <Property id="Figure2Cell6" value="1"/>
+      <Property id="Icha" value="15.0"/>
+      <Property id="Figure3Cell3" value="2"/>
+      <Property id="DatabaseIndexOfBattAV1" value="10"/>
+      <Property id="_pContainerTopY" value="90"/>
+      <Property id="Figure3Cell0" value="2"/>
+      <Property id="Figure1Cell7" value="0"/>
+      <Property id="Figure2Cell5" value="1"/>
+      <Property id="Figure3Cell1" value="2"/>
+      <Property id="WithAgingParam" value="1"/>
+      <Property id="CurrentFunctionIndex" value="0"/>
+      <Property id="Figure2Cell8" value="1"/>
+      <Property id="Figure1Cell3" value="0"/>
+      <Property id="ModelTypeIndex" value="battery equivalent circuit model"/>
+      <Property id="Figure1Cell6" value="0"/>
+      <Property id="Figure1Cell8" value="0"/>
+      <Property id="Figure1Cell4" value="0"/>
+      <Property id="Figure2Cell4" value="1"/>
+      <Property id="Figure1Cell1" value="0"/>
+      <Property id="Figure2Cell2" value="1"/>
+      <Property id="outfolder" value="${circuit_name}_.PrecalibDatafiles/BatCellGene"/>
+      <Property id="Figure3Cell9" value="2"/>
+      <Property id="Figure1Cell10" value="0"/>
+      <Property id="Figure3Cell7" value="2"/>
+      <Property id="Figure1Cell2" value="0"/>
+      <Property id="_pContainerTopX" value="385"/>
+      <Property id="Figure2Cell9" value="1"/>
+      <Property id="Figure3Cell11" value="2"/>
+      <Property id="ConvectiveArea" value="56382.0"/>
+      <Property id="Figure2Cell7" value="1"/>
+      <Property id="ThermalConduct" value="1.1"/>
+      <Property id="Figure3Cell2" value="2"/>
+      <Property id="Figure3Cell6" value="2"/>
+      <Property id="Figure3Cell5" value="2"/>
+      <Property id="IsCylindrical" value="prismatic"/>
+      <Property id="Figure3Cell10" value="2"/>
+      <Property id="DatabaseIndexOfBattAV0" value="8"/>
+      <Property id="Trecomm" value="40.0"/>
+      <Property id="FlagFolder" value="0.0"/>
+      <Property id="CircuitTypeIndex" value="0"/>
+   </States>
+</APPS>
