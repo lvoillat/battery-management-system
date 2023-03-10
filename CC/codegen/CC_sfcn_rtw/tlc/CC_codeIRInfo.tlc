@@ -1,0 +1,36 @@
+%function FcnLoadCodeIRInfo() Output 
+codeIRInfoStruct = load('C:\Sagar\Projects\BMS\P006n\08_Work_in_progress\WP3_2_BMS_Stage_1\CC\codegen\CC_sfcn_rtw\tlc\codeIRInfo.mat');
+codeInfo = codeIRInfoStruct.codeInfo;
+%endfunction
+
+%function FcnGetIsInheritedSampleTime() void
+%assign tmpIdx = 1
+%return tmpIdx 
+%endfunction
+
+%function FcnGetUnsetDSMIdxFromIRInfo() void
+%assign tmpIdx = []
+%return tmpIdx 
+%endfunction
+
+%function FcnGetUnsetEIIdxFromIRInfo() void
+%assign tmpIdx = []
+%return tmpIdx 
+%endfunction
+
+%function FcnGetRootInportsMapFromIRInfo() void
+%assign tmpIdx = Matrix(5,2)[[0, 0]; [1, 1]; [2, 2]; [3, 3]; ...
+[4, 4]; ]
+%return tmpIdx 
+%endfunction
+
+%function FcnGetUnsetEOIdxFromIRInfo() void
+%assign tmpIdx = []
+%return tmpIdx 
+%endfunction
+
+%function FcnGetUnsetParamIdxFromIRInfo() void
+%assign tmpIdx = Matrix(1,2)[[0, 0]; ]
+%return tmpIdx 
+%endfunction
+

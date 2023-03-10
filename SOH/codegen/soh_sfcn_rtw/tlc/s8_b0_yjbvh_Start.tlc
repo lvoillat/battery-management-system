@@ -1,0 +1,46 @@
+%implements s8_b0_yjbvh_Start "C"
+
+%function Start(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign _modelSS = ""
+
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Start",0)
+/* Start for Atomic SubSystem: '<Root>/soh' */
+/* Start for Chart: '<S1>/Chart' incorporates:
+ *  Start for SubSystem: '<S1>/SOH'
+ */
+%if SLibCG_SystemFcnArgAccessed("soh_SOH_Start",4,0)
+%<SLibCG_AccessArg(4 ,0, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_SOH_Start", ["%<tSimStruct>"], 4, 0, 0, 0, 0, 8)>\
+
+%endif
+/* Start for DataStoreMemory: '<S1>/Data Store Memory1' */
+memcpy(%<(SLibCG_DWVAddr(3, 0, 8, 40, "", -1, "", 0))>, %<(SLibCGIR_PVAddr(9, 0, 8, 40, "", -1, "", 0))>, 40U * sizeof(real_T));
+/* End of Start for SubSystem: '<Root>/soh' */
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[4].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Start", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Start"))
+%<SLibCG_AccessArg(4, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(4, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Start", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Start"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(4, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Start(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(4, 0, 0)
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(4, 0, fcnProtoType)>
+%endfunction

@@ -1,0 +1,33 @@
+%implements s8_b0_yjbvh_3_Start "C"
+
+%function Start(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+/* InitializeConditions for Enabled SubSystem: '<S4>/SOHRcalc' */
+/* InitializeConditions for Delay: '<S8>/Delay3' */
+%<SLibCG_SetDWV(4, 0, 8, 1, "", -1, "", 0, "1U")>\
+/* End of InitializeConditions for SubSystem: '<S4>/SOHRcalc' */
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[3].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Start", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Start"))
+%<SLibCG_AccessArg(3, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(3, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Start", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Start"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(3, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void soh_SOH_Start(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(3, 0, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(3, 0, fcnProtoType)>
+%endfunction

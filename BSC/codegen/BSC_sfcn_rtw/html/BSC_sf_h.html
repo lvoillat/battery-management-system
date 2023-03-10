@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="./js/coder_app.js"></script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./rtwreport_utils.js"></script>
+<script type="text/javascript" src="./rtwannotate.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/coder_app.css"/>
+</head>
+<body onload="srcFileOnload();">
+<pre id="code">
+<table class="code" id="codeTbl">
+<tr name="1" id="1">
+<td>1</td><td><span class="ct">/*</span></td></tr>
+<tr name="2" id="2">
+<td>2</td><td><span class="ct"> * BSC_sf.h</span></td></tr>
+<tr name="3" id="3">
+<td>3</td><td><span class="ct"> *</span></td></tr>
+<tr name="4" id="4">
+<td>4</td><td><span class="ct"> * Code generation for model "BSC_sf".</span></td></tr>
+<tr name="5" id="5">
+<td>5</td><td><span class="ct"> *</span></td></tr>
+<tr name="6" id="6">
+<td>6</td><td><span class="ct"> * Model version              : 1.222</span></td></tr>
+<tr name="7" id="7">
+<td>7</td><td><span class="ct"> * Simulink Coder version : 8.9 (R2015b) 13-Aug-2015</span></td></tr>
+<tr name="8" id="8">
+<td>8</td><td><span class="ct"> * C source code generated on : Fri Jun 12 17:13:53 2020</span></td></tr>
+<tr name="9" id="9">
+<td>9</td><td><span class="ct"> *</span></td></tr>
+<tr name="10" id="10">
+<td>10</td><td><span class="ct"> * Target selection: rtwsfcn.tlc</span></td></tr>
+<tr name="11" id="11">
+<td>11</td><td><span class="ct"> * Note: GRT includes extra infrastructure and instrumentation for prototyping</span></td></tr>
+<tr name="12" id="12">
+<td>12</td><td><span class="ct"> * Embedded hardware selection: Freescale-&gt;32-bit PowerPC</span></td></tr>
+<tr name="13" id="13">
+<td>13</td><td><span class="ct"> * Emulation hardware selection:</span></td></tr>
+<tr name="14" id="14">
+<td>14</td><td><span class="ct"> *    Differs from embedded hardware (MATLAB Host)</span></td></tr>
+<tr name="15" id="15">
+<td>15</td><td><span class="ct"> * Code generation objectives: Unspecified</span></td></tr>
+<tr name="16" id="16">
+<td>16</td><td><span class="ct"> * Validation result: Not run</span></td></tr>
+<tr name="17" id="17">
+<td>17</td><td><span class="ct"> */</span></td></tr>
+<tr name="18" id="18">
+<td>18</td><td></td></tr>
+<tr name="19" id="19">
+<td>19</td><td><span class="pp">#ifndef</span> <a id="19c9" class="tk">RTW_HEADER_BSC_sf_h_</a></td></tr>
+<tr name="20" id="20">
+<td>20</td><td><span class="pp">#define</span> <a id="20c9" class="tk">RTW_HEADER_BSC_sf_h_</a></td></tr>
+<tr name="21" id="21">
+<td>21</td><td><span class="pp">#include &lt;string.h&gt;</span></td></tr>
+<tr name="22" id="22">
+<td>22</td><td><span class="pp">#include &lt;stddef.h&gt;</span></td></tr>
+<tr name="23" id="23">
+<td>23</td><td><span class="pp">#ifndef</span> <a id="23c9" class="tk">BSC_sf_COMMON_INCLUDES_</a></td></tr>
+<tr name="24" id="24">
+<td>24</td><td><span class="pp"># define</span> <a id="24c10" class="tk">BSC_sf_COMMON_INCLUDES_</a></td></tr>
+<tr name="25" id="25">
+<td>25</td><td><span class="pp">#include &lt;stdlib.h&gt;</span></td></tr>
+<tr name="26" id="26">
+<td>26</td><td><span class="pp">#define</span> <a id="26c9" class="tk">S_FUNCTION_NAME</a>                <a id="26c40" class="tk">BSC_sf</a></td></tr>
+<tr name="27" id="27">
+<td>27</td><td><span class="pp">#define</span> <a id="27c9" class="tk">S_FUNCTION_LEVEL</a>               2</td></tr>
+<tr name="28" id="28">
+<td>28</td><td><span class="pp">#define</span> <a id="28c9" class="tk">RTW_GENERATED_S_FUNCTION</a></td></tr>
+<tr name="29" id="29">
+<td>29</td><td><span class="pp">#include "rtwtypes.h"</span></td></tr>
+<tr name="30" id="30">
+<td>30</td><td><span class="pp">#include "simstruc.h"</span></td></tr>
+<tr name="31" id="31">
+<td>31</td><td><span class="pp">#include "fixedpoint.h"</span></td></tr>
+<tr name="32" id="32">
+<td>32</td><td><span class="pp">#if</span> <a id="32c5" class="tk">!</a><a id="32c6" class="tk">defined</a>(<a id="32c14" class="tk">MATLAB_MEX_FILE</a>)</td></tr>
+<tr name="33" id="33">
+<td>33</td><td><span class="pp">#include "rt_matrx.h"</span></td></tr>
+<tr name="34" id="34">
+<td>34</td><td><span class="pp">#endif</span></td></tr>
+<tr name="35" id="35">
+<td>35</td><td></td></tr>
+<tr name="36" id="36">
+<td>36</td><td><span class="pp">#if</span> <a id="36c5" class="tk">!</a><a id="36c6" class="tk">defined</a>(<a id="36c14" class="tk">RTW_SFUNCTION_DEFINES</a>)</td></tr>
+<tr name="37" id="37">
+<td>37</td><td><span class="pp">#define</span> <a id="37c9" class="tk">RTW_SFUNCTION_DEFINES</a></td></tr>
+<tr name="38" id="38">
+<td>38</td><td></td></tr>
+<tr name="39" id="39">
+<td>39</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="40" id="40">
+<td>40</td><td>  <span class="kw">void</span> <a id="40c8" class="tk">*</a><a id="40c9" class="tk">blockIO</a>;</td></tr>
+<tr name="41" id="41">
+<td>41</td><td>  <span class="kw">void</span> <a id="41c8" class="tk">*</a><a id="41c9" class="tk">defaultParam</a>;</td></tr>
+<tr name="42" id="42">
+<td>42</td><td>  <span class="kw">void</span> <a id="42c8" class="tk">*</a><a id="42c9" class="tk">nonContDerivSig</a>;</td></tr>
+<tr name="43" id="43">
+<td>43</td><td><span class="br">}</span> <a id="43c3" class="tk">LocalS</a>;</td></tr>
+<tr name="44" id="44">
+<td>44</td><td></td></tr>
+<tr name="45" id="45">
+<td>45</td><td><span class="pp">#define</span> <a id="45c9" class="tk">ssSetLocalBlockIO</a>(<a id="45c27" class="tk">S</a>, <a id="45c30" class="tk">io</a>)       ((<a id="45c42" class="tk">LocalS</a> <a id="45c49" class="tk">*</a>)<a id="45c51" class="tk">ssGetUserData</a>(<a id="45c65" class="tk">S</a>))-&gt;<a id="45c70" class="tk">blockIO</a> = ((<span class="kw">void</span> <a id="45c87" class="tk">*</a>)(<a id="45c90" class="tk">io</a>))</td></tr>
+<tr name="46" id="46">
+<td>46</td><td><span class="pp">#define</span> <a id="46c9" class="tk">ssGetLocalBlockIO</a>(<a id="46c27" class="tk">S</a>)           ((<a id="46c42" class="tk">LocalS</a> <a id="46c49" class="tk">*</a>)<a id="46c51" class="tk">ssGetUserData</a>(<a id="46c65" class="tk">S</a>))-&gt;<a id="46c70" class="tk">blockIO</a></td></tr>
+<tr name="47" id="47">
+<td>47</td><td><span class="pp">#define</span> <a id="47c9" class="tk">ssSetLocalDefaultParam</a>(<a id="47c32" class="tk">S</a>, <a id="47c35" class="tk">paramVector</a>) ((<a id="47c50" class="tk">LocalS</a> <a id="47c57" class="tk">*</a>)<a id="47c59" class="tk">ssGetUserData</a>(<a id="47c73" class="tk">S</a>))-&gt;<a id="47c78" class="tk">defaultParam</a> = (<a id="47c94" class="tk">paramVector</a>)</td></tr>
+<tr name="48" id="48">
+<td>48</td><td><span class="pp">#define</span> <a id="48c9" class="tk">ssGetLocalDefaultParam</a>(<a id="48c32" class="tk">S</a>)      ((<a id="48c42" class="tk">LocalS</a> <a id="48c49" class="tk">*</a>)<a id="48c51" class="tk">ssGetUserData</a>(<a id="48c65" class="tk">S</a>))-&gt;<a id="48c70" class="tk">defaultParam</a></td></tr>
+<tr name="49" id="49">
+<td>49</td><td><span class="pp">#define</span> <a id="49c9" class="tk">ssSetLocalNonContDerivSig</a>(<a id="49c35" class="tk">S</a>, <a id="49c38" class="tk">pSig</a>) ((<a id="49c46" class="tk">LocalS</a> <a id="49c53" class="tk">*</a>)<a id="49c55" class="tk">ssGetUserData</a>(<a id="49c69" class="tk">S</a>))-&gt;<a id="49c74" class="tk">nonContDerivSig</a> = (<a id="49c93" class="tk">pSig</a>)</td></tr>
+<tr name="50" id="50">
+<td>50</td><td><span class="pp">#define</span> <a id="50c9" class="tk">ssGetLocalNonContDerivSig</a>(<a id="50c35" class="tk">S</a>)   ((<a id="50c42" class="tk">LocalS</a> <a id="50c49" class="tk">*</a>)<a id="50c51" class="tk">ssGetUserData</a>(<a id="50c65" class="tk">S</a>))-&gt;<a id="50c70" class="tk">nonContDerivSig</a></td></tr>
+<tr name="51" id="51">
+<td>51</td><td><span class="pp">#endif</span></td></tr>
+<tr name="52" id="52">
+<td>52</td><td><span class="pp">#endif</span>                                 <span class="ct">/* BSC_sf_COMMON_INCLUDES_ */</span></td></tr>
+<tr name="53" id="53">
+<td>53</td><td></td></tr>
+<tr name="54" id="54">
+<td>54</td><td><span class="pp">#include "BSC_sf_types.h"</span></td></tr>
+<tr name="55" id="55">
+<td>55</td><td></td></tr>
+<tr name="56" id="56">
+<td>56</td><td><span class="ct">/* Shared type includes */</span></td></tr>
+<tr name="57" id="57">
+<td>57</td><td><span class="pp">#include "multiword_types.h"</span></td></tr>
+<tr name="58" id="58">
+<td>58</td><td><span class="pp">#include "rtGetNaN.h"</span></td></tr>
+<tr name="59" id="59">
+<td>59</td><td><span class="pp">#include "rt_nonfinite.h"</span></td></tr>
+<tr name="60" id="60">
+<td>60</td><td><span class="pp">#include "rt_defines.h"</span></td></tr>
+<tr name="61" id="61">
+<td>61</td><td></td></tr>
+<tr name="62" id="62">
+<td>62</td><td><span class="ct">/* Block signals for system '&lt;S1&gt;/check_type' */</span></td></tr>
+<tr name="63" id="63">
+<td>63</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="64" id="64">
+<td>64</td><td>  <a id="64c3" class="tk">uint8_T</a> <a id="64c11" class="tk">type_of_fault</a>;               <span class="ct">/* '&lt;S5&gt;/check_faults' */</span></td></tr>
+<tr name="65" id="65">
+<td>65</td><td><span class="br">}</span> <a id="65c3" class="tk">B_check_type_BSC_T</a>;</td></tr>
+<tr name="66" id="66">
+<td>66</td><td></td></tr>
+<tr name="67" id="67">
+<td>67</td><td><span class="ct">/* Block signals for system '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="68" id="68">
+<td>68</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="69" id="69">
+<td>69</td><td>  <a id="69c3" class="tk">uint8_T</a> <a id="69c11" class="tk">key_cycle</a>;                   <span class="ct">/* '&lt;S6&gt;/key_cycle_chart' */</span></td></tr>
+<tr name="70" id="70">
+<td>70</td><td><span class="br">}</span> <a id="70c3" class="tk">B_key_cycle_BSC_T</a>;</td></tr>
+<tr name="71" id="71">
+<td>71</td><td></td></tr>
+<tr name="72" id="72">
+<td>72</td><td><span class="ct">/* Zero-crossing (trigger) state for system '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="73" id="73">
+<td>73</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="74" id="74">
+<td>74</td><td>  <a id="74c3" class="tk">ZCSigState</a> <a id="74c14" class="tk">key_cycle_chart_Trig_ZCE</a>[2];<span class="ct">/* '&lt;S6&gt;/key_cycle_chart' */</span></td></tr>
+<tr name="75" id="75">
+<td>75</td><td><span class="br">}</span> <a id="75c3" class="tk">ZCE_key_cycle_BSC_T</a>;</td></tr>
+<tr name="76" id="76">
+<td>76</td><td></td></tr>
+<tr name="77" id="77">
+<td>77</td><td><span class="ct">/* Block signals (auto storage) */</span></td></tr>
+<tr name="78" id="78">
+<td>78</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="79" id="79">
+<td>79</td><td>  <a id="79c3" class="tk">uint8_T</a> <a id="79c11" class="tk">Add</a>;                         <span class="ct">/* '&lt;S7&gt;/Add' */</span></td></tr>
+<tr name="80" id="80">
+<td>80</td><td>  <a id="80c3" class="tk">uint8_T</a> <a id="80c11" class="tk">Merge</a>;                       <span class="ct">/* '&lt;S14&gt;/Merge' */</span></td></tr>
+<tr name="81" id="81">
+<td>81</td><td>  <a id="81c3" class="tk">uint8_T</a> <a id="81c11" class="tk">MinMax</a>;                      <span class="ct">/* '&lt;S3&gt;/MinMax' */</span></td></tr>
+<tr name="82" id="82">
+<td>82</td><td>  <a id="82c3" class="tk">uint8_T</a> <a id="82c11" class="tk">MinMax1</a>;                     <span class="ct">/* '&lt;S3&gt;/MinMax1' */</span></td></tr>
+<tr name="83" id="83">
+<td>83</td><td>  <a id="83c3" class="tk">uint8_T</a> <a id="83c11" class="tk">MinMax2</a>;                     <span class="ct">/* '&lt;S3&gt;/MinMax2' */</span></td></tr>
+<tr name="84" id="84">
+<td>84</td><td>  <a id="84c3" class="tk">boolean_T</a> <a id="84c13" class="tk">LogicalOperator16</a>;         <span class="ct">/* '&lt;S4&gt;/Logical Operator16' */</span></td></tr>
+<tr name="85" id="85">
+<td>85</td><td>  <a id="85c3" class="tk">boolean_T</a> <a id="85c13" class="tk">LogicalOperator2</a>;          <span class="ct">/* '&lt;S4&gt;/Logical Operator2' */</span></td></tr>
+<tr name="86" id="86">
+<td>86</td><td>  <a id="86c3" class="tk">boolean_T</a> <a id="86c13" class="tk">LogicalOperator3</a>;          <span class="ct">/* '&lt;S8&gt;/Logical Operator3' */</span></td></tr>
+<tr name="87" id="87">
+<td>87</td><td>  <a id="87c3" class="tk">B_key_cycle_BSC_T</a> <a id="87c21" class="tk">key_cycle</a>;         <span class="ct">/* '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="88" id="88">
+<td>88</td><td>  <a id="88c3" class="tk">B_check_type_BSC_T</a> <a id="88c22" class="tk">check_type</a>;       <span class="ct">/* '&lt;S1&gt;/check_type' */</span></td></tr>
+<tr name="89" id="89">
+<td>89</td><td><span class="br">}</span> <a id="89c3" class="tk">B_BSC_T</a>;</td></tr>
+<tr name="90" id="90">
+<td>90</td><td></td></tr>
+<tr name="91" id="91">
+<td>91</td><td><span class="ct">/* Zero-crossing (trigger) state */</span></td></tr>
+<tr name="92" id="92">
+<td>92</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="93" id="93">
+<td>93</td><td>  <a id="93c3" class="tk">ZCSigState</a> <a id="93c14" class="tk">TriggeredSubsystem_Trig_ZCE</a>;<span class="ct">/* '&lt;S7&gt;/Triggered Subsystem' */</span></td></tr>
+<tr name="94" id="94">
+<td>94</td><td>  <a id="94c3" class="tk">ZCE_key_cycle_BSC_T</a> <a id="94c23" class="tk">key_cycle</a>;       <span class="ct">/* '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="95" id="95">
+<td>95</td><td><span class="br">}</span> <a id="95c3" class="tk">PrevZCX_BSC_T</a>;</td></tr>
+<tr name="96" id="96">
+<td>96</td><td></td></tr>
+<tr name="97" id="97">
+<td>97</td><td><span class="ct">/* External inputs (root inport signals with auto storage) */</span></td></tr>
+<tr name="98" id="98">
+<td>98</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="99" id="99">
+<td>99</td><td>  <a id="99c3" class="tk">uint8_T</a> <a id="99c11" class="tk">*</a><a id="99c12" class="tk">VehiclePSR</a>;                 <span class="ct">/* '&lt;Root&gt;/Vehicle PSR' */</span></td></tr>
+<tr name="100" id="100">
+<td>100</td><td>  <a id="100c3" class="tk">uint8_T</a> <a id="100c11" class="tk">*</a><a id="100c12" class="tk">ChargerPSR</a>;                 <span class="ct">/* '&lt;Root&gt;/Charger PSR' */</span></td></tr>
+<tr name="101" id="101">
+<td>101</td><td>  <a id="101c3" class="tk">uint8_T</a> <a id="101c11" class="tk">*</a><a id="101c12" class="tk">key</a>;                        <span class="ct">/* '&lt;Root&gt;/key' */</span></td></tr>
+<tr name="102" id="102">
+<td>102</td><td>  <a id="102c3" class="tk">real_T</a> <a id="102c10" class="tk">*</a><a id="102c11" class="tk">SOC</a>;                         <span class="ct">/* '&lt;Root&gt;/SOC' */</span></td></tr>
+<tr name="103" id="103">
+<td>103</td><td>  <a id="103c3" class="tk">uint8_T</a> <a id="103c11" class="tk">*</a><a id="103c12" class="tk">highlevelfaultType1</a>;        <span class="ct">/* '&lt;Root&gt;/high level fault[Type1]' */</span></td></tr>
+<tr name="104" id="104">
+<td>104</td><td>  <a id="104c3" class="tk">uint8_T</a> <a id="104c11" class="tk">*</a><a id="104c12" class="tk">mediumlevelfaultType2</a>;      <span class="ct">/* '&lt;Root&gt;/medium level fault[Type2]' */</span></td></tr>
+<tr name="105" id="105">
+<td>105</td><td>  <a id="105c3" class="tk">uint8_T</a> <a id="105c11" class="tk">*</a><a id="105c12" class="tk">lowlevelfaultType3</a>;         <span class="ct">/* '&lt;Root&gt;/low level fault[Type3]' */</span></td></tr>
+<tr name="106" id="106">
+<td>106</td><td>  <a id="106c3" class="tk">uint8_T</a> <a id="106c11" class="tk">*</a><a id="106c12" class="tk">vitm_CellsTemperatureLowFaultTy</a>;<span class="ct">/* '&lt;Root&gt;/vitm_CellsTemperatureLowFault[Type4]' */</span></td></tr>
+<tr name="107" id="107">
+<td>107</td><td>  <a id="107c3" class="tk">uint8_T</a> <a id="107c11" class="tk">*</a><a id="107c12" class="tk">vitm_CellsTemperatureHighFaultT</a>;<span class="ct">/* '&lt;Root&gt;/vitm_CellsTemperatureHighFault[Type5]' */</span></td></tr>
+<tr name="108" id="108">
+<td>108</td><td>  <a id="108c3" class="tk">uint8_T</a> <a id="108c11" class="tk">*</a><a id="108c12" class="tk">vitm_CellsVoltageLowFaultType6</a>;<span class="ct">/* '&lt;Root&gt;/vitm_CellsVoltageLowFault[Type6]' */</span></td></tr>
+<tr name="109" id="109">
+<td>109</td><td>  <a id="109c3" class="tk">uint8_T</a> <a id="109c11" class="tk">*</a><a id="109c12" class="tk">vitm_CellsVoltageHightFaultType</a>;<span class="ct">/* '&lt;Root&gt;/vitm_CellsVoltageHightFault[Type7]' */</span></td></tr>
+<tr name="110" id="110">
+<td>110</td><td>  <a id="110c3" class="tk">uint8_T</a> <a id="110c11" class="tk">*</a><a id="110c12" class="tk">vitm_PackVoltageFaultType8</a>; <span class="ct">/* '&lt;Root&gt;/vitm_PackVoltageFault[Type8]' */</span></td></tr>
+<tr name="111" id="111">
+<td>111</td><td>  <a id="111c3" class="tk">uint8_T</a> <a id="111c11" class="tk">*</a><a id="111c12" class="tk">vitm_PackCurrentFaultType9</a>; <span class="ct">/* '&lt;Root&gt;/vitm_PackCurrentFault[Type9]' */</span></td></tr>
+<tr name="112" id="112">
+<td>112</td><td>  <a id="112c3" class="tk">uint8_T</a> <a id="112c11" class="tk">*</a><a id="112c12" class="tk">vitm_HVILFaultType10</a>;       <span class="ct">/* '&lt;Root&gt;/vitm_HVILFault[Type10]' */</span></td></tr>
+<tr name="113" id="113">
+<td>113</td><td>  <a id="113c3" class="tk">uint8_T</a> <a id="113c11" class="tk">*</a><a id="113c12" class="tk">cc_PrechargeFaultType11</a>;    <span class="ct">/* '&lt;Root&gt;/cc_PrechargeFault[Type11]' */</span></td></tr>
+<tr name="114" id="114">
+<td>114</td><td><span class="br">}</span> <a id="114c3" class="tk">ExternalUPtrs_BSC_T</a>;</td></tr>
+<tr name="115" id="115">
+<td>115</td><td></td></tr>
+<tr name="116" id="116">
+<td>116</td><td><span class="ct">/* External outputs (root outports fed by signals with auto storage) */</span></td></tr>
+<tr name="117" id="117">
+<td>117</td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="118" id="118">
+<td>118</td><td>  <a id="118c3" class="tk">boolean_T</a> <a id="118c13" class="tk">*</a><a id="118c14" class="tk">CVTNsupplysignal</a>;         <span class="ct">/* '&lt;Root&gt;/CVTN supply signal' */</span></td></tr>
+<tr name="119" id="119">
+<td>119</td><td>  <a id="119c3" class="tk">boolean_T</a> <a id="119c13" class="tk">*</a><a id="119c14" class="tk">MainContactorCmd</a>;         <span class="ct">/* '&lt;Root&gt;/Main Contactor Cmd' */</span></td></tr>
+<tr name="120" id="120">
+<td>120</td><td>  <a id="120c3" class="tk">boolean_T</a> <a id="120c13" class="tk">*</a><a id="120c14" class="tk">ChargerContactorCmd</a>;      <span class="ct">/* '&lt;Root&gt;/Charger Contactor Cmd' */</span></td></tr>
+<tr name="121" id="121">
+<td>121</td><td>  <a id="121c3" class="tk">boolean_T</a> <a id="121c13" class="tk">*</a><a id="121c14" class="tk">SleepMode</a>;                <span class="ct">/* '&lt;Root&gt;/Sleep Mode' */</span></td></tr>
+<tr name="122" id="122">
+<td>122</td><td>  <a id="122c3" class="tk">uint8_T</a> <a id="122c11" class="tk">*</a><a id="122c12" class="tk">ReasontoopencontactortoCAN</a>; <span class="ct">/* '&lt;Root&gt;/Reason to open contactor to CAN' */</span></td></tr>
+<tr name="123" id="123">
+<td>123</td><td>  <a id="123c3" class="tk">uint8_T</a> <a id="123c11" class="tk">*</a><a id="123c12" class="tk">SevereMediumFault</a>;          <span class="ct">/* '&lt;Root&gt;/Severe//Medium Fault' */</span></td></tr>
+<tr name="124" id="124">
+<td>124</td><td>  <a id="124c3" class="tk">uint8_T</a> <a id="124c11" class="tk">*</a><a id="124c12" class="tk">LowFault</a>;                   <span class="ct">/* '&lt;Root&gt;/Low Fault' */</span></td></tr>
+<tr name="125" id="125">
+<td>125</td><td>  <a id="125c3" class="tk">uint8_T</a> <a id="125c11" class="tk">*</a><a id="125c12" class="tk">FaultType</a>;                  <span class="ct">/* '&lt;Root&gt;/Fault Type' */</span></td></tr>
+<tr name="126" id="126">
+<td>126</td><td><span class="br">}</span> <a id="126c3" class="tk">ExtY_BSC_T</a>;</td></tr>
+<tr name="127" id="127">
+<td>127</td><td></td></tr>
+<tr name="128" id="128">
+<td>128</td><td><span class="ct">/* Parameters (auto storage) */</span></td></tr>
+<tr name="129" id="129">
+<td>129</td><td><span class="kw">struct</span> <a id="129c8" class="tk">P_BSC_T_</a> <span class="br">{</span></td></tr>
+<tr name="130" id="130">
+<td>130</td><td>  <a id="130c3" class="tk">uint8_T</a> <a id="130c11" class="tk">bscv_LowFaultType</a>[7];        <span class="ct">/* Variable: bscv_LowFaultType</span></td></tr>
+<tr name="131" id="131">
+<td>131</td><td><span class="ct">                                        * Referenced by: '&lt;S11&gt;/Constant'</span></td></tr>
+<tr name="132" id="132">
+<td>132</td><td><span class="ct">                                        */</span></td></tr>
+<tr name="133" id="133">
+<td>133</td><td>  <a id="133c3" class="tk">uint8_T</a> <a id="133c11" class="tk">bscv_MediumFaultType</a>[3];     <span class="ct">/* Variable: bscv_MediumFaultType</span></td></tr>
+<tr name="134" id="134">
+<td>134</td><td><span class="ct">                                        * Referenced by: '&lt;S10&gt;/Constant'</span></td></tr>
+<tr name="135" id="135">
+<td>135</td><td><span class="ct">                                        */</span></td></tr>
+<tr name="136" id="136">
+<td>136</td><td>  <a id="136c3" class="tk">uint8_T</a> <a id="136c11" class="tk">bscv_SevereFaultType</a>;        <span class="ct">/* Variable: bscv_SevereFaultType</span></td></tr>
+<tr name="137" id="137">
+<td>137</td><td><span class="ct">                                        * Referenced by: '&lt;S9&gt;/Constant'</span></td></tr>
+<tr name="138" id="138">
+<td>138</td><td><span class="ct">                                        */</span></td></tr>
+<tr name="139" id="139">
+<td>139</td><td><span class="br">}</span>;</td></tr>
+<tr name="140" id="140">
+<td>140</td><td></td></tr>
+<tr name="141" id="141">
+<td>141</td><td><span class="kw">extern</span> <a id="141c8" class="tk">P_BSC_T</a> <a id="141c16" class="tk">BSC_DefaultP</a>;</td></tr>
+<tr name="142" id="142">
+<td>142</td><td></td></tr>
+<tr name="143" id="143">
+<td>143</td><td><span class="ct">/*-</span></td></tr>
+<tr name="144" id="144">
+<td>144</td><td><span class="ct"> * The generated code includes comments that allow you to trace directly</span></td></tr>
+<tr name="145" id="145">
+<td>145</td><td><span class="ct"> * back to the appropriate location in the model.  The basic format</span></td></tr>
+<tr name="146" id="146">
+<td>146</td><td><span class="ct"> * is &lt;system&gt;/block_name, where system is the system number (uniquely</span></td></tr>
+<tr name="147" id="147">
+<td>147</td><td><span class="ct"> * assigned by Simulink) and block_name is the name of the block.</span></td></tr>
+<tr name="148" id="148">
+<td>148</td><td><span class="ct"> *</span></td></tr>
+<tr name="149" id="149">
+<td>149</td><td><span class="ct"> * Note that this particular code originates from a subsystem build,</span></td></tr>
+<tr name="150" id="150">
+<td>150</td><td><span class="ct"> * and has its own system numbers different from the parent model.</span></td></tr>
+<tr name="151" id="151">
+<td>151</td><td><span class="ct"> * Refer to the system hierarchy for this subsystem below, and use the</span></td></tr>
+<tr name="152" id="152">
+<td>152</td><td><span class="ct"> * MATLAB hilite_system command to trace the generated code back</span></td></tr>
+<tr name="153" id="153">
+<td>153</td><td><span class="ct"> * to the parent model.  For example,</span></td></tr>
+<tr name="154" id="154">
+<td>154</td><td><span class="ct"> *</span></td></tr>
+<tr name="155" id="155">
+<td>155</td><td><span class="ct"> * hilite_system('BSC_codegen/BSC')    - opens subsystem BSC_codegen/BSC</span></td></tr>
+<tr name="156" id="156">
+<td>156</td><td><span class="ct"> * hilite_system('BSC_codegen/BSC/Kp') - opens and selects block Kp</span></td></tr>
+<tr name="157" id="157">
+<td>157</td><td><span class="ct"> *</span></td></tr>
+<tr name="158" id="158">
+<td>158</td><td><span class="ct"> * Here is the system hierarchy for this model</span></td></tr>
+<tr name="159" id="159">
+<td>159</td><td><span class="ct"> *</span></td></tr>
+<tr name="160" id="160">
+<td>160</td><td><span class="ct"> * '&lt;Root&gt;' : 'BSC_codegen'</span></td></tr>
+<tr name="161" id="161">
+<td>161</td><td><span class="ct"> * '&lt;S1&gt;'   : 'BSC_codegen/BSC'</span></td></tr>
+<tr name="162" id="162">
+<td>162</td><td><span class="ct"> * '&lt;S2&gt;'   : 'BSC_codegen/BSC/Chart2'</span></td></tr>
+<tr name="163" id="163">
+<td>163</td><td><span class="ct"> * '&lt;S3&gt;'   : 'BSC_codegen/BSC/Fault_level'</span></td></tr>
+<tr name="164" id="164">
+<td>164</td><td><span class="ct"> * '&lt;S4&gt;'   : 'BSC_codegen/BSC/cc_c  md'</span></td></tr>
+<tr name="165" id="165">
+<td>165</td><td><span class="ct"> * '&lt;S5&gt;'   : 'BSC_codegen/BSC/check_type'</span></td></tr>
+<tr name="166" id="166">
+<td>166</td><td><span class="ct"> * '&lt;S6&gt;'   : 'BSC_codegen/BSC/key_cycle'</span></td></tr>
+<tr name="167" id="167">
+<td>167</td><td><span class="ct"> * '&lt;S7&gt;'   : 'BSC_codegen/BSC/rsnToOpenCC'</span></td></tr>
+<tr name="168" id="168">
+<td>168</td><td><span class="ct"> * '&lt;S8&gt;'   : 'BSC_codegen/BSC/sleepCheck'</span></td></tr>
+<tr name="169" id="169">
+<td>169</td><td><span class="ct"> * '&lt;S9&gt;'   : 'BSC_codegen/BSC/Fault_level/Compare To Constant'</span></td></tr>
+<tr name="170" id="170">
+<td>170</td><td><span class="ct"> * '&lt;S10&gt;'  : 'BSC_codegen/BSC/Fault_level/Compare To Constant1'</span></td></tr>
+<tr name="171" id="171">
+<td>171</td><td><span class="ct"> * '&lt;S11&gt;'  : 'BSC_codegen/BSC/Fault_level/Compare To Constant2'</span></td></tr>
+<tr name="172" id="172">
+<td>172</td><td><span class="ct"> * '&lt;S12&gt;'  : 'BSC_codegen/BSC/check_type/check_faults'</span></td></tr>
+<tr name="173" id="173">
+<td>173</td><td><span class="ct"> * '&lt;S13&gt;'  : 'BSC_codegen/BSC/key_cycle/key_cycle_chart'</span></td></tr>
+<tr name="174" id="174">
+<td>174</td><td><span class="ct"> * '&lt;S14&gt;'  : 'BSC_codegen/BSC/rsnToOpenCC/Triggered Subsystem'</span></td></tr>
+<tr name="175" id="175">
+<td>175</td><td><span class="ct"> * '&lt;S15&gt;'  : 'BSC_codegen/BSC/rsnToOpenCC/Triggered Subsystem/If Action Subsystem'</span></td></tr>
+<tr name="176" id="176">
+<td>176</td><td><span class="ct"> * '&lt;S16&gt;'  : 'BSC_codegen/BSC/rsnToOpenCC/Triggered Subsystem/If Action Subsystem1'</span></td></tr>
+<tr name="177" id="177">
+<td>177</td><td><span class="ct"> * '&lt;S17&gt;'  : 'BSC_codegen/BSC/sleepCheck/Compare To Constant1'</span></td></tr>
+<tr name="178" id="178">
+<td>178</td><td><span class="ct"> */</span></td></tr>
+<tr name="179" id="179">
+<td>179</td><td><span class="pp">#endif</span>                                 <span class="ct">/* RTW_HEADER_BSC_sf_h_ */</span></td></tr>
+<tr name="180" id="180">
+<td>180</td><td></td></tr>
+</table>
+</pre>
+</body>
+</html>

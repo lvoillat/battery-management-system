@@ -1,0 +1,13 @@
+%implements s13_b0_etgpi_1_ModuleConstants "C"
+
+%function ModuleConstants(block) Output
+
+
+/* Named constants for Chart: '<S6>/key_cycle_chart' */
+#define BSC_IN_Key_OFF ((uint8_T)1U)
+#define BSC_IN_Key_ON ((uint8_T)2U)
+#define BSC_IN_NO_ACTIVE_CHILD_f ((uint8_T)0U)
+#define BSC_IN_inital_key_off_fault ((uint8_T)3U)
+#define BSC_event_fault_change (1)
+#define BSC_event_key_change (0)
+%endfunction

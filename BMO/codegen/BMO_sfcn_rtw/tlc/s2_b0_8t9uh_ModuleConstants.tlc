@@ -1,0 +1,18 @@
+%implements s2_b0_8t9uh_ModuleConstants "C"
+
+%function ModuleConstants(block) Output
+
+
+/* Named constants for Chart: '<S1>/Chart' */
+#define BMO_IN_Charging ((uint8_T)1U)
+#define BMO_IN_Charging_Sleep ((uint8_T)1U)
+#define BMO_IN_Closing_Contactors ((uint8_T)2U)
+#define BMO_IN_Closing_MainContactors ((uint8_T)3U)
+#define BMO_IN_Discharging ((uint8_T)2U)
+#define BMO_IN_NO_ACTIVE_CHILD ((uint8_T)0U)
+#define BMO_IN_Opening_Contactors ((uint8_T)4U)
+#define BMO_IN_Power_Closed ((uint8_T)5U)
+#define BMO_IN_Power_Closed_Default ((uint8_T)3U)
+#define BMO_IN_Power_OFF ((uint8_T)6U)
+#define BMO_IN_Power_ON ((uint8_T)7U)
+%endfunction

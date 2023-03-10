@@ -1,0 +1,42 @@
+%implements s2_b0_y89th_InitializeConditions "C"
+
+%function InitializeConditions(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%<SLibInsertAsyncTaskInitializeCode(system)>
+%<SLibWriteMachineInitialize()>
+/* InitializeConditions for Atomic SubSystem: '<Root>/CC' */
+/* InitializeConditions for Delay: '<S1>/Delay2' */
+%<SLibCG_SetDWV(2, 0, 2, 1, "", -1, "", 0, "false")>\
+/* InitializeConditions for Delay: '<S1>/Resettable Delay' */
+%<SLibCG_SetDWV(5, 0, 2, 1, "", -1, "", 0, "1U")>\
+/* InitializeConditions for Delay: '<S1>/Delay1' */
+%<SLibCG_SetDWV(3, 0, 2, 1, "", -1, "", 0, "false")>\
+/* InitializeConditions for Delay: '<S1>/Delay' */
+%<SLibCG_SetDWV(4, 0, 2, 1, "", -1, "", 0, "false")>\
+/* End of InitializeConditions for SubSystem: '<Root>/CC' */
+%<SLibInsertInitPeriodicCStatesFcn(system)>
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Initialize", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Initialize"))
+%<SLibCG_AccessArg(0, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Initialize", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Initialize"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 1, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void InitializeConditions(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 1, 0)
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%endfunction

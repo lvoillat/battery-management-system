@@ -1,0 +1,52 @@
+%implements s13_b0_etgpi_4_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+B_BSC_T *_rtB;
+%closefile localVarDecl
+%<SLibCG_TrackBlockIO(13)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%<SLibCG_TrackEO(2)>\
+%<SLibCG_TrackEO(1)>\
+%<SLibCG_TrackEI(1)>\
+%<SLibCG_TrackEI(0)>\
+/* Logic: '<S4>/Logical Operator16' incorporates:
+ *  Inport: '<Root>/Charger PSR'
+ *  Logic: '<S4>/Logical Operator1'
+ *  Logic: '<S4>/Logical Operator7'
+ */
+%<SLibCG_SetBOV(5, 0, 13, 1, "", -1, "", 0, "((*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[0] != 0) && (_rtB->key_cycle.key_cycle != 0) && (!%<(SLibCG_SE(SLibCG_BOV(7, 0, 13, 1, "", -1, "", 0)))>) && (!(_rtB->MinMax != 0)))")>\
+/* Logic: '<S4>/Logical Operator2' incorporates:
+ *  Inport: '<Root>/Vehicle PSR'
+ *  Logic: '<S4>/Logical Operator8'
+ */
+%<SLibCG_SetBOV(6, 0, 13, 1, "", -1, "", 0, "((*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[0] != 0) && (_rtB->key_cycle.key_cycle != 0) && (!(_rtB->MinMax != 0)))")>\
+/* Outport: '<S4>/main_cc_cmd' */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 1))[0] = %<(SLibCG_SE(SLibCG_BOV(6, 0, 13, 1, "", -1, "", 0)))>;
+/* Outport: '<S4>/chg_cc_cmd' */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 2))[0] = %<(SLibCG_SE(SLibCG_BOV(5, 0, 13, 1, "", -1, "", 0)))>;
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[4].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(4, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(4, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(4, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void BSC_cc_cmd(\
+%assign comma = ""
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(4, 0, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

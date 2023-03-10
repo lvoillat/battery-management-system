@@ -1,0 +1,12 @@
+%implements s8_b0_yjbvh_ModuleConstants "C"
+
+%function ModuleConstants(block) Output
+
+
+/* Named constants for Chart: '<S1>/Chart' */
+#define soh_IN_NO_ACTIVE_CHILD ((uint8_T)0U)
+#define soh_IN_dataStore ((uint8_T)1U)
+#define soh_IN_end ((uint8_T)2U)
+#define soh_IN_key_ON ((uint8_T)3U)
+#define soh_IN_sohr ((uint8_T)4U)
+%endfunction

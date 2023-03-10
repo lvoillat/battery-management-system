@@ -1,0 +1,2 @@
+set "VSCMD_START_DIR=%CD%"
+CALL "C:\apps\MVS14\VC\VCVARSALL.BAT " amd64

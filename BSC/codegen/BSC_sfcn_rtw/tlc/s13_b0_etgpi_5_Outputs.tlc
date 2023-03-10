@@ -1,0 +1,77 @@
+%implements s13_b0_etgpi_5_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+B_BSC_T *_rtB;
+PrevZCX_BSC_T *_rtZCE;
+%closefile localVarDecl
+%<SLibCG_TrackZCEvent(13)>\
+_rtZCE = %<(SLibCG_SE(SLibGetPreviousZCStructPtr()))>;
+%<SLibCG_TrackBlockIO(13)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%<SLibCG_TrackEO(5)>\
+%<SLibCG_TrackEO(4)>\
+/* Sum: '<S7>/Add' */
+_rtB->Add = (uint8_T)((uint32_T)_rtB->MinMax + _rtB->MinMax1);
+/* Outputs for Triggered SubSystem: '<S7>/Triggered Subsystem' incorporates:
+ *  TriggerPort: '<S14>/Trigger'
+ */
+if (((_rtB->key_cycle.key_cycle > 0) != (_rtZCE->TriggeredSubsystem_Trig_ZCE == POS_ZCSIG)) && (_rtZCE->TriggeredSubsystem_Trig_ZCE != UNINITIALIZED_ZCSIG)) {
+    /* If: '<S14>/If' incorporates:
+ *  Constant: '<S14>/Constant'
+ *  Inport: '<S15>/In1'
+ *  Inport: '<S16>/In1'
+ */
+    if (_rtB->Add > 0) {
+        /* Outputs for IfAction SubSystem: '<S14>/If Action Subsystem' incorporates:
+ *  ActionPort: '<S15>/Action Port'
+ */
+        _rtB->Merge = _rtB->check_type.type_of_fault;
+        /* End of Outputs for SubSystem: '<S14>/If Action Subsystem' */
+    } else {
+        /* Outputs for IfAction SubSystem: '<S14>/If Action Subsystem' incorporates:
+ *  ActionPort: '<S15>/Action Port'
+ */
+        /* Outputs for IfAction SubSystem: '<S14>/If Action Subsystem1' incorporates:
+ *  ActionPort: '<S16>/Action Port'
+ */
+        _rtB->Merge = 0U;
+        /* End of Outputs for SubSystem: '<S14>/If Action Subsystem1' */
+        /* End of Outputs for SubSystem: '<S14>/If Action Subsystem' */
+    }
+    /* End of If: '<S14>/If' */
+}
+_rtZCE->TriggeredSubsystem_Trig_ZCE = (uint8_T)(_rtB->key_cycle.key_cycle > 0);
+/* End of Outputs for SubSystem: '<S7>/Triggered Subsystem' */
+
+/* Outport: '<Root>/Reason to open contactor to CAN' incorporates:
+ *  Outport: '<S7>/reason_to_open_contactor'
+ */
+((uint8_T *)ssGetOutputPortSignal(%<tSimStruct>, 4))[0] = _rtB->Merge;
+/* Outport: '<S7>/severe//med fault' */
+((uint8_T *)ssGetOutputPortSignal(%<tSimStruct>, 5))[0] = _rtB->Add;
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[5].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(5, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(5, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(5, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void BSC_rsnToOpenCC(\
+%assign comma = ""
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(5, 0, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

@@ -1,0 +1,254 @@
+%implements s2_b0_8t9uh_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+uint8_T rtb_DataTypeConversion1;
+boolean_T rtb_LogicalOperator;
+B_BMO_T *_rtB;
+P_BMO_T *_rtP;
+%closefile localVarDecl
+%<SLibCG_TrackParam(2)>\
+_rtP = %<(SLibCG_SE(SLibGetParamStructPtr()))>;
+%<SLibCG_TrackBlockIO(2)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%<SLibCG_TrackEO(2)>\
+%<SLibCG_TrackEO(1)>\
+%<SLibCG_TrackEO(0)>\
+%<SLibCG_TrackEI(8)>\
+%<SLibCG_TrackEI(7)>\
+%<SLibCG_TrackEI(6)>\
+%<SLibCG_TrackEI(5)>\
+%<SLibCG_TrackEI(4)>\
+%<SLibCG_TrackEI(3)>\
+%<SLibCG_TrackEI(2)>\
+/* Outputs for Atomic SubSystem: '<Root>/BMO' */
+/* DataTypeConversion: '<S1>/Data Type Conversion1' incorporates:
+ *  Inport: '<Root>/charger_button'
+ *  Inport: '<Root>/key'
+ *  Logic: '<S1>/Logical Operator1'
+ */
+rtb_DataTypeConversion1 = (uint8_T)((*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 3))[0] != 0) || (*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 4))[0] != 0));
+/* Logic: '<S1>/Logical Operator' incorporates:
+ *  Inport: '<Root>/charger_cc'
+ *  Inport: '<Root>/main_chrg_cc'
+ */
+rtb_LogicalOperator = ((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 6))[0]) || (*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 7))[0]));
+/* Chart: '<S1>/Chart' incorporates:
+ *  Inport: '<Root>/bmon_pack_current'
+ *  Inport: '<Root>/pre_charge_cc'
+ *  Inport: '<Root>/sleep_status'
+ */
+/* Gateway: BMO/Chart */
+/* During: BMO/Chart */
+if (%<(SLibCG_SE(SLibCG_DWV(2, 0, 2, 1, "", -1, "", 0)))> == 0U) {
+    /* Entry: BMO/Chart */
+%<SLibCG_SetDWV(2, 0, 2, 1, "", -1, "", 0, "1U")>\
+    /* Entry Internal: BMO/Chart */
+    /* Transition: '<S2>:8' */
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_OFF")>\
+    /* Entry 'Power_OFF': '<S2>:2' */
+    _rtB->battery_mode = _rtP->BMOk_PowerOff;
+} else {
+    switch (%<(SLibCG_DWV(0, 0, 2, 1, "", -1, "", 0))>) {
+      case BMO_IN_Charging_Sleep:
+        /* During 'Charging_Sleep': '<S2>:80' */
+        if (!*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 8))[0]) {
+            /* Transition: '<S2>:79' */
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_ON")>\
+            /* Entry 'Power_ON': '<S2>:1' */
+            _rtB->battery_mode = _rtP->BMOk_PowerOn;
+        }
+        break;
+      case BMO_IN_Closing_Contactors:
+        /* During 'Closing_Contactors': '<S2>:3' */
+        if (rtb_LogicalOperator == _rtP->BMOk_On) {
+            /* Transition: '<S2>:12' */
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_Closed")>\
+            /* Entry Internal 'Power_Closed': '<S2>:5' */
+            /* Transition: '<S2>:29' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_Closed_Default")>\
+            /* Entry 'Power_Closed_Default': '<S2>:27' */
+            _rtB->battery_mode = _rtP->BMOk_PowerClosed;
+        }
+        break;
+      case BMO_IN_Closing_MainContactors:
+        /* During 'Closing_MainContactors': '<S2>:82' */
+        /* Transition: '<S2>:83' */
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_Closed")>\
+        /* Entry Internal 'Power_Closed': '<S2>:5' */
+        /* Transition: '<S2>:29' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_Closed_Default")>\
+        /* Entry 'Power_Closed_Default': '<S2>:27' */
+        _rtB->battery_mode = _rtP->BMOk_PowerClosed;
+        break;
+      case BMO_IN_Opening_Contactors:
+        /* During 'Opening_Contactors': '<S2>:4' */
+        if (rtb_DataTypeConversion1 == _rtP->BMOk_Off) {
+            /* Transition: '<S2>:17' */
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_OFF")>\
+            /* Entry 'Power_OFF': '<S2>:2' */
+            _rtB->battery_mode = _rtP->BMOk_PowerOff;
+        } else {
+            if (rtb_LogicalOperator == _rtP->BMOk_Off) {
+                /* Transition: '<S2>:47' */
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_ON")>\
+                /* Entry 'Power_ON': '<S2>:1' */
+                _rtB->battery_mode = _rtP->BMOk_PowerOn;
+            }
+        }
+        break;
+      case BMO_IN_Power_Closed:
+        /* During 'Power_Closed': '<S2>:5' */
+        /* Transition: '<S2>:45' */
+        if (rtb_LogicalOperator == _rtP->BMOk_Off) {
+            /* Transition: '<S2>:46' */
+            /* Exit Internal 'Power_Closed': '<S2>:5' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_NO_ACTIVE_CHILD")>\
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Opening_Contactors")>\
+            /* Entry 'Opening_Contactors': '<S2>:4' */
+            _rtB->battery_mode = _rtP->BMOk_CcOpening;
+        } else {
+            switch (%<(SLibCG_DWV(1, 0, 2, 1, "", -1, "", 0))>) {
+              case BMO_IN_Charging:
+                /* During 'Charging': '<S2>:6' */
+                /* Transition: '<S2>:78' */
+                if (*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0] < -%<(SLibCG_SE(SLibCGIR_PV(0, 0, 2, 1, "", -1, "", 0)))>) {
+                    /* Transition: '<S2>:36' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_Discharging")>\
+                    /* Entry 'Discharging': '<S2>:7' */
+                    _rtB->battery_mode = _rtP->BMOk_Discharging;
+                } else if (*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0] > %<(SLibCG_SE(SLibCGIR_PV(0, 0, 2, 1, "", -1, "", 0)))>) {
+                    /* Transition: '<S2>:37' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_Charging")>\
+                    /* Entry 'Charging': '<S2>:6' */
+                    _rtB->battery_mode = _rtP->BMOk_Charging;
+                } else {
+                    /* Transition: '<S2>:39' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_Closed_Default")>\
+                    /* Entry 'Power_Closed_Default': '<S2>:27' */
+                    _rtB->battery_mode = _rtP->BMOk_PowerClosed;
+                }
+                break;
+              case BMO_IN_Discharging:
+                /* During 'Discharging': '<S2>:7' */
+                /* Transition: '<S2>:32' */
+                if (*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0] < -%<(SLibCG_SE(SLibCGIR_PV(0, 0, 2, 1, "", -1, "", 0)))>) {
+                    /* Transition: '<S2>:36' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_Discharging")>\
+                    /* Entry 'Discharging': '<S2>:7' */
+                    _rtB->battery_mode = _rtP->BMOk_Discharging;
+                } else if (*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0] > %<(SLibCG_SE(SLibCGIR_PV(0, 0, 2, 1, "", -1, "", 0)))>) {
+                    /* Transition: '<S2>:37' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_Charging")>\
+                    /* Entry 'Charging': '<S2>:6' */
+                    _rtB->battery_mode = _rtP->BMOk_Charging;
+                } else {
+                    /* Transition: '<S2>:39' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_Closed_Default")>\
+                    /* Entry 'Power_Closed_Default': '<S2>:27' */
+                    _rtB->battery_mode = _rtP->BMOk_PowerClosed;
+                }
+                break;
+              default:
+                /* During 'Power_Closed_Default': '<S2>:27' */
+                /* Transition: '<S2>:31' */
+                if (*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0] < -%<(SLibCG_SE(SLibCGIR_PV(0, 0, 2, 1, "", -1, "", 0)))>) {
+                    /* Transition: '<S2>:36' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_Discharging")>\
+                    /* Entry 'Discharging': '<S2>:7' */
+                    _rtB->battery_mode = _rtP->BMOk_Discharging;
+                } else if (*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0] > %<(SLibCG_SE(SLibCGIR_PV(0, 0, 2, 1, "", -1, "", 0)))>) {
+                    /* Transition: '<S2>:37' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_Charging")>\
+                    /* Entry 'Charging': '<S2>:6' */
+                    _rtB->battery_mode = _rtP->BMOk_Charging;
+                } else {
+                    /* Transition: '<S2>:39' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_Closed_Default")>\
+                    /* Entry 'Power_Closed_Default': '<S2>:27' */
+                    _rtB->battery_mode = _rtP->BMOk_PowerClosed;
+                }
+                break;
+            }
+        }
+        break;
+      case BMO_IN_Power_OFF:
+        /* During 'Power_OFF': '<S2>:2' */
+        if (rtb_DataTypeConversion1 == _rtP->BMOk_On) {
+            /* Transition: '<S2>:10' */
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_ON")>\
+            /* Entry 'Power_ON': '<S2>:1' */
+            _rtB->battery_mode = _rtP->BMOk_PowerOn;
+        }
+        break;
+      default:
+        /* During 'Power_ON': '<S2>:1' */
+        if (*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 5))[0] == _rtP->BMOk_On) {
+            /* Transition: '<S2>:11' */
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Closing_Contactors")>\
+            /* Entry 'Closing_Contactors': '<S2>:3' */
+            _rtB->battery_mode = _rtP->BMOk_CcClosing;
+        } else if (rtb_DataTypeConversion1 == _rtP->BMOk_Off) {
+            /* Transition: '<S2>:67' */
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Power_OFF")>\
+            /* Entry 'Power_OFF': '<S2>:2' */
+            _rtB->battery_mode = _rtP->BMOk_PowerOff;
+        } else if (rtb_LogicalOperator == _rtP->BMOk_On) {
+            /* Transition: '<S2>:71' */
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Closing_MainContactors")>\
+            /* Entry 'Closing_MainContactors': '<S2>:82' */
+            _rtB->battery_mode = _rtP->BMOk_CcClosing;
+        } else {
+            if (*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 8))[0]) {
+                /* Transition: '<S2>:81' */
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_Charging_Sleep")>\
+                /* Entry 'Charging_Sleep': '<S2>:80' */
+                _rtB->battery_mode = _rtP->BMOk_ChargingSleep;
+            }
+        }
+        break;
+    }
+}
+/* End of Chart: '<S1>/Chart' */
+/* End of Outputs for SubSystem: '<Root>/BMO' */
+
+/* Outport: '<Root>/bat_mode' */
+((uint8_T *)ssGetOutputPortSignal(%<tSimStruct>, 0))[0] = _rtB->battery_mode;
+/* Outputs for Atomic SubSystem: '<Root>/BMO' */
+/* Outport: '<Root>/charging_status' incorporates:
+ *  Constant: '<S3>/Constant'
+ *  RelationalOperator: '<S3>/Compare'
+ */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 1))[0] = (_rtB->battery_mode == _rtP->BMOk_Charging);
+/* Outport: '<Root>/discharging_status' incorporates:
+ *  Constant: '<S4>/Constant'
+ *  RelationalOperator: '<S4>/Compare'
+ */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 2))[0] = (_rtB->battery_mode == _rtP->BMOk_Discharging);
+/* End of Outputs for SubSystem: '<Root>/BMO' */
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(0, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 1, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

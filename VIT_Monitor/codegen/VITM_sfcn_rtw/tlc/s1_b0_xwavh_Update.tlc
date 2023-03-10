@@ -1,0 +1,82 @@
+%implements s1_b0_xwavh_Update "C"
+
+%function Update(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+B_VITM_T *_rtB;
+%closefile localVarDecl
+%<SLibCG_TrackBlockIO(1)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+/* Update for Atomic SubSystem: '<Root>/VITM' */
+/* Update for Delay: '<S11>/Delay1' */
+%<SLibCG_SetDWV(0, 0, 1, 1, "", -1, "", 0, "_rtB->Gain1")>\
+/* Update for Delay: '<S7>/Resettable Delay3' */
+%<SLibCG_SetDWV(1, 0, 1, 1, "", -1, "", 0, "_rtB->Add3")>\
+/* Update for Delay: '<S12>/Delay1' */
+%<SLibCG_SetDWV(2, 0, 1, 1, "", -1, "", 0, "_rtB->Gain3")>\
+/* Update for Delay: '<S8>/Resettable Delay3' */
+%<SLibCG_SetDWV(3, 0, 1, 1, "", -1, "", 0, "_rtB->Add3_c")>\
+/* Update for Delay: '<S5>/Resettable Delay' */
+%<SLibCG_SetDWV(5, 0, 1, 1, "", -1, "", 0, "_rtB->Add")>\
+/* Update for Delay: '<S5>/Resettable Delay1' */
+%<SLibCG_SetDWV(6, 0, 1, 1, "", -1, "", 0, "_rtB->Add1")>\
+/* Update for Delay: '<S3>/Delay' */
+%<SLibCG_SetDWV(8, 0, 1, 1, "", -1, "", 0, "_rtB->Gain1_d")>\
+/* Update for Delay: '<S6>/Resettable Delay' */
+%<SLibCG_SetDWV(9, 0, 1, 1, "", -1, "", 0, "_rtB->Add_o")>\
+/* Update for Delay: '<S6>/Resettable Delay1' */
+%<SLibCG_SetDWV(10, 0, 1, 1, "", -1, "", 0, "_rtB->Add1_i")>\
+/* Update for Delay: '<S15>/Delay' */
+%<SLibCG_SetDWV(11, 0, 1, 1, "", -1, "", 0, "_rtB->Add_f")>\
+/* Update for Delay: '<S10>/Delay1' incorporates:
+ *  Update for Delay: '<S15>/Delay1'
+ *  Update for Delay: '<S2>/Delay'
+ */
+memcpy(%<(SLibCG_DWVAddr(4, 0, 1, 40, "", -1, "", 0))>, &_rtB->Gain3_n[0], 40U * sizeof(real_T));
+/* Update for Delay: '<S2>/Delay' incorporates:
+ *  Update for Delay: '<S10>/Delay1'
+ *  Update for Delay: '<S15>/Delay1'
+ */
+memcpy(%<(SLibCG_DWVAddr(7, 0, 1, 40, "", -1, "", 0))>, &_rtB->Gain1_b[0], 40U * sizeof(real_T));
+/* Update for Delay: '<S15>/Delay1' incorporates:
+ *  Update for Delay: '<S10>/Delay1'
+ *  Update for Delay: '<S2>/Delay'
+ */
+memcpy(%<(SLibCG_DWVAddr(12, 0, 1, 40, "", -1, "", 0))>, &_rtB->Add_n[0], 40U * sizeof(real_T));
+/* Update for Delay: '<S15>/Resettable Delay2' */
+%<SLibCG_SetDWV(13, 0, 1, 1, "", -1, "", 0, "_rtB->Add2")>\
+/* Update for Delay: '<S9>/Delay1' */
+%<SLibCG_SetDWV(14, 0, 1, 1, "", -1, "", 0, "_rtB->Gain3_nj")>\
+/* Update for Delay: '<S14>/Resettable Delay3' */
+%<SLibCG_SetDWV(15, 0, 1, 1, "", -1, "", 0, "_rtB->Add3_m")>\
+/* Update for Delay: '<S13>/Resettable Delay3' */
+%<SLibCG_SetDWV(16, 0, 1, 1, "", -1, "", 0, "_rtB->Add3_j")>\
+/* Update for Delay: '<S4>/Delay' */
+%<SLibCG_SetDWV(17, 0, 1, 1, "", -1, "", 0, "_rtB->Gain1_l")>\
+/* End of Update for SubSystem: '<Root>/VITM' */
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Update", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Update"))
+%<SLibCG_AccessArg(0, 2, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 2, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Update", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Update"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 2, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Update(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 2, 0)
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 2, fcnProtoType)>
+%<LibSetSystemField(system, "CachedUpdateLocalVars", localVarDecl)>
+%endfunction

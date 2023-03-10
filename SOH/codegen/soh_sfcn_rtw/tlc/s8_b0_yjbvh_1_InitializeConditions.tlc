@@ -1,0 +1,39 @@
+%implements s8_b0_yjbvh_1_InitializeConditions "C"
+
+%function InitializeConditions(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+int32_T i;
+%closefile localVarDecl
+for (i = 0; i < 40; i++) {
+    /* InitializeConditions for Delay: '<S5>/Delay2' */
+%<SLibCG_SetDWV(7, 0, 1, 40, "", -1, "i", 0, "0.0")>\
+    /* InitializeConditions for Delay: '<S5>/Delay3' */
+%<SLibCG_SetDWV(8, 0, 1, 40, "", -1, "i", 0, "0.0")>\
+}
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[1].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Initialize", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Initialize"))
+%<SLibCG_AccessArg(1, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(1, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Initialize", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Initialize"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(1, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void soh_deltaCalc_Init(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(1, 0, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 0, fcnProtoType)>
+%<LibSetSystemField(system, "CachedInitializeLocalVars", localVarDecl)>
+%endfunction

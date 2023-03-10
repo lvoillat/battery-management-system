@@ -1,0 +1,353 @@
+%implements s13_b0_etgpi_1_Functions "C"
+
+%function BSC_enter_internal_Key_ON_Fcn0(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T tmp;
+/* Entry Internal 'Key_ON': '<S13>:17' */
+/* Transition: '<S13>:123' */
+if ((%<(SLibCG_SE(SLibCG_DWV(2, 0, 4, 1, "", -1, "", 0)))> == BSC_event_key_change) && (%<(SLibCG_SE(SLibCG_DWV(5, 0, 4, 1, "", -1, "", 0)))> == 0)) {
+    /* Transition: '<S13>:124' */
+    /* Transition: '<S13>:119' */
+    tmp = %<(SLibCG_SE(SLibCG_DWV(4, 0, 4, 1, "", -1, "", 0)))> + 1;
+    if (tmp > 255) {
+        tmp = 255;
+    }
+%<SLibCG_SetDWV(4, 0, 4, 1, "", -1, "", 0, "(uint8_T)tmp")>\
+    /* Transition: '<S13>:129' */
+} else {
+    /* Transition: '<S13>:120' */
+}
+/* Transition: '<S13>:115' */
+if (%<(SLibCG_SE(SLibCG_DWV(4, 0, 4, 1, "", -1, "", 0)))> > 1) {
+    /* Transition: '<S13>:131' */
+    /* Transition: '<S13>:130' */
+%<SLibCG_SetDWV(4, 0, 4, 1, "", -1, "", 0, "1U")>\
+    /* Transition: '<S13>:132' */
+} else {
+    /* Transition: '<S13>:133' */
+}
+/* Transition: '<S13>:139' */
+/* Transition: '<S13>:140' */
+if (rtu_med_fault == 1) {
+    /* Transition: '<S13>:105' */
+    /* Transition: '<S13>:102' */
+    localB->key_cycle = 0U;
+%<SLibCG_SetDWV(4, 0, 4, 1, "", -1, "", 0, "0U")>\
+%<SLibCG_SetDWV(3, 0, 4, 1, "", -1, "", 0, "0U")>\
+%<SLibCG_SetDWV(6, 0, 4, 1, "", -1, "", 0, "1U")>\
+    /* Transition: '<S13>:103' */
+} else {
+    /* Transition: '<S13>:110' */
+    if (%<(SLibCG_SE(SLibCG_DWV(4, 0, 4, 1, "", -1, "", 0)))> == 1) {
+        /* Transition: '<S13>:117' */
+        /* Transition: '<S13>:126' */
+        localB->key_cycle = 1U;
+        /* Transition: '<S13>:125' */
+    } else {
+        /* Transition: '<S13>:114' */
+    }
+    /* Transition: '<S13>:111' */
+}
+/* Transition: '<S13>:108' */
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[1].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("BSC_enter_internal_Key_ON", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "BSC_enter_internal_Key_ON"))
+%<SLibCG_AccessArg(1, 0, 1)>
+%endif
+%if SLibCG_ArgAccessed(1, 0, 1)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "BSC_enter_internal_Key_ON", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "BSC_enter_internal_Key_ON"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(1, 0, 1)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void BSC_enter_internal_Key_ON(\
+%assign comma = ""
+%<comma>uint8_T rtu_med_fault\
+%assign comma = ", "
+%if SLibCG_ArgAccessed(1, 0, 1)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%<comma>B_key_cycle_BSC_T *localB\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 0, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function BSC_enter_internal_Key_OFF_Fcn1(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+int32_T tmp;
+/* Entry Internal 'Key_OFF': '<S13>:14' */
+/* Transition: '<S13>:85' */
+if ((%<(SLibCG_SE(SLibCG_DWV(2, 0, 4, 1, "", -1, "", 0)))> == BSC_event_key_change) && (%<(SLibCG_SE(SLibCG_DWV(6, 0, 4, 1, "", -1, "", 0)))> == 0)) {
+    /* Transition: '<S13>:80' */
+    /* Transition: '<S13>:79' */
+    tmp = %<(SLibCG_SE(SLibCG_DWV(3, 0, 4, 1, "", -1, "", 0)))> + 1;
+    if (tmp > 255) {
+        tmp = 255;
+    }
+%<SLibCG_SetDWV(3, 0, 4, 1, "", -1, "", 0, "(uint8_T)tmp")>\
+    /* Transition: '<S13>:81' */
+} else {
+    /* Transition: '<S13>:82' */
+}
+/* Transition: '<S13>:88' */
+if (%<(SLibCG_SE(SLibCG_DWV(3, 0, 4, 1, "", -1, "", 0)))> > 1) {
+    /* Transition: '<S13>:68' */
+    /* Transition: '<S13>:70' */
+%<SLibCG_SetDWV(3, 0, 4, 1, "", -1, "", 0, "1U")>\
+    /* Transition: '<S13>:71' */
+} else {
+    /* Transition: '<S13>:69' */
+}
+/* Transition: '<S13>:72' */
+/* Transition: '<S13>:78' */
+if (rtu_med_fault == 1) {
+    /* Transition: '<S13>:35' */
+    /* Transition: '<S13>:37' */
+    localB->key_cycle = 0U;
+%<SLibCG_SetDWV(3, 0, 4, 1, "", -1, "", 0, "0U")>\
+%<SLibCG_SetDWV(4, 0, 4, 1, "", -1, "", 0, "0U")>\
+%<SLibCG_SetDWV(5, 0, 4, 1, "", -1, "", 0, "1U")>\
+    /* Transition: '<S13>:38' */
+} else {
+    /* Transition: '<S13>:99' */
+    if (%<(SLibCG_SE(SLibCG_DWV(3, 0, 4, 1, "", -1, "", 0)))> == 1) {
+        /* Transition: '<S13>:97' */
+        /* Transition: '<S13>:92' */
+        localB->key_cycle = 1U;
+        /* Transition: '<S13>:98' */
+    } else {
+        /* Transition: '<S13>:93' */
+    }
+    /* Transition: '<S13>:100' */
+}
+/* Transition: '<S13>:39' */
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[1].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("BSC_enter_internal_Key_OFF", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "BSC_enter_internal_Key_OFF"))
+%<SLibCG_AccessArg(1, 1, 1)>
+%endif
+%if SLibCG_ArgAccessed(1, 1, 1)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "BSC_enter_internal_Key_OFF", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "BSC_enter_internal_Key_OFF"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(1, 1, 1)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void BSC_enter_internal_Key_OFF(\
+%assign comma = ""
+%<comma>uint8_T rtu_med_fault\
+%assign comma = ", "
+%if SLibCG_ArgAccessed(1, 1, 1)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%<comma>B_key_cycle_BSC_T *localB\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 1, fcnProtoType)>
+%return fcnBuff
+%endfunction
+
+%function BSC_chartstep_c1_BSC_Fcn2(block) void
+%assign fcnBuff = ""
+%openfile fcnBuff
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign _modelSS = ""
+
+/* During: BSC/key_cycle/key_cycle_chart */
+if (%<(SLibCG_SE(SLibCG_DWV(8, 0, 4, 1, "", -1, "", 0)))> == 0U) {
+    /* Entry: BSC/key_cycle/key_cycle_chart */
+%<SLibCG_SetDWV(8, 0, 4, 1, "", -1, "", 0, "1U")>\
+    /* Entry Internal: BSC/key_cycle/key_cycle_chart */
+    if (%<(SLibCG_SE(SLibCG_DWV(2, 0, 4, 1, "", -1, "", 0)))> == BSC_event_key_change) {
+        /* Transition: '<S13>:59' */
+%<SLibCG_SetDWV(7, 0, 4, 1, "", -1, "", 0, "BSC_IN_Key_ON")>\
+        /* Chart: '<S6>/key_cycle_chart' incorporates:
+ *  TriggerPort: '<S13>/input events'
+ */
+        /* Entry 'Key_ON': '<S13>:17' */
+%if SLibCG_FcnCallArgAccessed(1,2,1,0)
+%<SLibCG_AccessArg(1 ,2, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,1,1)
+%<SLibCG_AccessArg(1 ,2, 1)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,1,2)
+%<SLibCG_AccessArg(1 ,2, 2)>
+%endif
+
+        %<(SLibCGCallSubFcn("BSC_enter_internal_Key_ON", ["rtu_med_fault", "%<tSimStruct>", "localB"], 1, 2, 1))>;
+    } else {
+        /* Transition: '<S13>:63' */
+%<SLibCG_SetDWV(7, 0, 4, 1, "", -1, "", 0, "BSC_IN_inital_key_off_fault")>\
+        /* Entry 'inital_key_off_fault': '<S13>:62' */
+        localB->key_cycle = 0U;
+%<SLibCG_SetDWV(5, 0, 4, 1, "", -1, "", 0, "1U")>\
+    }
+} else {
+    switch (%<(SLibCG_DWV(7, 0, 4, 1, "", -1, "", 0))>) {
+      case BSC_IN_Key_OFF:
+        /* During 'Key_OFF': '<S13>:14' */
+        if (%<(SLibCG_SE(SLibCG_DWV(2, 0, 4, 1, "", -1, "", 0)))> == BSC_event_key_change) {
+            /* Transition: '<S13>:15' */
+            /* Exit 'Key_OFF': '<S13>:14' */
+%<SLibCG_SetDWV(6, 0, 4, 1, "", -1, "", 0, "0U")>\
+%<SLibCG_SetDWV(7, 0, 4, 1, "", -1, "", 0, "BSC_IN_Key_ON")>\
+            /* Chart: '<S6>/key_cycle_chart' incorporates:
+ *  TriggerPort: '<S13>/input events'
+ */
+            /* Entry 'Key_ON': '<S13>:17' */
+%if SLibCG_FcnCallArgAccessed(1,2,2,0)
+%<SLibCG_AccessArg(1 ,2, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,2,1)
+%<SLibCG_AccessArg(1 ,2, 1)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,2,2)
+%<SLibCG_AccessArg(1 ,2, 2)>
+%endif
+
+            %<(SLibCGCallSubFcn("BSC_enter_internal_Key_ON", ["rtu_med_fault", "%<tSimStruct>", "localB"], 1, 2, 2))>;
+        } else {
+            if (%<(SLibCG_SE(SLibCG_DWV(2, 0, 4, 1, "", -1, "", 0)))> == BSC_event_fault_change) {
+                /* Transition: '<S13>:65' */
+                /* Exit 'Key_OFF': '<S13>:14' */
+%<SLibCG_SetDWV(6, 0, 4, 1, "", -1, "", 0, "0U")>\
+%<SLibCG_SetDWV(7, 0, 4, 1, "", -1, "", 0, "BSC_IN_Key_OFF")>\
+                /* Chart: '<S6>/key_cycle_chart' incorporates:
+ *  TriggerPort: '<S13>/input events'
+ */
+                /* Entry 'Key_OFF': '<S13>:14' */
+%if SLibCG_FcnCallArgAccessed(1,2,4,0)
+%<SLibCG_AccessArg(1 ,2, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,4,1)
+%<SLibCG_AccessArg(1 ,2, 1)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,4,2)
+%<SLibCG_AccessArg(1 ,2, 2)>
+%endif
+
+                %<(SLibCGCallSubFcn("BSC_enter_internal_Key_OFF", ["rtu_med_fault", "%<tSimStruct>", "localB"], 1, 2, 4))>;
+            }
+        }
+        break;
+      case BSC_IN_Key_ON:
+        /* During 'Key_ON': '<S13>:17' */
+        if (%<(SLibCG_SE(SLibCG_DWV(2, 0, 4, 1, "", -1, "", 0)))> == BSC_event_key_change) {
+            /* Transition: '<S13>:11' */
+            /* Exit 'Key_ON': '<S13>:17' */
+%<SLibCG_SetDWV(5, 0, 4, 1, "", -1, "", 0, "0U")>\
+%<SLibCG_SetDWV(7, 0, 4, 1, "", -1, "", 0, "BSC_IN_Key_OFF")>\
+            /* Chart: '<S6>/key_cycle_chart' incorporates:
+ *  TriggerPort: '<S13>/input events'
+ */
+            /* Entry 'Key_OFF': '<S13>:14' */
+%if SLibCG_FcnCallArgAccessed(1,2,3,0)
+%<SLibCG_AccessArg(1 ,2, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,3,1)
+%<SLibCG_AccessArg(1 ,2, 1)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,3,2)
+%<SLibCG_AccessArg(1 ,2, 2)>
+%endif
+
+            %<(SLibCGCallSubFcn("BSC_enter_internal_Key_OFF", ["rtu_med_fault", "%<tSimStruct>", "localB"], 1, 2, 3))>;
+        } else {
+            if (%<(SLibCG_SE(SLibCG_DWV(2, 0, 4, 1, "", -1, "", 0)))> == BSC_event_fault_change) {
+                /* Transition: '<S13>:66' */
+                /* Exit 'Key_ON': '<S13>:17' */
+%<SLibCG_SetDWV(5, 0, 4, 1, "", -1, "", 0, "0U")>\
+%<SLibCG_SetDWV(7, 0, 4, 1, "", -1, "", 0, "BSC_IN_Key_ON")>\
+                /* Chart: '<S6>/key_cycle_chart' incorporates:
+ *  TriggerPort: '<S13>/input events'
+ */
+                /* Entry 'Key_ON': '<S13>:17' */
+%if SLibCG_FcnCallArgAccessed(1,2,5,0)
+%<SLibCG_AccessArg(1 ,2, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,5,1)
+%<SLibCG_AccessArg(1 ,2, 1)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,5,2)
+%<SLibCG_AccessArg(1 ,2, 2)>
+%endif
+
+                %<(SLibCGCallSubFcn("BSC_enter_internal_Key_ON", ["rtu_med_fault", "%<tSimStruct>", "localB"], 1, 2, 5))>;
+            }
+        }
+        break;
+      default:
+        /* During 'inital_key_off_fault': '<S13>:62' */
+        if (%<(SLibCG_SE(SLibCG_DWV(2, 0, 4, 1, "", -1, "", 0)))> == BSC_event_key_change) {
+            /* Transition: '<S13>:64' */
+%<SLibCG_SetDWV(7, 0, 4, 1, "", -1, "", 0, "BSC_IN_Key_ON")>\
+            /* Chart: '<S6>/key_cycle_chart' incorporates:
+ *  TriggerPort: '<S13>/input events'
+ */
+            /* Entry 'Key_ON': '<S13>:17' */
+%if SLibCG_FcnCallArgAccessed(1,2,0,0)
+%<SLibCG_AccessArg(1 ,2, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,0,1)
+%<SLibCG_AccessArg(1 ,2, 1)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,2,0,2)
+%<SLibCG_AccessArg(1 ,2, 2)>
+%endif
+
+            %<(SLibCGCallSubFcn("BSC_enter_internal_Key_ON", ["rtu_med_fault", "%<tSimStruct>", "localB"], 1, 2, 0))>;
+        }
+        break;
+    }
+}
+%closefile cfgTxt
+%<cfgTxt>
+%closefile fcnBuff
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[1].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("BSC_chartstep_c1_BSC", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "BSC_chartstep_c1_BSC"))
+%<SLibCG_AccessArg(1, 2, 1)>
+%endif
+%if SLibCG_ArgAccessed(1, 2, 1)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "BSC_chartstep_c1_BSC", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "BSC_chartstep_c1_BSC"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(1, 2, 1)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void BSC_chartstep_c1_BSC(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(1, 2, 0)
+%<comma>uint8_T rtu_med_fault\
+%assign comma = ", "
+%endif
+%if SLibCG_ArgAccessed(1, 2, 1)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%<comma>B_key_cycle_BSC_T *localB\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 2, fcnProtoType)>
+%return fcnBuff
+%endfunction
+

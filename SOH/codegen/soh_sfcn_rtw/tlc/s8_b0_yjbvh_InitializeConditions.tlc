@@ -1,0 +1,95 @@
+%implements s8_b0_yjbvh_InitializeConditions "C"
+
+%function InitializeConditions(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%assign _modelSS = ""
+
+%<SLibInsertAsyncTaskInitializeCode(system)>
+%<SLibWriteMachineInitialize()>
+/* InitializeConditions for Atomic SubSystem: '<Root>/soh' */
+/* InitializeConditions for Chart: '<S1>/Chart' */
+%<SLibCG_SetDWV(6, 0, 8, 1, "", -1, "", 0, "0U")>\
+%<SLibCG_SetDWV(5, 0, 8, 1, "", -1, "", 0, "soh_IN_NO_ACTIVE_CHILD")>\
+if (%<(SLibIsFirstInitCond())>) {
+%assign   InitializeConditions_open_deltaCalc_6_3 = ""
+%openfile InitializeConditions_open_deltaCalc_6_3
+
+    /* InitializeConditions for Function Call SubSystem: '<S1>/deltaCalc' */
+%closefile InitializeConditions_open_deltaCalc_6_3
+
+%assign    InitializeConditions_body_deltaCalc_6_3 = ""
+%openfile  InitializeConditions_body_deltaCalc_6_3
+
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[1], "Initialize",0)
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc_Init",1,0)
+%<SLibCG_AccessArg(4 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_deltaCalc_Init", ["%<tSimStruct>"], 1, 0, 3, 0, 3, 8)>\
+
+%endif
+%closefile InitializeConditions_body_deltaCalc_6_3
+
+%assign    InitializeConditions_close_deltaCalc_6_3 = ""
+%openfile  InitializeConditions_close_deltaCalc_6_3
+
+    /* End of InitializeConditions for SubSystem: '<S1>/deltaCalc' */
+%closefile InitializeConditions_close_deltaCalc_6_3
+%<SLibCG_DumpSSCode(InitializeConditions_open_deltaCalc_6_3, InitializeConditions_body_deltaCalc_6_3, InitializeConditions_close_deltaCalc_6_3)>
+
+
+%assign   InitializeConditions_open_key_on_6_4 = ""
+%openfile InitializeConditions_open_key_on_6_4
+
+    /* InitializeConditions for Function Call SubSystem: '<S1>/key_on' */
+%closefile InitializeConditions_open_key_on_6_4
+
+%assign    InitializeConditions_body_key_on_6_4 = ""
+%openfile  InitializeConditions_body_key_on_6_4
+
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[2], "Initialize",0)
+%if SLibCG_SystemFcnArgAccessed("soh_key_on_Init",2,0)
+%<SLibCG_AccessArg(4 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_key_on_Init", ["%<tSimStruct>"], 2, 0, 3, 0, 3, 8)>\
+
+%endif
+%closefile InitializeConditions_body_key_on_6_4
+
+%assign    InitializeConditions_close_key_on_6_4 = ""
+%openfile  InitializeConditions_close_key_on_6_4
+
+    /* End of InitializeConditions for SubSystem: '<S1>/key_on' */
+%closefile InitializeConditions_close_key_on_6_4
+%<SLibCG_DumpSSCode(InitializeConditions_open_key_on_6_4, InitializeConditions_body_key_on_6_4, InitializeConditions_close_key_on_6_4)>
+
+}
+/* End of InitializeConditions for Chart: '<S1>/Chart' */
+/* End of InitializeConditions for SubSystem: '<Root>/soh' */
+%<SLibInsertInitPeriodicCStatesFcn(system)>
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[4].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Initialize", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Initialize"))
+%<SLibCG_AccessArg(4, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(4, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Initialize", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Initialize"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(4, 1, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void InitializeConditions(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(4, 1, 0)
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(4, 1, fcnProtoType)>
+%endfunction

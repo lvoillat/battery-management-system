@@ -1,0 +1,44 @@
+%implements s8_b0_yjbvh_0_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+/* DataStoreRead: '<S6>/Data Store Read1' incorporates:
+ *  Inport: '<S6>/soc_C_factors_init'
+ */
+memcpy(&localB->DataStoreRead1[0], &rtd_memStore_Rfactors[0], 40U * sizeof(real_T));
+/* Inport: '<S6>/soc_C_factors_init' incorporates:
+ *  DataStoreRead: '<S6>/Data Store Read1'
+ */
+memcpy(&localB->soc_C_factors_init[0], &rtu_soc_C_factors_init[0], 40U * sizeof(real_T));
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(0, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void soh_init(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 0, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%<comma>const real_T rtu_soc_C_factors_init[40]\
+%assign comma = ", "
+%<comma>B_init_soh_T *localB\
+%assign comma = ", "
+%<comma>real_T rtd_memStore_Rfactors[40]\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 0, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

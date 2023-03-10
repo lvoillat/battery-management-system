@@ -1,0 +1,44 @@
+%implements s7_b0_a2evh_Update "C"
+
+%function Update(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+B_BTC_T *_rtB;
+%closefile localVarDecl
+%<SLibCG_TrackBlockIO(7)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+/* Update for Atomic SubSystem: '<Root>/BTC' */
+/* Update for Delay: '<S3>/Delay' */
+%<SLibCG_SetDWV(0, 0, 7, 1, "", -1, "", 0, "_rtB->Switch1")>\
+/* Update for DiscreteIntegrator: '<S4>/Discrete-Time Integrator' */
+%<SLibCG_SetDWV(1, 0, 7, 1, "", -1, "", 0, "%<(SLibCG_SE(SLibCG_DWV(1, 0, 7, 1, "", -1, "", 0)))> + _rtB->mul1")>\
+/* Update for Delay: '<S3>/Delay1' */
+%<SLibCG_SetDWV(2, 0, 7, 2, "", -1, "", 0, "%<(SLibCG_DWV(2, 0, 7, 2, "", -1, "", 1))>")>\
+%<SLibCG_SetDWV(2, 0, 7, 2, "", -1, "", 1, "_rtB->LogicalOperator")>\
+/* End of Update for SubSystem: '<Root>/BTC' */
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Update", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Update"))
+%<SLibCG_AccessArg(0, 2, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 2, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Update", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Update"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 2, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Update(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 2, 0)
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 2, fcnProtoType)>
+%<LibSetSystemField(system, "CachedUpdateLocalVars", localVarDecl)>
+%endfunction

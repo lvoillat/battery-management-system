@@ -1,0 +1,70 @@
+%implements s8_b0_yjbvh_1_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+int32_T i;
+real_T rtb_Sum;
+%closefile localVarDecl
+for (i = 0; i < 40; i++) {
+    /* Sum: '<S5>/Sum' incorporates:
+ *  Constant: '<S5>/Constant4'
+ *  DataTypeConversion: '<S5>/Data Type Conversion'
+ *  Product: '<S5>/Divide1'
+ *  Product: '<S5>/Divide2'
+ *  Product: '<S5>/Divide4'
+ */
+    rtb_Sum = rtu_PackCurrent - rtu_CellVoltages[i] * (real_T)rtu_cb_cmds[i] / %<(SLibCG_SE(SLibCGIR_PV(7, 0, 1, 1, "", -1, "", 0)))>;
+    /* Sum: '<S5>/Subtract' incorporates:
+ *  Delay: '<S5>/Delay2'
+ */
+    localB->Subtract[i] = rtb_Sum - %<(SLibCG_SE(SLibCG_DWV(7, 0, 1, 40, "", -1, "i", 0)))>;
+    /* Sum: '<S5>/Subtract1' incorporates:
+ *  Delay: '<S5>/Delay3'
+ */
+    localB->Subtract1[i] = rtu_CellVoltages[i] - %<(SLibCG_SE(SLibCG_DWV(8, 0, 1, 40, "", -1, "i", 0)))>;
+    /* Lookup_n-D: '<S5>/2-D Lookup Table1' */
+    localB->uDLookupTable1[i] = soh_look2_binlx(rtu_CellTemp[i], rtu_CellSOC[i], %<(SLibCGIR_PVAddr(0, 0, 1, 3, "", -1, "", 0))>, %<(SLibCGIR_PVAddr(1, 0, 1, 101, "", -1, "", 0))>, %<(SLibCGIR_PVAddr(2, 0, 1, 303, "", -1, "", 0))>, soh_ConstP.uDLookupTable1_maxIndex, 3U);
+    /* Update for Delay: '<S5>/Delay2' */
+%<SLibCG_SetDWV(7, 0, 1, 40, "", -1, "i", 0, "rtb_Sum")>\
+    /* Update for Delay: '<S5>/Delay3' */
+%<SLibCG_SetDWV(8, 0, 1, 40, "", -1, "i", 0, "rtu_CellVoltages[i]")>\
+}
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[1].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(1, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(1, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(1, 1, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void soh_deltaCalc(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(1, 1, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%<comma>real_T rtu_PackCurrent\
+%assign comma = ", "
+%<comma>const real_T rtu_CellVoltages[40]\
+%assign comma = ", "
+%<comma>const real_T rtu_CellSOC[40]\
+%assign comma = ", "
+%<comma>const real_T rtu_CellTemp[40]\
+%assign comma = ", "
+%<comma>const boolean_T rtu_cb_cmds[40]\
+%assign comma = ", "
+%<comma>B_deltaCalc_soh_T *localB\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 1, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

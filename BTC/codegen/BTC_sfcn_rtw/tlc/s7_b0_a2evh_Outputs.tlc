@@ -1,0 +1,268 @@
+%implements s7_b0_a2evh_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+boolean_T rtb_LogicalOperator;
+boolean_T rtb_DataTypeConversion;
+boolean_T rtb_LogicalOperator4;
+boolean_T rtb_RelationalOperator2;
+real_T rtb_Subtract;
+real_T rtb_Switch2;
+int32_T i;
+B_BTC_T *_rtB;
+%closefile localVarDecl
+%<SLibCG_TrackBlockIO(7)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%<SLibCG_TrackEO(4)>\
+%<SLibCG_TrackEO(3)>\
+%<SLibCG_TrackEO(2)>\
+%<SLibCG_TrackEO(1)>\
+%<SLibCG_TrackEO(0)>\
+%<SLibCG_TrackEI(8)>\
+%<SLibCG_TrackEI(7)>\
+%<SLibCG_TrackEI(6)>\
+%<SLibCG_TrackEI(5)>\
+%<SLibCG_TrackEI(4)>\
+%<SLibCG_TrackEI(3)>\
+%<SLibCG_TrackEI(2)>\
+%<SLibCG_TrackEI(1)>\
+%<SLibCG_TrackEI(0)>\
+/* Outputs for Atomic SubSystem: '<Root>/BTC' */
+/* MinMax: '<S3>/MinMax1' incorporates:
+ *  Inport: '<Root>/cell temperature'
+ */
+rtb_Switch2 = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[0];
+/* MinMax: '<S3>/MinMax2' incorporates:
+ *  Inport: '<Root>/cell SOC'
+ */
+rtb_Subtract = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[0];
+for (i = 0; i < 39; i++) {
+    /* MinMax: '<S3>/MinMax1' incorporates:
+ *  Inport: '<Root>/cell temperature'
+ */
+    if (!((rtb_Switch2 >= *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1]) || rtIsNaN(*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1]))) {
+        rtb_Switch2 = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1];
+    }
+    /* MinMax: '<S3>/MinMax2' incorporates:
+ *  Inport: '<Root>/cell SOC'
+ */
+    if (!((rtb_Subtract <= *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[i + 1]) || rtIsNaN(*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[i + 1]))) {
+        rtb_Subtract = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[i + 1];
+    }
+}
+/* RelationalOperator: '<S3>/Relational Operator3' incorporates:
+ *  Constant: '<S3>/Constant7'
+ *  MinMax: '<S3>/MinMax2'
+ */
+rtb_DataTypeConversion = (rtb_Subtract >= %<(SLibCG_SE(SLibCGIR_PV(5, 0, 7, 1, "", -1, "", 0)))>);
+/* Logic: '<S3>/Logical Operator4' incorporates:
+ *  Constant: '<S3>/Constant2'
+ *  Constant: '<S3>/Constant9'
+ *  Inport: '<Root>/ambient temperature'
+ *  Inport: '<Root>/charging status'
+ *  Logic: '<S3>/Logical Operator2'
+ *  MinMax: '<S3>/MinMax1'
+ *  RelationalOperator: '<S3>/Relational Operator1'
+ *  RelationalOperator: '<S3>/Relational Operator5'
+ */
+rtb_LogicalOperator4 = ((rtb_Switch2 >= %<(SLibCG_SE(SLibCGIR_PV(6, 0, 7, 1, "", -1, "", 0)))>) || (rtb_DataTypeConversion && (*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0]) && (*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 3))[0] <= %<(SLibCG_SE(SLibCGIR_PV(3, 0, 7, 1, "", -1, "", 0)))>)));
+/* MinMax: '<S3>/MinMax' incorporates:
+ *  Inport: '<Root>/cell temperature'
+ */
+rtb_Subtract = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[0];
+for (i = 0; i < 39; i++) {
+    if (!((rtb_Subtract <= *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1]) || rtIsNaN(*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1]))) {
+        rtb_Subtract = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1];
+    }
+}
+/* Logic: '<S3>/Logical Operator3' incorporates:
+ *  Constant: '<S3>/Constant'
+ *  Constant: '<S3>/Constant8'
+ *  Inport: '<Root>/ambient temperature'
+ *  Inport: '<Root>/charging status'
+ *  Logic: '<S3>/Logical Operator1'
+ *  MinMax: '<S3>/MinMax'
+ *  RelationalOperator: '<S3>/Relational Operator'
+ *  RelationalOperator: '<S3>/Relational Operator4'
+ */
+rtb_DataTypeConversion = ((rtb_Subtract <= %<(SLibCG_SE(SLibCGIR_PV(9, 0, 7, 1, "", -1, "", 0)))>) || (rtb_DataTypeConversion && (*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0]) && (*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 3))[0] >= %<(SLibCG_SE(SLibCGIR_PV(2, 0, 7, 1, "", -1, "", 0)))>)));
+/* RelationalOperator: '<S3>/Relational Operator2' incorporates:
+ *  Constant: '<S3>/Constant4'
+ *  MinMax: '<S3>/MinMax'
+ *  MinMax: '<S3>/MinMax1'
+ *  Sum: '<S3>/Add'
+ */
+rtb_RelationalOperator2 = (rtb_Switch2 - rtb_Subtract >= %<(SLibCG_SE(SLibCGIR_PV(4, 0, 7, 1, "", -1, "", 0)))>);
+/* Switch: '<S3>/Switch1' incorporates:
+ *  Constant: '<S3>/Constant3'
+ *  Switch: '<S3>/Switch'
+ *  Switch: '<S3>/Switch2'
+ */
+if (rtb_LogicalOperator4) {
+    _rtB->Switch1 = %<(SLibCG_SE(SLibCGIR_PV(7, 0, 7, 1, "", -1, "", 0)))>;
+} else {
+    if (rtb_DataTypeConversion) {
+        /* Switch: '<S3>/Switch' incorporates:
+ *  Constant: '<S3>/Constant1'
+ */
+        rtb_Switch2 = %<(SLibCG_SE(SLibCGIR_PV(8, 0, 7, 1, "", -1, "", 0)))>;
+    } else if (rtb_RelationalOperator2) {
+        /* Sum: '<S3>/Sum of Elements1' incorporates:
+ *  Inport: '<Root>/cell temperature'
+ *  Switch: '<S3>/Switch'
+ *  Switch: '<S3>/Switch2'
+ */
+        rtb_Switch2 = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[0];
+        for (i = 0; i < 39; i++) {
+            rtb_Switch2 += *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1];
+        }
+        /* End of Sum: '<S3>/Sum of Elements1' */
+
+        /* Switch: '<S3>/Switch2' incorporates:
+ *  Constant: '<S3>/Constant5'
+ *  Constant: '<S3>/Constant6'
+ *  Product: '<S3>/Divide'
+ *  Product: '<S3>/Divide1'
+ *  Switch: '<S3>/Switch'
+ */
+        rtb_Switch2 = rtb_Switch2 / %<(SLibCG_SE(SLibCGIR_PV(11, 0, 7, 1, "", -1, "", 0)))> / %<(SLibCG_SE(SLibCGIR_PV(10, 0, 7, 1, "", -1, "", 0)))>;
+    } else {
+        /* Switch: '<S3>/Switch2' incorporates:
+ *  Delay: '<S3>/Delay'
+ *  Switch: '<S3>/Switch'
+ */
+        rtb_Switch2 = %<(SLibCG_SE(SLibCG_DWV(0, 0, 7, 1, "", -1, "", 0)))>;
+    }
+    _rtB->Switch1 = rtb_Switch2;
+}
+/* End of Switch: '<S3>/Switch1' */
+
+/* MinMax: '<S2>/MinMax' incorporates:
+ *  Inport: '<Root>/cell temperature'
+ */
+rtb_Switch2 = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[0];
+for (i = 0; i < 39; i++) {
+    if (!((rtb_Switch2 <= *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1]) || rtIsNaN(*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1]))) {
+        rtb_Switch2 = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1];
+    }
+}
+/* Switch: '<S2>/Switch1' incorporates:
+ *  Constant: '<S2>/Constant9'
+ *  MinMax: '<S2>/MinMax'
+ *  RelationalOperator: '<S2>/Relational Operator4'
+ */
+if (!(rtb_Switch2 <= %<(SLibCG_SE(SLibCGIR_PV(9, 0, 7, 1, "", -1, "", 0)))>)) {
+    /* MinMax: '<S2>/MinMax1' incorporates:
+ *  Inport: '<Root>/cell temperature'
+ */
+    rtb_Switch2 = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[0];
+    for (i = 0; i < 39; i++) {
+        if (!((rtb_Switch2 >= *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1]) || rtIsNaN(*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1]))) {
+            rtb_Switch2 = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[i + 1];
+        }
+    }
+    /* End of MinMax: '<S2>/MinMax1' */
+}
+/* End of Switch: '<S2>/Switch1' */
+
+/* Sum: '<S1>/Subtract' */
+rtb_Subtract = _rtB->Switch1 - rtb_Switch2;
+/* Logic: '<S1>/Logical Operator' incorporates:
+ *  DataTypeConversion: '<S1>/Data Type Conversion'
+ *  DataTypeConversion: '<S1>/Data Type Conversion1'
+ *  Inport: '<Root>/cell temp high fault'
+ *  Inport: '<Root>/cell temp low fault'
+ *  Inport: '<Root>/coolant inlet temp fault'
+ *  Inport: '<Root>/coolant outlet temp fault'
+ */
+rtb_LogicalOperator = ((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 5))[0]) || (*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 6))[0]) || (*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 7))[0] != 0) || (*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 8))[0] != 0));
+/* Logic: '<S3>/Logical Operator' */
+_rtB->LogicalOperator = (rtb_DataTypeConversion || rtb_RelationalOperator2 || rtb_LogicalOperator4);
+/* Product: '<S4>/mul1' incorporates:
+ *  Constant: '<S4>/Constant5'
+ *  Gain: '<S4>/BTC_Ki'
+ */
+_rtB->mul1 = %<(SLibCG_SE(SLibCGIR_PV(0, 0, 7, 1, "", -1, "", 0)))> * rtb_Subtract * %<(SLibCG_SE(SLibCGIR_PV(12, 0, 7, 1, "", -1, "", 0)))>;
+/* Switch: '<S1>/Switch1' incorporates:
+ *  Constant: '<S1>/Constant1'
+ *  Delay: '<S3>/Delay1'
+ *  Inport: '<Root>/charging status'
+ *  Inport: '<Root>/discharging contactor status'
+ *  Logic: '<S1>/Logical Operator1'
+ *  Logic: '<S1>/Logical Operator2'
+ *  Switch: '<S1>/Switch2'
+ */
+if (rtb_LogicalOperator) {
+    rtb_Subtract = 50.0;
+} else if (%<(SLibCG_SE(SLibCG_DWV(2, 0, 7, 2, "", -1, "", 0)))> && ((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0]) || (*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 4))[0]))) {
+    /* Sum: '<S4>/Sum' incorporates:
+ *  DiscreteIntegrator: '<S4>/Discrete-Time Integrator'
+ *  Gain: '<S4>/BTC_Kp'
+ *  Switch: '<S1>/Switch2'
+ */
+    rtb_Subtract = %<(SLibCG_SE(SLibCGIR_PV(1, 0, 7, 1, "", -1, "", 0)))> * rtb_Subtract + %<(SLibCG_SE(SLibCG_DWV(1, 0, 7, 1, "", -1, "", 0)))>;
+    /* Saturate: '<S4>/Saturation' incorporates:
+ *  Switch: '<S1>/Switch2'
+ */
+    if (rtb_Subtract > 100.0) {
+        rtb_Subtract = 100.0;
+    } else {
+        if (rtb_Subtract < -100.0) {
+            rtb_Subtract = -100.0;
+        }
+    }
+    /* Switch: '<S1>/Switch2' incorporates:
+ *  Abs: '<S1>/Abs'
+ *  Saturate: '<S4>/Saturation'
+ */
+    rtb_Subtract = fabs(rtb_Subtract);
+} else {
+    /* Switch: '<S1>/Switch2' incorporates:
+ *  Constant: '<S1>/Constant'
+ */
+    rtb_Subtract = 0.0;
+}
+/* End of Switch: '<S1>/Switch1' */
+/* End of Outputs for SubSystem: '<Root>/BTC' */
+
+/* Outport: '<Root>/coolant_flow_percentage' */
+((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 0))[0] = rtb_Subtract;
+/* Outport: '<Root>/battery_target_temperature' */
+((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 1))[0] = _rtB->Switch1;
+/* Outport: '<Root>/battery_actual_temperature' */
+((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 2))[0] = rtb_Switch2;
+/* Outputs for Atomic SubSystem: '<Root>/BTC' */
+/* Outport: '<Root>/battery_reqest_status' incorporates:
+ *  Delay: '<S3>/Delay1'
+ */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 3))[0] = %<(SLibCG_SE(SLibCG_DWV(2, 0, 7, 2, "", -1, "", 0)))>;
+/* End of Outputs for SubSystem: '<Root>/BTC' */
+
+/* Outport: '<Root>/battery_thermal_condition' */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 4))[0] = rtb_LogicalOperator;
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(0, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 1, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

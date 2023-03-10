@@ -1,0 +1,2804 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="./js/coder_app.js"></script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./rtwreport_utils.js"></script>
+<script type="text/javascript" src="./rtwannotate.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/coder_app.css"/>
+</head>
+<body onload="srcFileOnload();">
+<pre id="code">
+<table class="code" id="codeTbl">
+<tr name="1" id="1">
+<td>1</td><td><span class="ct">/*</span></td></tr>
+<tr name="2" id="2">
+<td>2</td><td><span class="ct"> * BSC_sf.c</span></td></tr>
+<tr name="3" id="3">
+<td>3</td><td><span class="ct"> *</span></td></tr>
+<tr name="4" id="4">
+<td>4</td><td><span class="ct"> * Code generation for model "BSC_sf".</span></td></tr>
+<tr name="5" id="5">
+<td>5</td><td><span class="ct"> *</span></td></tr>
+<tr name="6" id="6">
+<td>6</td><td><span class="ct"> * Model version              : 1.222</span></td></tr>
+<tr name="7" id="7">
+<td>7</td><td><span class="ct"> * Simulink Coder version : 8.9 (R2015b) 13-Aug-2015</span></td></tr>
+<tr name="8" id="8">
+<td>8</td><td><span class="ct"> * C source code generated on : Fri Jun 12 17:13:53 2020</span></td></tr>
+<tr name="9" id="9">
+<td>9</td><td><span class="ct"> *</span></td></tr>
+<tr name="10" id="10">
+<td>10</td><td><span class="ct"> * Target selection: rtwsfcn.tlc</span></td></tr>
+<tr name="11" id="11">
+<td>11</td><td><span class="ct"> * Note: GRT includes extra infrastructure and instrumentation for prototyping</span></td></tr>
+<tr name="12" id="12">
+<td>12</td><td><span class="ct"> * Embedded hardware selection: Freescale-&gt;32-bit PowerPC</span></td></tr>
+<tr name="13" id="13">
+<td>13</td><td><span class="ct"> * Emulation hardware selection:</span></td></tr>
+<tr name="14" id="14">
+<td>14</td><td><span class="ct"> *    Differs from embedded hardware (MATLAB Host)</span></td></tr>
+<tr name="15" id="15">
+<td>15</td><td><span class="ct"> * Code generation objectives: Unspecified</span></td></tr>
+<tr name="16" id="16">
+<td>16</td><td><span class="ct"> * Validation result: Not run</span></td></tr>
+<tr name="17" id="17">
+<td>17</td><td><span class="ct"> */</span></td></tr>
+<tr name="18" id="18">
+<td>18</td><td></td></tr>
+<tr name="19" id="19">
+<td>19</td><td><span class="pp">#include &lt;math.h&gt;</span></td></tr>
+<tr name="20" id="20">
+<td>20</td><td><span class="pp">#include "BSC_sf.h"</span></td></tr>
+<tr name="21" id="21">
+<td>21</td><td><span class="pp">#include "BSC_sf_private.h"</span></td></tr>
+<tr name="22" id="22">
+<td>22</td><td><span class="pp">#include "simstruc.h"</span></td></tr>
+<tr name="23" id="23">
+<td>23</td><td><span class="pp">#include "fixedpoint.h"</span></td></tr>
+<tr name="24" id="24">
+<td>24</td><td></td></tr>
+<tr name="25" id="25">
+<td>25</td><td><span class="ct">/* Named constants for Chart: '&lt;S6&gt;/key_cycle_chart' */</span></td></tr>
+<tr name="26" id="26">
+<td>26</td><td><span class="pp">#define</span> <a id="26c9" class="tk">BSC_IN_Key_OFF</a>                 ((<a id="26c42" class="tk">uint8_T</a>)1U)</td></tr>
+<tr name="27" id="27">
+<td>27</td><td><span class="pp">#define</span> <a id="27c9" class="tk">BSC_IN_Key_ON</a>                  ((<a id="27c42" class="tk">uint8_T</a>)2U)</td></tr>
+<tr name="28" id="28">
+<td>28</td><td><span class="pp">#define</span> <a id="28c9" class="tk">BSC_IN_NO_ACTIVE_CHILD_f</a>       ((<a id="28c42" class="tk">uint8_T</a>)0U)</td></tr>
+<tr name="29" id="29">
+<td>29</td><td><span class="pp">#define</span> <a id="29c9" class="tk">BSC_IN_inital_key_off_fault</a>    ((<a id="29c42" class="tk">uint8_T</a>)3U)</td></tr>
+<tr name="30" id="30">
+<td>30</td><td><span class="pp">#define</span> <a id="30c9" class="tk">BSC_event_fault_change</a>         (1)</td></tr>
+<tr name="31" id="31">
+<td>31</td><td><span class="pp">#define</span> <a id="31c9" class="tk">BSC_event_key_change</a>           (0)</td></tr>
+<tr name="32" id="32">
+<td>32</td><td></td></tr>
+<tr name="33" id="33">
+<td>33</td><td><span class="ct">/* Named constants for Chart: '&lt;S1&gt;/Chart2' */</span></td></tr>
+<tr name="34" id="34">
+<td>34</td><td><span class="pp">#define</span> <a id="34c9" class="tk">BSC_IN_NO_ACTIVE_CHILD_p</a>       ((<a id="34c42" class="tk">uint8_T</a>)0U)</td></tr>
+<tr name="35" id="35">
+<td>35</td><td><span class="pp">#define</span> <a id="35c9" class="tk">BSC_IN_main</a>                    ((<a id="35c42" class="tk">uint8_T</a>)1U)</td></tr>
+<tr name="36" id="36">
+<td>36</td><td><span class="pp">#if</span> <a id="36c5" class="tk">defined</a>(<a id="36c13" class="tk">RT_MALLOC</a>) <a id="36c24" class="tk">||</a> <a id="36c27" class="tk">defined</a>(<a id="36c35" class="tk">MATLAB_MEX_FILE</a>)</td></tr>
+<tr name="37" id="37">
+<td>37</td><td></td></tr>
+<tr name="38" id="38">
+<td>38</td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="38c13" class="tk">*</a><a id="38c14" class="tk">BSC_malloc</a>(<a id="38c25" class="tk">SimStruct</a> <a id="38c35" class="tk">*</a><a id="38c36" class="tk">S</a>);</td></tr>
+<tr name="39" id="39">
+<td>39</td><td></td></tr>
+<tr name="40" id="40">
+<td>40</td><td><span class="pp">#endif</span></td></tr>
+<tr name="41" id="41">
+<td>41</td><td></td></tr>
+<tr name="42" id="42">
+<td>42</td><td><span class="pp">#ifndef</span> <a id="42c9" class="tk">__RTW_UTFREE__</a></td></tr>
+<tr name="43" id="43">
+<td>43</td><td><span class="pp">#if</span> <a id="43c5" class="tk">defined</a> (<a id="43c14" class="tk">MATLAB_MEX_FILE</a>)</td></tr>
+<tr name="44" id="44">
+<td>44</td><td></td></tr>
+<tr name="45" id="45">
+<td>45</td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="45c13" class="tk">*</a> <a id="45c15" class="tk">utMalloc</a>(<a id="45c24" class="tk">size_t</a>);</td></tr>
+<tr name="46" id="46">
+<td>46</td><td><span class="kw">extern</span> <span class="kw">void</span> <a id="46c13" class="tk">utFree</a>(<span class="kw">void</span> <a id="46c25" class="tk">*</a>);</td></tr>
+<tr name="47" id="47">
+<td>47</td><td></td></tr>
+<tr name="48" id="48">
+<td>48</td><td><span class="pp">#endif</span></td></tr>
+<tr name="49" id="49">
+<td>49</td><td><span class="pp">#endif</span>                                 <span class="ct">/* #ifndef __RTW_UTFREE__ */</span></td></tr>
+<tr name="50" id="50">
+<td>50</td><td></td></tr>
+<tr name="51" id="51">
+<td>51</td><td><span class="ct">/* Forward declaration for local functions */</span></td></tr>
+<tr name="52" id="52">
+<td>52</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="52c13" class="tk">BSC_enter_internal_Key_ON</a>(<a id="52c39" class="tk">uint8_T</a> <a id="52c47" class="tk">rtu_med_fault</a>, <a id="52c62" class="tk">SimStruct</a> <a id="52c72" class="tk">*</a> <span class="kw">const</span> <a id="52c80" class="tk">S</a>,</td></tr>
+<tr name="53" id="53">
+<td>53</td><td>  <a id="53c3" class="tk">B_key_cycle_BSC_T</a> <a id="53c21" class="tk">*</a><a id="53c22" class="tk">localB</a>);</td></tr>
+<tr name="54" id="54">
+<td>54</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="54c13" class="tk">BSC_enter_internal_Key_OFF</a>(<a id="54c40" class="tk">uint8_T</a> <a id="54c48" class="tk">rtu_med_fault</a>, <a id="54c63" class="tk">SimStruct</a> <a id="54c73" class="tk">*</a> <span class="kw">const</span></td></tr>
+<tr name="55" id="55">
+<td>55</td><td>  <a id="55c3" class="tk">S</a>, <a id="55c6" class="tk">B_key_cycle_BSC_T</a> <a id="55c24" class="tk">*</a><a id="55c25" class="tk">localB</a>);</td></tr>
+<tr name="56" id="56">
+<td>56</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="56c13" class="tk">BSC_chartstep_c1_BSC</a>(<a id="56c34" class="tk">uint8_T</a> <a id="56c42" class="tk">rtu_med_fault</a>, <a id="56c57" class="tk">SimStruct</a> <a id="56c67" class="tk">*</a> <span class="kw">const</span> <a id="56c75" class="tk">S</a>,</td></tr>
+<tr name="57" id="57">
+<td>57</td><td>  <a id="57c3" class="tk">B_key_cycle_BSC_T</a> <a id="57c21" class="tk">*</a><a id="57c22" class="tk">localB</a>);</td></tr>
+<tr name="58" id="58">
+<td>58</td><td></td></tr>
+<tr name="59" id="59">
+<td>59</td><td><span class="pp">#if</span> <a id="59c5" class="tk">defined</a>(<a id="59c13" class="tk">MATLAB_MEX_FILE</a>)</td></tr>
+<tr name="60" id="60">
+<td>60</td><td><span class="pp">#include "rt_nonfinite.c"</span></td></tr>
+<tr name="61" id="61">
+<td>61</td><td><span class="pp">#endif</span></td></tr>
+<tr name="62" id="62">
+<td>62</td><td></td></tr>
+<tr name="63" id="63">
+<td>63</td><td><span class="kw">static</span> <span class="kw">const</span> <a id="63c14" class="tk">char_T</a> <a id="63c21" class="tk">*</a><a id="63c22" class="tk">RT_MEMORY_ALLOCATION_ERROR</a> =</td></tr>
+<tr name="64" id="64">
+<td>64</td><td>  "memory allocation error in generated S-Function";</td></tr>
+<tr name="65" id="65">
+<td>65</td><td></td></tr>
+<tr name="66" id="66">
+<td>66</td><td><span class="ct">/* Initial conditions for function-call system: '&lt;S1&gt;/check_type' */</span></td></tr>
+<tr name="67" id="67">
+<td>67</td><td><span class="kw">void</span> <a id="67c6" class="tk">BSC_check_type_Init</a>(<a id="67c26" class="tk">B_check_type_BSC_T</a> <a id="67c45" class="tk">*</a><a id="67c46" class="tk">localB</a>)</td></tr>
+<tr name="68" id="68">
+<td>68</td><td><span class="br">{</span></td></tr>
+<tr name="69" id="69">
+<td>69</td><td>  <span class="ct">/* InitializeConditions for Chart: '&lt;S5&gt;/check_faults' */</span></td></tr>
+<tr name="70" id="70">
+<td>70</td><td>  <a id="70c3" class="tk">localB</a>-&gt;<a id="70c11" class="tk">type_of_fault</a> = 0U;</td></tr>
+<tr name="71" id="71">
+<td>71</td><td><span class="br">}</span></td></tr>
+<tr name="72" id="72">
+<td>72</td><td></td></tr>
+<tr name="73" id="73">
+<td>73</td><td><span class="ct">/* Output and update for function-call system: '&lt;S1&gt;/check_type' */</span></td></tr>
+<tr name="74" id="74">
+<td>74</td><td><span class="kw">void</span> <a id="74c6" class="tk">BSC_check_type</a>(<a id="74c21" class="tk">SimStruct</a> <a id="74c31" class="tk">*</a> <span class="kw">const</span> <a id="74c39" class="tk">S</a>, <a id="74c42" class="tk">uint8_T</a> <a id="74c50" class="tk">rtu_In1</a>, <a id="74c59" class="tk">uint8_T</a> <a id="74c67" class="tk">rtu_In2</a>,</td></tr>
+<tr name="75" id="75">
+<td>75</td><td>                    <a id="75c21" class="tk">uint8_T</a> <a id="75c29" class="tk">rtu_In3</a>, <a id="75c38" class="tk">uint8_T</a> <a id="75c46" class="tk">rtu_In4</a>, <a id="75c55" class="tk">uint8_T</a> <a id="75c63" class="tk">rtu_In5</a>, <a id="75c72" class="tk">uint8_T</a></td></tr>
+<tr name="76" id="76">
+<td>76</td><td>                    <a id="76c21" class="tk">rtu_In6</a>, <a id="76c30" class="tk">uint8_T</a> <a id="76c38" class="tk">rtu_In7</a>, <a id="76c47" class="tk">uint8_T</a> <a id="76c55" class="tk">rtu_In8</a>, <a id="76c64" class="tk">uint8_T</a> <a id="76c72" class="tk">rtu_In9</a>,</td></tr>
+<tr name="77" id="77">
+<td>77</td><td>                    <a id="77c21" class="tk">uint8_T</a> <a id="77c29" class="tk">rtu_In10</a>, <a id="77c39" class="tk">uint8_T</a> <a id="77c47" class="tk">rtu_In11</a>, <a id="77c57" class="tk">B_check_type_BSC_T</a></td></tr>
+<tr name="78" id="78">
+<td>78</td><td>                    <a id="78c21" class="tk">*</a><a id="78c22" class="tk">localB</a>)</td></tr>
+<tr name="79" id="79">
+<td>79</td><td><span class="br">{</span></td></tr>
+<tr name="80" id="80">
+<td>80</td><td>  <span class="ct">/* Chart: '&lt;S5&gt;/check_faults' */</span></td></tr>
+<tr name="81" id="81">
+<td>81</td><td>  <span class="ct">/* Gateway: BSC/check_type/check_faults */</span></td></tr>
+<tr name="82" id="82">
+<td>82</td><td>  <span class="ct">/* During: BSC/check_type/check_faults */</span></td></tr>
+<tr name="83" id="83">
+<td>83</td><td>  <span class="ct">/* Entry Internal: BSC/check_type/check_faults */</span></td></tr>
+<tr name="84" id="84">
+<td>84</td><td>  <span class="ct">/* Transition: '&lt;S12&gt;:170' */</span></td></tr>
+<tr name="85" id="85">
+<td>85</td><td>  <span class="kw">if</span> (<a id="85c7" class="tk">rtu_In1</a> <a id="85c15" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="86" id="86">
+<td>86</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:75' */</span></td></tr>
+<tr name="87" id="87">
+<td>87</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:77' */</span></td></tr>
+<tr name="88" id="88">
+<td>88</td><td>    <a id="88c5" class="tk">localB</a>-&gt;<a id="88c13" class="tk">type_of_fault</a> = 1U;</td></tr>
+<tr name="89" id="89">
+<td>89</td><td></td></tr>
+<tr name="90" id="90">
+<td>90</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:142' */</span></td></tr>
+<tr name="91" id="91">
+<td>91</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:139' */</span></td></tr>
+<tr name="92" id="92">
+<td>92</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:146' */</span></td></tr>
+<tr name="93" id="93">
+<td>93</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:151' */</span></td></tr>
+<tr name="94" id="94">
+<td>94</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:156' */</span></td></tr>
+<tr name="95" id="95">
+<td>95</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:157' */</span></td></tr>
+<tr name="96" id="96">
+<td>96</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:136' */</span></td></tr>
+<tr name="97" id="97">
+<td>97</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:135' */</span></td></tr>
+<tr name="98" id="98">
+<td>98</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:177' */</span></td></tr>
+<tr name="99" id="99">
+<td>99</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:190' */</span></td></tr>
+<tr name="100" id="100">
+<td>100</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:189' */</span></td></tr>
+<tr name="101" id="101">
+<td>101</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="102" id="102">
+<td>102</td><td>    <span class="ct">/* Transition: '&lt;S12&gt;:76' */</span></td></tr>
+<tr name="103" id="103">
+<td>103</td><td>    <span class="kw">if</span> (<a id="103c9" class="tk">rtu_In2</a> <a id="103c17" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="104" id="104">
+<td>104</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:78' */</span></td></tr>
+<tr name="105" id="105">
+<td>105</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:126' */</span></td></tr>
+<tr name="106" id="106">
+<td>106</td><td>      <a id="106c7" class="tk">localB</a>-&gt;<a id="106c15" class="tk">type_of_fault</a> = 2U;</td></tr>
+<tr name="107" id="107">
+<td>107</td><td></td></tr>
+<tr name="108" id="108">
+<td>108</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:139' */</span></td></tr>
+<tr name="109" id="109">
+<td>109</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:146' */</span></td></tr>
+<tr name="110" id="110">
+<td>110</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:151' */</span></td></tr>
+<tr name="111" id="111">
+<td>111</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:156' */</span></td></tr>
+<tr name="112" id="112">
+<td>112</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:157' */</span></td></tr>
+<tr name="113" id="113">
+<td>113</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:136' */</span></td></tr>
+<tr name="114" id="114">
+<td>114</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:135' */</span></td></tr>
+<tr name="115" id="115">
+<td>115</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:177' */</span></td></tr>
+<tr name="116" id="116">
+<td>116</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:190' */</span></td></tr>
+<tr name="117" id="117">
+<td>117</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:189' */</span></td></tr>
+<tr name="118" id="118">
+<td>118</td><td>    <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="119" id="119">
+<td>119</td><td>      <span class="ct">/* Transition: '&lt;S12&gt;:79' */</span></td></tr>
+<tr name="120" id="120">
+<td>120</td><td>      <span class="kw">if</span> (<a id="120c11" class="tk">rtu_In3</a> <a id="120c19" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="121" id="121">
+<td>121</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:81' */</span></td></tr>
+<tr name="122" id="122">
+<td>122</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:127' */</span></td></tr>
+<tr name="123" id="123">
+<td>123</td><td>        <a id="123c9" class="tk">localB</a>-&gt;<a id="123c17" class="tk">type_of_fault</a> = 3U;</td></tr>
+<tr name="124" id="124">
+<td>124</td><td></td></tr>
+<tr name="125" id="125">
+<td>125</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:146' */</span></td></tr>
+<tr name="126" id="126">
+<td>126</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:151' */</span></td></tr>
+<tr name="127" id="127">
+<td>127</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:156' */</span></td></tr>
+<tr name="128" id="128">
+<td>128</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:157' */</span></td></tr>
+<tr name="129" id="129">
+<td>129</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:136' */</span></td></tr>
+<tr name="130" id="130">
+<td>130</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:135' */</span></td></tr>
+<tr name="131" id="131">
+<td>131</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:177' */</span></td></tr>
+<tr name="132" id="132">
+<td>132</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:190' */</span></td></tr>
+<tr name="133" id="133">
+<td>133</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:189' */</span></td></tr>
+<tr name="134" id="134">
+<td>134</td><td>      <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="135" id="135">
+<td>135</td><td>        <span class="ct">/* Transition: '&lt;S12&gt;:108' */</span></td></tr>
+<tr name="136" id="136">
+<td>136</td><td>        <span class="kw">if</span> (<a id="136c13" class="tk">rtu_In4</a> <a id="136c21" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="137" id="137">
+<td>137</td><td>          <span class="ct">/* Transition: '&lt;S12&gt;:101' */</span></td></tr>
+<tr name="138" id="138">
+<td>138</td><td>          <span class="ct">/* Transition: '&lt;S12&gt;:128' */</span></td></tr>
+<tr name="139" id="139">
+<td>139</td><td>          <a id="139c11" class="tk">localB</a>-&gt;<a id="139c19" class="tk">type_of_fault</a> = 4U;</td></tr>
+<tr name="140" id="140">
+<td>140</td><td></td></tr>
+<tr name="141" id="141">
+<td>141</td><td>          <span class="ct">/* Transition: '&lt;S12&gt;:151' */</span></td></tr>
+<tr name="142" id="142">
+<td>142</td><td>          <span class="ct">/* Transition: '&lt;S12&gt;:156' */</span></td></tr>
+<tr name="143" id="143">
+<td>143</td><td>          <span class="ct">/* Transition: '&lt;S12&gt;:157' */</span></td></tr>
+<tr name="144" id="144">
+<td>144</td><td>          <span class="ct">/* Transition: '&lt;S12&gt;:136' */</span></td></tr>
+<tr name="145" id="145">
+<td>145</td><td>          <span class="ct">/* Transition: '&lt;S12&gt;:135' */</span></td></tr>
+<tr name="146" id="146">
+<td>146</td><td>          <span class="ct">/* Transition: '&lt;S12&gt;:177' */</span></td></tr>
+<tr name="147" id="147">
+<td>147</td><td>          <span class="ct">/* Transition: '&lt;S12&gt;:190' */</span></td></tr>
+<tr name="148" id="148">
+<td>148</td><td>          <span class="ct">/* Transition: '&lt;S12&gt;:189' */</span></td></tr>
+<tr name="149" id="149">
+<td>149</td><td>        <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="150" id="150">
+<td>150</td><td>          <span class="ct">/* Transition: '&lt;S12&gt;:109' */</span></td></tr>
+<tr name="151" id="151">
+<td>151</td><td>          <span class="kw">if</span> (<a id="151c15" class="tk">rtu_In5</a> <a id="151c23" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="152" id="152">
+<td>152</td><td>            <span class="ct">/* Transition: '&lt;S12&gt;:105' */</span></td></tr>
+<tr name="153" id="153">
+<td>153</td><td>            <span class="ct">/* Transition: '&lt;S12&gt;:129' */</span></td></tr>
+<tr name="154" id="154">
+<td>154</td><td>            <a id="154c13" class="tk">localB</a>-&gt;<a id="154c21" class="tk">type_of_fault</a> = 5U;</td></tr>
+<tr name="155" id="155">
+<td>155</td><td></td></tr>
+<tr name="156" id="156">
+<td>156</td><td>            <span class="ct">/* Transition: '&lt;S12&gt;:156' */</span></td></tr>
+<tr name="157" id="157">
+<td>157</td><td>            <span class="ct">/* Transition: '&lt;S12&gt;:157' */</span></td></tr>
+<tr name="158" id="158">
+<td>158</td><td>            <span class="ct">/* Transition: '&lt;S12&gt;:136' */</span></td></tr>
+<tr name="159" id="159">
+<td>159</td><td>            <span class="ct">/* Transition: '&lt;S12&gt;:135' */</span></td></tr>
+<tr name="160" id="160">
+<td>160</td><td>            <span class="ct">/* Transition: '&lt;S12&gt;:177' */</span></td></tr>
+<tr name="161" id="161">
+<td>161</td><td>            <span class="ct">/* Transition: '&lt;S12&gt;:190' */</span></td></tr>
+<tr name="162" id="162">
+<td>162</td><td>            <span class="ct">/* Transition: '&lt;S12&gt;:189' */</span></td></tr>
+<tr name="163" id="163">
+<td>163</td><td>          <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="164" id="164">
+<td>164</td><td>            <span class="ct">/* Transition: '&lt;S12&gt;:122' */</span></td></tr>
+<tr name="165" id="165">
+<td>165</td><td>            <span class="kw">if</span> (<a id="165c17" class="tk">rtu_In6</a> <a id="165c25" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="166" id="166">
+<td>166</td><td>              <span class="ct">/* Transition: '&lt;S12&gt;:111' */</span></td></tr>
+<tr name="167" id="167">
+<td>167</td><td>              <span class="ct">/* Transition: '&lt;S12&gt;:130' */</span></td></tr>
+<tr name="168" id="168">
+<td>168</td><td>              <a id="168c15" class="tk">localB</a>-&gt;<a id="168c23" class="tk">type_of_fault</a> = 6U;</td></tr>
+<tr name="169" id="169">
+<td>169</td><td></td></tr>
+<tr name="170" id="170">
+<td>170</td><td>              <span class="ct">/* Transition: '&lt;S12&gt;:157' */</span></td></tr>
+<tr name="171" id="171">
+<td>171</td><td>              <span class="ct">/* Transition: '&lt;S12&gt;:136' */</span></td></tr>
+<tr name="172" id="172">
+<td>172</td><td>              <span class="ct">/* Transition: '&lt;S12&gt;:135' */</span></td></tr>
+<tr name="173" id="173">
+<td>173</td><td>              <span class="ct">/* Transition: '&lt;S12&gt;:177' */</span></td></tr>
+<tr name="174" id="174">
+<td>174</td><td>              <span class="ct">/* Transition: '&lt;S12&gt;:190' */</span></td></tr>
+<tr name="175" id="175">
+<td>175</td><td>              <span class="ct">/* Transition: '&lt;S12&gt;:189' */</span></td></tr>
+<tr name="176" id="176">
+<td>176</td><td>            <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="177" id="177">
+<td>177</td><td>              <span class="ct">/* Transition: '&lt;S12&gt;:123' */</span></td></tr>
+<tr name="178" id="178">
+<td>178</td><td>              <span class="kw">if</span> (<a id="178c19" class="tk">rtu_In7</a> <a id="178c27" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="179" id="179">
+<td>179</td><td>                <span class="ct">/* Transition: '&lt;S12&gt;:114' */</span></td></tr>
+<tr name="180" id="180">
+<td>180</td><td>                <span class="ct">/* Transition: '&lt;S12&gt;:131' */</span></td></tr>
+<tr name="181" id="181">
+<td>181</td><td>                <a id="181c17" class="tk">localB</a>-&gt;<a id="181c25" class="tk">type_of_fault</a> = 7U;</td></tr>
+<tr name="182" id="182">
+<td>182</td><td></td></tr>
+<tr name="183" id="183">
+<td>183</td><td>                <span class="ct">/* Transition: '&lt;S12&gt;:136' */</span></td></tr>
+<tr name="184" id="184">
+<td>184</td><td>                <span class="ct">/* Transition: '&lt;S12&gt;:135' */</span></td></tr>
+<tr name="185" id="185">
+<td>185</td><td>                <span class="ct">/* Transition: '&lt;S12&gt;:177' */</span></td></tr>
+<tr name="186" id="186">
+<td>186</td><td>                <span class="ct">/* Transition: '&lt;S12&gt;:190' */</span></td></tr>
+<tr name="187" id="187">
+<td>187</td><td>                <span class="ct">/* Transition: '&lt;S12&gt;:189' */</span></td></tr>
+<tr name="188" id="188">
+<td>188</td><td>              <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="189" id="189">
+<td>189</td><td>                <span class="ct">/* Transition: '&lt;S12&gt;:124' */</span></td></tr>
+<tr name="190" id="190">
+<td>190</td><td>                <span class="kw">if</span> (<a id="190c21" class="tk">rtu_In8</a> <a id="190c29" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="191" id="191">
+<td>191</td><td>                  <span class="ct">/* Transition: '&lt;S12&gt;:118' */</span></td></tr>
+<tr name="192" id="192">
+<td>192</td><td>                  <span class="ct">/* Transition: '&lt;S12&gt;:132' */</span></td></tr>
+<tr name="193" id="193">
+<td>193</td><td>                  <a id="193c19" class="tk">localB</a>-&gt;<a id="193c27" class="tk">type_of_fault</a> = 8U;</td></tr>
+<tr name="194" id="194">
+<td>194</td><td></td></tr>
+<tr name="195" id="195">
+<td>195</td><td>                  <span class="ct">/* Transition: '&lt;S12&gt;:135' */</span></td></tr>
+<tr name="196" id="196">
+<td>196</td><td>                  <span class="ct">/* Transition: '&lt;S12&gt;:177' */</span></td></tr>
+<tr name="197" id="197">
+<td>197</td><td>                  <span class="ct">/* Transition: '&lt;S12&gt;:190' */</span></td></tr>
+<tr name="198" id="198">
+<td>198</td><td>                  <span class="ct">/* Transition: '&lt;S12&gt;:189' */</span></td></tr>
+<tr name="199" id="199">
+<td>199</td><td>                <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="200" id="200">
+<td>200</td><td>                  <span class="ct">/* Transition: '&lt;S12&gt;:125' */</span></td></tr>
+<tr name="201" id="201">
+<td>201</td><td>                  <span class="kw">if</span> (<a id="201c23" class="tk">rtu_In9</a> <a id="201c31" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="202" id="202">
+<td>202</td><td>                    <span class="ct">/* Transition: '&lt;S12&gt;:121' */</span></td></tr>
+<tr name="203" id="203">
+<td>203</td><td>                    <span class="ct">/* Transition: '&lt;S12&gt;:133' */</span></td></tr>
+<tr name="204" id="204">
+<td>204</td><td>                    <a id="204c21" class="tk">localB</a>-&gt;<a id="204c29" class="tk">type_of_fault</a> = 9U;</td></tr>
+<tr name="205" id="205">
+<td>205</td><td></td></tr>
+<tr name="206" id="206">
+<td>206</td><td>                    <span class="ct">/* Transition: '&lt;S12&gt;:177' */</span></td></tr>
+<tr name="207" id="207">
+<td>207</td><td>                    <span class="ct">/* Transition: '&lt;S12&gt;:190' */</span></td></tr>
+<tr name="208" id="208">
+<td>208</td><td>                    <span class="ct">/* Transition: '&lt;S12&gt;:189' */</span></td></tr>
+<tr name="209" id="209">
+<td>209</td><td>                  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="210" id="210">
+<td>210</td><td>                    <span class="ct">/* Transition: '&lt;S12&gt;:174' */</span></td></tr>
+<tr name="211" id="211">
+<td>211</td><td>                    <span class="kw">if</span> (<a id="211c25" class="tk">rtu_In10</a> <a id="211c34" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="212" id="212">
+<td>212</td><td>                      <span class="ct">/* Transition: '&lt;S12&gt;:176' */</span></td></tr>
+<tr name="213" id="213">
+<td>213</td><td>                      <span class="ct">/* Transition: '&lt;S12&gt;:175' */</span></td></tr>
+<tr name="214" id="214">
+<td>214</td><td>                      <a id="214c23" class="tk">localB</a>-&gt;<a id="214c31" class="tk">type_of_fault</a> = 10U;</td></tr>
+<tr name="215" id="215">
+<td>215</td><td></td></tr>
+<tr name="216" id="216">
+<td>216</td><td>                      <span class="ct">/* Transition: '&lt;S12&gt;:190' */</span></td></tr>
+<tr name="217" id="217">
+<td>217</td><td>                      <span class="ct">/* Transition: '&lt;S12&gt;:189' */</span></td></tr>
+<tr name="218" id="218">
+<td>218</td><td>                    <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="219" id="219">
+<td>219</td><td>                      <span class="ct">/* Transition: '&lt;S12&gt;:187' */</span></td></tr>
+<tr name="220" id="220">
+<td>220</td><td>                      <span class="kw">if</span> (<a id="220c27" class="tk">rtu_In11</a> <a id="220c36" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="221" id="221">
+<td>221</td><td>                        <span class="ct">/* Transition: '&lt;S12&gt;:185' */</span></td></tr>
+<tr name="222" id="222">
+<td>222</td><td>                        <span class="ct">/* Transition: '&lt;S12&gt;:186' */</span></td></tr>
+<tr name="223" id="223">
+<td>223</td><td>                        <a id="223c25" class="tk">localB</a>-&gt;<a id="223c33" class="tk">type_of_fault</a> = 11U;</td></tr>
+<tr name="224" id="224">
+<td>224</td><td></td></tr>
+<tr name="225" id="225">
+<td>225</td><td>                        <span class="ct">/* Transition: '&lt;S12&gt;:189' */</span></td></tr>
+<tr name="226" id="226">
+<td>226</td><td>                      <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="227" id="227">
+<td>227</td><td>                        <span class="ct">/* Transition: '&lt;S12&gt;:188' */</span></td></tr>
+<tr name="228" id="228">
+<td>228</td><td>                        <span class="ct">/* Transition: '&lt;S12&gt;:165' */</span></td></tr>
+<tr name="229" id="229">
+<td>229</td><td>                        <a id="229c25" class="tk">localB</a>-&gt;<a id="229c33" class="tk">type_of_fault</a> = 0U;</td></tr>
+<tr name="230" id="230">
+<td>230</td><td>                      <span class="br">}</span></td></tr>
+<tr name="231" id="231">
+<td>231</td><td>                    <span class="br">}</span></td></tr>
+<tr name="232" id="232">
+<td>232</td><td>                  <span class="br">}</span></td></tr>
+<tr name="233" id="233">
+<td>233</td><td>                <span class="br">}</span></td></tr>
+<tr name="234" id="234">
+<td>234</td><td>              <span class="br">}</span></td></tr>
+<tr name="235" id="235">
+<td>235</td><td>            <span class="br">}</span></td></tr>
+<tr name="236" id="236">
+<td>236</td><td>          <span class="br">}</span></td></tr>
+<tr name="237" id="237">
+<td>237</td><td>        <span class="br">}</span></td></tr>
+<tr name="238" id="238">
+<td>238</td><td>      <span class="br">}</span></td></tr>
+<tr name="239" id="239">
+<td>239</td><td>    <span class="br">}</span></td></tr>
+<tr name="240" id="240">
+<td>240</td><td>  <span class="br">}</span></td></tr>
+<tr name="241" id="241">
+<td>241</td><td></td></tr>
+<tr name="242" id="242">
+<td>242</td><td>  <span class="ct">/* End of Chart: '&lt;S5&gt;/check_faults' */</span></td></tr>
+<tr name="243" id="243">
+<td>243</td><td></td></tr>
+<tr name="244" id="244">
+<td>244</td><td>  <span class="ct">/* Outport: '&lt;Root&gt;/Fault Type' incorporates:</span></td></tr>
+<tr name="245" id="245">
+<td>245</td><td><span class="ct">   *  Outport: '&lt;S5&gt;/Out1'</span></td></tr>
+<tr name="246" id="246">
+<td>246</td><td><span class="ct">   */</span></td></tr>
+<tr name="247" id="247">
+<td>247</td><td>  <span class="ct">/* Transition: '&lt;S12&gt;:181' */</span></td></tr>
+<tr name="248" id="248">
+<td>248</td><td>  ((<a id="248c5" class="tk">uint8_T</a> <a id="248c13" class="tk">*</a>)<a id="248c15" class="tk">ssGetOutputPortSignal</a>(<a id="248c37" class="tk">S</a>, 7))[0] = <a id="248c49" class="tk">localB</a>-&gt;<a id="248c57" class="tk">type_of_fault</a>;</td></tr>
+<tr name="249" id="249">
+<td>249</td><td><span class="br">}</span></td></tr>
+<tr name="250" id="250">
+<td>250</td><td></td></tr>
+<tr name="251" id="251">
+<td>251</td><td><span class="ct">/* Termination for function-call system: '&lt;S1&gt;/check_type' */</span></td></tr>
+<tr name="252" id="252">
+<td>252</td><td><span class="kw">void</span> <a id="252c6" class="tk">BSC_check_type_Term</a>(<a id="252c26" class="tk">SimStruct</a> <a id="252c36" class="tk">*</a><span class="kw">const</span> <a id="252c43" class="tk">S</a>)</td></tr>
+<tr name="253" id="253">
+<td>253</td><td><span class="br">{</span></td></tr>
+<tr name="254" id="254">
+<td>254</td><td><span class="br">}</span></td></tr>
+<tr name="255" id="255">
+<td>255</td><td></td></tr>
+<tr name="256" id="256">
+<td>256</td><td><span class="ct">/* Output and update for function-call system: '&lt;S1&gt;/Fault_level' */</span></td></tr>
+<tr name="257" id="257">
+<td>257</td><td><span class="kw">void</span> <a id="257c6" class="tk">BSC_Fault_level</a>(<a id="257c22" class="tk">SimStruct</a> <a id="257c32" class="tk">*</a> <span class="kw">const</span> <a id="257c40" class="tk">S</a>)</td></tr>
+<tr name="258" id="258">
+<td>258</td><td><span class="br">{</span></td></tr>
+<tr name="259" id="259">
+<td>259</td><td>  <a id="259c3" class="tk">int8_T</a> <a id="259c10" class="tk">rtb_Compare_j</a>[7];</td></tr>
+<tr name="260" id="260">
+<td>260</td><td>  <a id="260c3" class="tk">int32_T</a> <a id="260c11" class="tk">i</a>;</td></tr>
+<tr name="261" id="261">
+<td>261</td><td>  <a id="261c3" class="tk">uint8_T</a> <a id="261c11" class="tk">rtb_Compare_c_idx_0</a>;</td></tr>
+<tr name="262" id="262">
+<td>262</td><td>  <a id="262c3" class="tk">B_BSC_T</a> <a id="262c11" class="tk">*</a><a id="262c12" class="tk">_rtB</a>;</td></tr>
+<tr name="263" id="263">
+<td>263</td><td>  <a id="263c3" class="tk">P_BSC_T</a> <a id="263c11" class="tk">*</a><a id="263c12" class="tk">_rtP</a>;</td></tr>
+<tr name="264" id="264">
+<td>264</td><td>  <a id="264c3" class="tk">_rtP</a> = ((<a id="264c12" class="tk">P_BSC_T</a> <a id="264c20" class="tk">*</a>) <a id="264c23" class="tk">ssGetLocalDefaultParam</a>(<a id="264c46" class="tk">S</a>));</td></tr>
+<tr name="265" id="265">
+<td>265</td><td>  <a id="265c3" class="tk">_rtB</a> = ((<a id="265c12" class="tk">B_BSC_T</a> <a id="265c20" class="tk">*</a>) <a id="265c23" class="tk">ssGetLocalBlockIO</a>(<a id="265c41" class="tk">S</a>));</td></tr>
+<tr name="266" id="266">
+<td>266</td><td></td></tr>
+<tr name="267" id="267">
+<td>267</td><td>  <span class="ct">/* RelationalOperator: '&lt;S10&gt;/Compare' incorporates:</span></td></tr>
+<tr name="268" id="268">
+<td>268</td><td><span class="ct">   *  Constant: '&lt;S10&gt;/Constant'</span></td></tr>
+<tr name="269" id="269">
+<td>269</td><td><span class="ct">   */</span></td></tr>
+<tr name="270" id="270">
+<td>270</td><td>  <a id="270c3" class="tk">rtb_Compare_c_idx_0</a> = (<a id="270c26" class="tk">uint8_T</a>)(<a id="270c35" class="tk">_rtB</a>-&gt;<a id="270c41" class="tk">check_type</a>.<a id="270c52" class="tk">type_of_fault</a> <a id="270c66" class="tk">==</a></td></tr>
+<tr name="271" id="271">
+<td>271</td><td>    <a id="271c5" class="tk">_rtP</a>-&gt;<a id="271c11" class="tk">bscv_MediumFaultType</a>[0]);</td></tr>
+<tr name="272" id="272">
+<td>272</td><td></td></tr>
+<tr name="273" id="273">
+<td>273</td><td>  <span class="ct">/* RelationalOperator: '&lt;S11&gt;/Compare' incorporates:</span></td></tr>
+<tr name="274" id="274">
+<td>274</td><td><span class="ct">   *  Constant: '&lt;S11&gt;/Constant'</span></td></tr>
+<tr name="275" id="275">
+<td>275</td><td><span class="ct">   */</span></td></tr>
+<tr name="276" id="276">
+<td>276</td><td>  <span class="kw">for</span> (<a id="276c8" class="tk">i</a> = 0; <a id="276c15" class="tk">i</a> <a id="276c17" class="tk">&lt;</a> 7; <a id="276c22" class="tk">i</a><a id="276c23" class="tk">++</a>) <span class="br">{</span></td></tr>
+<tr name="277" id="277">
+<td>277</td><td>    <a id="277c5" class="tk">rtb_Compare_j</a>[<a id="277c19" class="tk">i</a>] = (<a id="277c25" class="tk">int8_T</a>)(<a id="277c33" class="tk">_rtB</a>-&gt;<a id="277c39" class="tk">check_type</a>.<a id="277c50" class="tk">type_of_fault</a> <a id="277c64" class="tk">==</a></td></tr>
+<tr name="278" id="278">
+<td>278</td><td>      <a id="278c7" class="tk">_rtP</a>-&gt;<a id="278c13" class="tk">bscv_LowFaultType</a>[<a id="278c31" class="tk">i</a>]);</td></tr>
+<tr name="279" id="279">
+<td>279</td><td>  <span class="br">}</span></td></tr>
+<tr name="280" id="280">
+<td>280</td><td></td></tr>
+<tr name="281" id="281">
+<td>281</td><td>  <span class="ct">/* End of RelationalOperator: '&lt;S11&gt;/Compare' */</span></td></tr>
+<tr name="282" id="282">
+<td>282</td><td></td></tr>
+<tr name="283" id="283">
+<td>283</td><td>  <span class="ct">/* MinMax: '&lt;S3&gt;/MinMax' incorporates:</span></td></tr>
+<tr name="284" id="284">
+<td>284</td><td><span class="ct">   *  Constant: '&lt;S9&gt;/Constant'</span></td></tr>
+<tr name="285" id="285">
+<td>285</td><td><span class="ct">   *  RelationalOperator: '&lt;S9&gt;/Compare'</span></td></tr>
+<tr name="286" id="286">
+<td>286</td><td><span class="ct">   */</span></td></tr>
+<tr name="287" id="287">
+<td>287</td><td>  <a id="287c3" class="tk">_rtB</a>-&gt;<a id="287c9" class="tk">MinMax</a> = (<a id="287c19" class="tk">uint8_T</a>)(<a id="287c28" class="tk">_rtB</a>-&gt;<a id="287c34" class="tk">check_type</a>.<a id="287c45" class="tk">type_of_fault</a> <a id="287c59" class="tk">==</a></td></tr>
+<tr name="288" id="288">
+<td>288</td><td>    <a id="288c5" class="tk">_rtP</a>-&gt;<a id="288c11" class="tk">bscv_SevereFaultType</a>);</td></tr>
+<tr name="289" id="289">
+<td>289</td><td></td></tr>
+<tr name="290" id="290">
+<td>290</td><td>  <span class="ct">/* MinMax: '&lt;S3&gt;/MinMax1' incorporates:</span></td></tr>
+<tr name="291" id="291">
+<td>291</td><td><span class="ct">   *  Constant: '&lt;S10&gt;/Constant'</span></td></tr>
+<tr name="292" id="292">
+<td>292</td><td><span class="ct">   *  RelationalOperator: '&lt;S10&gt;/Compare'</span></td></tr>
+<tr name="293" id="293">
+<td>293</td><td><span class="ct">   */</span></td></tr>
+<tr name="294" id="294">
+<td>294</td><td>  <span class="kw">if</span> (<a id="294c7" class="tk">!</a>(<a id="294c9" class="tk">rtb_Compare_c_idx_0</a> <a id="294c29" class="tk">&gt;=</a> (<a id="294c33" class="tk">_rtB</a>-&gt;<a id="294c39" class="tk">check_type</a>.<a id="294c50" class="tk">type_of_fault</a> <a id="294c64" class="tk">==</a></td></tr>
+<tr name="295" id="295">
+<td>295</td><td>        <a id="295c9" class="tk">_rtP</a>-&gt;<a id="295c15" class="tk">bscv_MediumFaultType</a>[1]))) <span class="br">{</span></td></tr>
+<tr name="296" id="296">
+<td>296</td><td>    <a id="296c5" class="tk">rtb_Compare_c_idx_0</a> = 1U;</td></tr>
+<tr name="297" id="297">
+<td>297</td><td>  <span class="br">}</span></td></tr>
+<tr name="298" id="298">
+<td>298</td><td></td></tr>
+<tr name="299" id="299">
+<td>299</td><td>  <span class="kw">if</span> (<a id="299c7" class="tk">!</a>(<a id="299c9" class="tk">rtb_Compare_c_idx_0</a> <a id="299c29" class="tk">&gt;=</a> (<a id="299c33" class="tk">_rtB</a>-&gt;<a id="299c39" class="tk">check_type</a>.<a id="299c50" class="tk">type_of_fault</a> <a id="299c64" class="tk">==</a></td></tr>
+<tr name="300" id="300">
+<td>300</td><td>        <a id="300c9" class="tk">_rtP</a>-&gt;<a id="300c15" class="tk">bscv_MediumFaultType</a>[2]))) <span class="br">{</span></td></tr>
+<tr name="301" id="301">
+<td>301</td><td>    <a id="301c5" class="tk">rtb_Compare_c_idx_0</a> = 1U;</td></tr>
+<tr name="302" id="302">
+<td>302</td><td>  <span class="br">}</span></td></tr>
+<tr name="303" id="303">
+<td>303</td><td></td></tr>
+<tr name="304" id="304">
+<td>304</td><td>  <a id="304c3" class="tk">_rtB</a>-&gt;<a id="304c9" class="tk">MinMax1</a> = <a id="304c19" class="tk">rtb_Compare_c_idx_0</a>;</td></tr>
+<tr name="305" id="305">
+<td>305</td><td></td></tr>
+<tr name="306" id="306">
+<td>306</td><td>  <span class="ct">/* End of MinMax: '&lt;S3&gt;/MinMax1' */</span></td></tr>
+<tr name="307" id="307">
+<td>307</td><td></td></tr>
+<tr name="308" id="308">
+<td>308</td><td>  <span class="ct">/* MinMax: '&lt;S3&gt;/MinMax2' */</span></td></tr>
+<tr name="309" id="309">
+<td>309</td><td>  <a id="309c3" class="tk">rtb_Compare_c_idx_0</a> = (<a id="309c26" class="tk">uint8_T</a>)<a id="309c34" class="tk">rtb_Compare_j</a>[0];</td></tr>
+<tr name="310" id="310">
+<td>310</td><td>  <span class="kw">for</span> (<a id="310c8" class="tk">i</a> = 0; <a id="310c15" class="tk">i</a> <a id="310c17" class="tk">&lt;</a> 6; <a id="310c22" class="tk">i</a><a id="310c23" class="tk">++</a>) <span class="br">{</span></td></tr>
+<tr name="311" id="311">
+<td>311</td><td>    <span class="kw">if</span> (<a id="311c9" class="tk">!</a>(<a id="311c11" class="tk">rtb_Compare_c_idx_0</a> <a id="311c31" class="tk">&gt;=</a> (<a id="311c35" class="tk">uint8_T</a>)<a id="311c43" class="tk">rtb_Compare_j</a>[<a id="311c57" class="tk">i</a> <a id="311c59" class="tk">+</a> 1])) <span class="br">{</span></td></tr>
+<tr name="312" id="312">
+<td>312</td><td>      <a id="312c7" class="tk">rtb_Compare_c_idx_0</a> = 1U;</td></tr>
+<tr name="313" id="313">
+<td>313</td><td>    <span class="br">}</span></td></tr>
+<tr name="314" id="314">
+<td>314</td><td>  <span class="br">}</span></td></tr>
+<tr name="315" id="315">
+<td>315</td><td></td></tr>
+<tr name="316" id="316">
+<td>316</td><td>  <a id="316c3" class="tk">_rtB</a>-&gt;<a id="316c9" class="tk">MinMax2</a> = <a id="316c19" class="tk">rtb_Compare_c_idx_0</a>;</td></tr>
+<tr name="317" id="317">
+<td>317</td><td></td></tr>
+<tr name="318" id="318">
+<td>318</td><td>  <span class="ct">/* End of MinMax: '&lt;S3&gt;/MinMax2' */</span></td></tr>
+<tr name="319" id="319">
+<td>319</td><td></td></tr>
+<tr name="320" id="320">
+<td>320</td><td>  <span class="ct">/* Outport: '&lt;S3&gt;/low level fault' */</span></td></tr>
+<tr name="321" id="321">
+<td>321</td><td>  ((<a id="321c5" class="tk">uint8_T</a> <a id="321c13" class="tk">*</a>)<a id="321c15" class="tk">ssGetOutputPortSignal</a>(<a id="321c37" class="tk">S</a>, 6))[0] = <a id="321c49" class="tk">_rtB</a>-&gt;<a id="321c55" class="tk">MinMax2</a>;</td></tr>
+<tr name="322" id="322">
+<td>322</td><td><span class="br">}</span></td></tr>
+<tr name="323" id="323">
+<td>323</td><td></td></tr>
+<tr name="324" id="324">
+<td>324</td><td><span class="ct">/* Termination for function-call system: '&lt;S1&gt;/Fault_level' */</span></td></tr>
+<tr name="325" id="325">
+<td>325</td><td><span class="kw">void</span> <a id="325c6" class="tk">BSC_Fault_level_Term</a>(<a id="325c27" class="tk">SimStruct</a> <a id="325c37" class="tk">*</a><span class="kw">const</span> <a id="325c44" class="tk">S</a>)</td></tr>
+<tr name="326" id="326">
+<td>326</td><td><span class="br">{</span></td></tr>
+<tr name="327" id="327">
+<td>327</td><td><span class="br">}</span></td></tr>
+<tr name="328" id="328">
+<td>328</td><td></td></tr>
+<tr name="329" id="329">
+<td>329</td><td><span class="ct">/* Function for Chart: '&lt;S6&gt;/key_cycle_chart' */</span></td></tr>
+<tr name="330" id="330">
+<td>330</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="330c13" class="tk">BSC_enter_internal_Key_ON</a>(<a id="330c39" class="tk">uint8_T</a> <a id="330c47" class="tk">rtu_med_fault</a>, <a id="330c62" class="tk">SimStruct</a> <a id="330c72" class="tk">*</a> <span class="kw">const</span> <a id="330c80" class="tk">S</a>,</td></tr>
+<tr name="331" id="331">
+<td>331</td><td>  <a id="331c3" class="tk">B_key_cycle_BSC_T</a> <a id="331c21" class="tk">*</a><a id="331c22" class="tk">localB</a>)</td></tr>
+<tr name="332" id="332">
+<td>332</td><td><span class="br">{</span></td></tr>
+<tr name="333" id="333">
+<td>333</td><td>  <a id="333c3" class="tk">int32_T</a> <a id="333c11" class="tk">tmp</a>;</td></tr>
+<tr name="334" id="334">
+<td>334</td><td></td></tr>
+<tr name="335" id="335">
+<td>335</td><td>  <span class="ct">/* Entry Internal 'Key_ON': '&lt;S13&gt;:17' */</span></td></tr>
+<tr name="336" id="336">
+<td>336</td><td>  <span class="ct">/* Transition: '&lt;S13&gt;:123' */</span></td></tr>
+<tr name="337" id="337">
+<td>337</td><td>  <span class="kw">if</span> ((((<a id="337c10" class="tk">int32_T</a> <a id="337c18" class="tk">*</a>)<a id="337c20" class="tk">ssGetDWork</a>(<a id="337c31" class="tk">S</a>, 2))[0] <a id="337c41" class="tk">==</a> <a id="337c44" class="tk">BSC_event_key_change</a>) <a id="337c66" class="tk">&amp;&amp;</a> (((<a id="337c72" class="tk">uint8_T</a> <a id="337c80" class="tk">*</a>)</td></tr>
+<tr name="338" id="338">
+<td>338</td><td>        <a id="338c9" class="tk">ssGetDWork</a>(<a id="338c20" class="tk">S</a>, 5))[0] <a id="338c30" class="tk">==</a> 0)) <span class="br">{</span></td></tr>
+<tr name="339" id="339">
+<td>339</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:124' */</span></td></tr>
+<tr name="340" id="340">
+<td>340</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:119' */</span></td></tr>
+<tr name="341" id="341">
+<td>341</td><td>    <a id="341c5" class="tk">tmp</a> = ((<a id="341c13" class="tk">uint8_T</a> <a id="341c21" class="tk">*</a>)<a id="341c23" class="tk">ssGetDWork</a>(<a id="341c34" class="tk">S</a>, 4))[0] <a id="341c44" class="tk">+</a> 1;</td></tr>
+<tr name="342" id="342">
+<td>342</td><td>    <span class="kw">if</span> (<a id="342c9" class="tk">tmp</a> <a id="342c13" class="tk">&gt;</a> 255) <span class="br">{</span></td></tr>
+<tr name="343" id="343">
+<td>343</td><td>      <a id="343c7" class="tk">tmp</a> = 255;</td></tr>
+<tr name="344" id="344">
+<td>344</td><td>    <span class="br">}</span></td></tr>
+<tr name="345" id="345">
+<td>345</td><td></td></tr>
+<tr name="346" id="346">
+<td>346</td><td>    ((<a id="346c7" class="tk">uint8_T</a> <a id="346c15" class="tk">*</a>)<a id="346c17" class="tk">ssGetDWork</a>(<a id="346c28" class="tk">S</a>, 4))[0] = (<a id="346c41" class="tk">uint8_T</a>)<a id="346c49" class="tk">tmp</a>;</td></tr>
+<tr name="347" id="347">
+<td>347</td><td></td></tr>
+<tr name="348" id="348">
+<td>348</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:129' */</span></td></tr>
+<tr name="349" id="349">
+<td>349</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="350" id="350">
+<td>350</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:120' */</span></td></tr>
+<tr name="351" id="351">
+<td>351</td><td>  <span class="br">}</span></td></tr>
+<tr name="352" id="352">
+<td>352</td><td></td></tr>
+<tr name="353" id="353">
+<td>353</td><td>  <span class="ct">/* Transition: '&lt;S13&gt;:115' */</span></td></tr>
+<tr name="354" id="354">
+<td>354</td><td>  <span class="kw">if</span> (((<a id="354c9" class="tk">uint8_T</a> <a id="354c17" class="tk">*</a>)<a id="354c19" class="tk">ssGetDWork</a>(<a id="354c30" class="tk">S</a>, 4))[0] <a id="354c40" class="tk">&gt;</a> 1) <span class="br">{</span></td></tr>
+<tr name="355" id="355">
+<td>355</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:131' */</span></td></tr>
+<tr name="356" id="356">
+<td>356</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:130' */</span></td></tr>
+<tr name="357" id="357">
+<td>357</td><td>    ((<a id="357c7" class="tk">uint8_T</a> <a id="357c15" class="tk">*</a>)<a id="357c17" class="tk">ssGetDWork</a>(<a id="357c28" class="tk">S</a>, 4))[0] = 1U;</td></tr>
+<tr name="358" id="358">
+<td>358</td><td></td></tr>
+<tr name="359" id="359">
+<td>359</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:132' */</span></td></tr>
+<tr name="360" id="360">
+<td>360</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="361" id="361">
+<td>361</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:133' */</span></td></tr>
+<tr name="362" id="362">
+<td>362</td><td>  <span class="br">}</span></td></tr>
+<tr name="363" id="363">
+<td>363</td><td></td></tr>
+<tr name="364" id="364">
+<td>364</td><td>  <span class="ct">/* Transition: '&lt;S13&gt;:139' */</span></td></tr>
+<tr name="365" id="365">
+<td>365</td><td>  <span class="ct">/* Transition: '&lt;S13&gt;:140' */</span></td></tr>
+<tr name="366" id="366">
+<td>366</td><td>  <span class="kw">if</span> (<a id="366c7" class="tk">rtu_med_fault</a> <a id="366c21" class="tk">==</a> 1) <span class="br">{</span></td></tr>
+<tr name="367" id="367">
+<td>367</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:105' */</span></td></tr>
+<tr name="368" id="368">
+<td>368</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:102' */</span></td></tr>
+<tr name="369" id="369">
+<td>369</td><td>    <a id="369c5" class="tk">localB</a>-&gt;<a id="369c13" class="tk">key_cycle</a> = 0U;</td></tr>
+<tr name="370" id="370">
+<td>370</td><td>    ((<a id="370c7" class="tk">uint8_T</a> <a id="370c15" class="tk">*</a>)<a id="370c17" class="tk">ssGetDWork</a>(<a id="370c28" class="tk">S</a>, 4))[0] = 0U;</td></tr>
+<tr name="371" id="371">
+<td>371</td><td>    ((<a id="371c7" class="tk">uint8_T</a> <a id="371c15" class="tk">*</a>)<a id="371c17" class="tk">ssGetDWork</a>(<a id="371c28" class="tk">S</a>, 3))[0] = 0U;</td></tr>
+<tr name="372" id="372">
+<td>372</td><td>    ((<a id="372c7" class="tk">uint8_T</a> <a id="372c15" class="tk">*</a>)<a id="372c17" class="tk">ssGetDWork</a>(<a id="372c28" class="tk">S</a>, 6))[0] = 1U;</td></tr>
+<tr name="373" id="373">
+<td>373</td><td></td></tr>
+<tr name="374" id="374">
+<td>374</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:103' */</span></td></tr>
+<tr name="375" id="375">
+<td>375</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="376" id="376">
+<td>376</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:110' */</span></td></tr>
+<tr name="377" id="377">
+<td>377</td><td>    <span class="kw">if</span> (((<a id="377c11" class="tk">uint8_T</a> <a id="377c19" class="tk">*</a>)<a id="377c21" class="tk">ssGetDWork</a>(<a id="377c32" class="tk">S</a>, 4))[0] <a id="377c42" class="tk">==</a> 1) <span class="br">{</span></td></tr>
+<tr name="378" id="378">
+<td>378</td><td>      <span class="ct">/* Transition: '&lt;S13&gt;:117' */</span></td></tr>
+<tr name="379" id="379">
+<td>379</td><td>      <span class="ct">/* Transition: '&lt;S13&gt;:126' */</span></td></tr>
+<tr name="380" id="380">
+<td>380</td><td>      <a id="380c7" class="tk">localB</a>-&gt;<a id="380c15" class="tk">key_cycle</a> = 1U;</td></tr>
+<tr name="381" id="381">
+<td>381</td><td></td></tr>
+<tr name="382" id="382">
+<td>382</td><td>      <span class="ct">/* Transition: '&lt;S13&gt;:125' */</span></td></tr>
+<tr name="383" id="383">
+<td>383</td><td>    <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="384" id="384">
+<td>384</td><td>      <span class="ct">/* Transition: '&lt;S13&gt;:114' */</span></td></tr>
+<tr name="385" id="385">
+<td>385</td><td>    <span class="br">}</span></td></tr>
+<tr name="386" id="386">
+<td>386</td><td></td></tr>
+<tr name="387" id="387">
+<td>387</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:111' */</span></td></tr>
+<tr name="388" id="388">
+<td>388</td><td>  <span class="br">}</span></td></tr>
+<tr name="389" id="389">
+<td>389</td><td></td></tr>
+<tr name="390" id="390">
+<td>390</td><td>  <span class="ct">/* Transition: '&lt;S13&gt;:108' */</span></td></tr>
+<tr name="391" id="391">
+<td>391</td><td><span class="br">}</span></td></tr>
+<tr name="392" id="392">
+<td>392</td><td></td></tr>
+<tr name="393" id="393">
+<td>393</td><td><span class="ct">/* Function for Chart: '&lt;S6&gt;/key_cycle_chart' */</span></td></tr>
+<tr name="394" id="394">
+<td>394</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="394c13" class="tk">BSC_enter_internal_Key_OFF</a>(<a id="394c40" class="tk">uint8_T</a> <a id="394c48" class="tk">rtu_med_fault</a>, <a id="394c63" class="tk">SimStruct</a> <a id="394c73" class="tk">*</a> <span class="kw">const</span></td></tr>
+<tr name="395" id="395">
+<td>395</td><td>  <a id="395c3" class="tk">S</a>, <a id="395c6" class="tk">B_key_cycle_BSC_T</a> <a id="395c24" class="tk">*</a><a id="395c25" class="tk">localB</a>)</td></tr>
+<tr name="396" id="396">
+<td>396</td><td><span class="br">{</span></td></tr>
+<tr name="397" id="397">
+<td>397</td><td>  <a id="397c3" class="tk">int32_T</a> <a id="397c11" class="tk">tmp</a>;</td></tr>
+<tr name="398" id="398">
+<td>398</td><td></td></tr>
+<tr name="399" id="399">
+<td>399</td><td>  <span class="ct">/* Entry Internal 'Key_OFF': '&lt;S13&gt;:14' */</span></td></tr>
+<tr name="400" id="400">
+<td>400</td><td>  <span class="ct">/* Transition: '&lt;S13&gt;:85' */</span></td></tr>
+<tr name="401" id="401">
+<td>401</td><td>  <span class="kw">if</span> ((((<a id="401c10" class="tk">int32_T</a> <a id="401c18" class="tk">*</a>)<a id="401c20" class="tk">ssGetDWork</a>(<a id="401c31" class="tk">S</a>, 2))[0] <a id="401c41" class="tk">==</a> <a id="401c44" class="tk">BSC_event_key_change</a>) <a id="401c66" class="tk">&amp;&amp;</a> (((<a id="401c72" class="tk">uint8_T</a> <a id="401c80" class="tk">*</a>)</td></tr>
+<tr name="402" id="402">
+<td>402</td><td>        <a id="402c9" class="tk">ssGetDWork</a>(<a id="402c20" class="tk">S</a>, 6))[0] <a id="402c30" class="tk">==</a> 0)) <span class="br">{</span></td></tr>
+<tr name="403" id="403">
+<td>403</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:80' */</span></td></tr>
+<tr name="404" id="404">
+<td>404</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:79' */</span></td></tr>
+<tr name="405" id="405">
+<td>405</td><td>    <a id="405c5" class="tk">tmp</a> = ((<a id="405c13" class="tk">uint8_T</a> <a id="405c21" class="tk">*</a>)<a id="405c23" class="tk">ssGetDWork</a>(<a id="405c34" class="tk">S</a>, 3))[0] <a id="405c44" class="tk">+</a> 1;</td></tr>
+<tr name="406" id="406">
+<td>406</td><td>    <span class="kw">if</span> (<a id="406c9" class="tk">tmp</a> <a id="406c13" class="tk">&gt;</a> 255) <span class="br">{</span></td></tr>
+<tr name="407" id="407">
+<td>407</td><td>      <a id="407c7" class="tk">tmp</a> = 255;</td></tr>
+<tr name="408" id="408">
+<td>408</td><td>    <span class="br">}</span></td></tr>
+<tr name="409" id="409">
+<td>409</td><td></td></tr>
+<tr name="410" id="410">
+<td>410</td><td>    ((<a id="410c7" class="tk">uint8_T</a> <a id="410c15" class="tk">*</a>)<a id="410c17" class="tk">ssGetDWork</a>(<a id="410c28" class="tk">S</a>, 3))[0] = (<a id="410c41" class="tk">uint8_T</a>)<a id="410c49" class="tk">tmp</a>;</td></tr>
+<tr name="411" id="411">
+<td>411</td><td></td></tr>
+<tr name="412" id="412">
+<td>412</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:81' */</span></td></tr>
+<tr name="413" id="413">
+<td>413</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="414" id="414">
+<td>414</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:82' */</span></td></tr>
+<tr name="415" id="415">
+<td>415</td><td>  <span class="br">}</span></td></tr>
+<tr name="416" id="416">
+<td>416</td><td></td></tr>
+<tr name="417" id="417">
+<td>417</td><td>  <span class="ct">/* Transition: '&lt;S13&gt;:88' */</span></td></tr>
+<tr name="418" id="418">
+<td>418</td><td>  <span class="kw">if</span> (((<a id="418c9" class="tk">uint8_T</a> <a id="418c17" class="tk">*</a>)<a id="418c19" class="tk">ssGetDWork</a>(<a id="418c30" class="tk">S</a>, 3))[0] <a id="418c40" class="tk">&gt;</a> 1) <span class="br">{</span></td></tr>
+<tr name="419" id="419">
+<td>419</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:68' */</span></td></tr>
+<tr name="420" id="420">
+<td>420</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:70' */</span></td></tr>
+<tr name="421" id="421">
+<td>421</td><td>    ((<a id="421c7" class="tk">uint8_T</a> <a id="421c15" class="tk">*</a>)<a id="421c17" class="tk">ssGetDWork</a>(<a id="421c28" class="tk">S</a>, 3))[0] = 1U;</td></tr>
+<tr name="422" id="422">
+<td>422</td><td></td></tr>
+<tr name="423" id="423">
+<td>423</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:71' */</span></td></tr>
+<tr name="424" id="424">
+<td>424</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="425" id="425">
+<td>425</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:69' */</span></td></tr>
+<tr name="426" id="426">
+<td>426</td><td>  <span class="br">}</span></td></tr>
+<tr name="427" id="427">
+<td>427</td><td></td></tr>
+<tr name="428" id="428">
+<td>428</td><td>  <span class="ct">/* Transition: '&lt;S13&gt;:72' */</span></td></tr>
+<tr name="429" id="429">
+<td>429</td><td>  <span class="ct">/* Transition: '&lt;S13&gt;:78' */</span></td></tr>
+<tr name="430" id="430">
+<td>430</td><td>  <span class="kw">if</span> (<a id="430c7" class="tk">rtu_med_fault</a> <a id="430c21" class="tk">==</a> 1) <span class="br">{</span></td></tr>
+<tr name="431" id="431">
+<td>431</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:35' */</span></td></tr>
+<tr name="432" id="432">
+<td>432</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:37' */</span></td></tr>
+<tr name="433" id="433">
+<td>433</td><td>    <a id="433c5" class="tk">localB</a>-&gt;<a id="433c13" class="tk">key_cycle</a> = 0U;</td></tr>
+<tr name="434" id="434">
+<td>434</td><td>    ((<a id="434c7" class="tk">uint8_T</a> <a id="434c15" class="tk">*</a>)<a id="434c17" class="tk">ssGetDWork</a>(<a id="434c28" class="tk">S</a>, 3))[0] = 0U;</td></tr>
+<tr name="435" id="435">
+<td>435</td><td>    ((<a id="435c7" class="tk">uint8_T</a> <a id="435c15" class="tk">*</a>)<a id="435c17" class="tk">ssGetDWork</a>(<a id="435c28" class="tk">S</a>, 4))[0] = 0U;</td></tr>
+<tr name="436" id="436">
+<td>436</td><td>    ((<a id="436c7" class="tk">uint8_T</a> <a id="436c15" class="tk">*</a>)<a id="436c17" class="tk">ssGetDWork</a>(<a id="436c28" class="tk">S</a>, 5))[0] = 1U;</td></tr>
+<tr name="437" id="437">
+<td>437</td><td></td></tr>
+<tr name="438" id="438">
+<td>438</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:38' */</span></td></tr>
+<tr name="439" id="439">
+<td>439</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="440" id="440">
+<td>440</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:99' */</span></td></tr>
+<tr name="441" id="441">
+<td>441</td><td>    <span class="kw">if</span> (((<a id="441c11" class="tk">uint8_T</a> <a id="441c19" class="tk">*</a>)<a id="441c21" class="tk">ssGetDWork</a>(<a id="441c32" class="tk">S</a>, 3))[0] <a id="441c42" class="tk">==</a> 1) <span class="br">{</span></td></tr>
+<tr name="442" id="442">
+<td>442</td><td>      <span class="ct">/* Transition: '&lt;S13&gt;:97' */</span></td></tr>
+<tr name="443" id="443">
+<td>443</td><td>      <span class="ct">/* Transition: '&lt;S13&gt;:92' */</span></td></tr>
+<tr name="444" id="444">
+<td>444</td><td>      <a id="444c7" class="tk">localB</a>-&gt;<a id="444c15" class="tk">key_cycle</a> = 1U;</td></tr>
+<tr name="445" id="445">
+<td>445</td><td></td></tr>
+<tr name="446" id="446">
+<td>446</td><td>      <span class="ct">/* Transition: '&lt;S13&gt;:98' */</span></td></tr>
+<tr name="447" id="447">
+<td>447</td><td>    <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="448" id="448">
+<td>448</td><td>      <span class="ct">/* Transition: '&lt;S13&gt;:93' */</span></td></tr>
+<tr name="449" id="449">
+<td>449</td><td>    <span class="br">}</span></td></tr>
+<tr name="450" id="450">
+<td>450</td><td></td></tr>
+<tr name="451" id="451">
+<td>451</td><td>    <span class="ct">/* Transition: '&lt;S13&gt;:100' */</span></td></tr>
+<tr name="452" id="452">
+<td>452</td><td>  <span class="br">}</span></td></tr>
+<tr name="453" id="453">
+<td>453</td><td></td></tr>
+<tr name="454" id="454">
+<td>454</td><td>  <span class="ct">/* Transition: '&lt;S13&gt;:39' */</span></td></tr>
+<tr name="455" id="455">
+<td>455</td><td><span class="br">}</span></td></tr>
+<tr name="456" id="456">
+<td>456</td><td></td></tr>
+<tr name="457" id="457">
+<td>457</td><td><span class="ct">/* Function for Chart: '&lt;S6&gt;/key_cycle_chart' */</span></td></tr>
+<tr name="458" id="458">
+<td>458</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="458c13" class="tk">BSC_chartstep_c1_BSC</a>(<a id="458c34" class="tk">uint8_T</a> <a id="458c42" class="tk">rtu_med_fault</a>, <a id="458c57" class="tk">SimStruct</a> <a id="458c67" class="tk">*</a> <span class="kw">const</span> <a id="458c75" class="tk">S</a>,</td></tr>
+<tr name="459" id="459">
+<td>459</td><td>  <a id="459c3" class="tk">B_key_cycle_BSC_T</a> <a id="459c21" class="tk">*</a><a id="459c22" class="tk">localB</a>)</td></tr>
+<tr name="460" id="460">
+<td>460</td><td><span class="br">{</span></td></tr>
+<tr name="461" id="461">
+<td>461</td><td>  <span class="ct">/* During: BSC/key_cycle/key_cycle_chart */</span></td></tr>
+<tr name="462" id="462">
+<td>462</td><td>  <span class="kw">if</span> (((<a id="462c9" class="tk">uint8_T</a> <a id="462c17" class="tk">*</a>)<a id="462c19" class="tk">ssGetDWork</a>(<a id="462c30" class="tk">S</a>, 8))[0] <a id="462c40" class="tk">==</a> 0U) <span class="br">{</span></td></tr>
+<tr name="463" id="463">
+<td>463</td><td>    <span class="ct">/* Entry: BSC/key_cycle/key_cycle_chart */</span></td></tr>
+<tr name="464" id="464">
+<td>464</td><td>    ((<a id="464c7" class="tk">uint8_T</a> <a id="464c15" class="tk">*</a>)<a id="464c17" class="tk">ssGetDWork</a>(<a id="464c28" class="tk">S</a>, 8))[0] = 1U;</td></tr>
+<tr name="465" id="465">
+<td>465</td><td></td></tr>
+<tr name="466" id="466">
+<td>466</td><td>    <span class="ct">/* Entry Internal: BSC/key_cycle/key_cycle_chart */</span></td></tr>
+<tr name="467" id="467">
+<td>467</td><td>    <span class="kw">if</span> (((<a id="467c11" class="tk">int32_T</a> <a id="467c19" class="tk">*</a>)<a id="467c21" class="tk">ssGetDWork</a>(<a id="467c32" class="tk">S</a>, 2))[0] <a id="467c42" class="tk">==</a> <a id="467c45" class="tk">BSC_event_key_change</a>) <span class="br">{</span></td></tr>
+<tr name="468" id="468">
+<td>468</td><td>      <span class="ct">/* Transition: '&lt;S13&gt;:59' */</span></td></tr>
+<tr name="469" id="469">
+<td>469</td><td>      ((<a id="469c9" class="tk">uint8_T</a> <a id="469c17" class="tk">*</a>)<a id="469c19" class="tk">ssGetDWork</a>(<a id="469c30" class="tk">S</a>, 7))[0] = <a id="469c42" class="tk">BSC_IN_Key_ON</a>;</td></tr>
+<tr name="470" id="470">
+<td>470</td><td></td></tr>
+<tr name="471" id="471">
+<td>471</td><td>      <span class="ct">/* Chart: '&lt;S6&gt;/key_cycle_chart' incorporates:</span></td></tr>
+<tr name="472" id="472">
+<td>472</td><td><span class="ct">       *  TriggerPort: '&lt;S13&gt;/input events'</span></td></tr>
+<tr name="473" id="473">
+<td>473</td><td><span class="ct">       */</span></td></tr>
+<tr name="474" id="474">
+<td>474</td><td>      <span class="ct">/* Entry 'Key_ON': '&lt;S13&gt;:17' */</span></td></tr>
+<tr name="475" id="475">
+<td>475</td><td>      <a id="475c7" class="tk">BSC_enter_internal_Key_ON</a>(<a id="475c33" class="tk">rtu_med_fault</a>, <a id="475c48" class="tk">S</a>, <a id="475c51" class="tk">localB</a>);</td></tr>
+<tr name="476" id="476">
+<td>476</td><td>    <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="477" id="477">
+<td>477</td><td>      <span class="ct">/* Transition: '&lt;S13&gt;:63' */</span></td></tr>
+<tr name="478" id="478">
+<td>478</td><td>      ((<a id="478c9" class="tk">uint8_T</a> <a id="478c17" class="tk">*</a>)<a id="478c19" class="tk">ssGetDWork</a>(<a id="478c30" class="tk">S</a>, 7))[0] = <a id="478c42" class="tk">BSC_IN_inital_key_off_fault</a>;</td></tr>
+<tr name="479" id="479">
+<td>479</td><td></td></tr>
+<tr name="480" id="480">
+<td>480</td><td>      <span class="ct">/* Entry 'inital_key_off_fault': '&lt;S13&gt;:62' */</span></td></tr>
+<tr name="481" id="481">
+<td>481</td><td>      <a id="481c7" class="tk">localB</a>-&gt;<a id="481c15" class="tk">key_cycle</a> = 0U;</td></tr>
+<tr name="482" id="482">
+<td>482</td><td>      ((<a id="482c9" class="tk">uint8_T</a> <a id="482c17" class="tk">*</a>)<a id="482c19" class="tk">ssGetDWork</a>(<a id="482c30" class="tk">S</a>, 5))[0] = 1U;</td></tr>
+<tr name="483" id="483">
+<td>483</td><td>    <span class="br">}</span></td></tr>
+<tr name="484" id="484">
+<td>484</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="485" id="485">
+<td>485</td><td>    <span class="kw">switch</span> (((<a id="485c15" class="tk">uint8_T</a> <a id="485c23" class="tk">*</a>)<a id="485c25" class="tk">ssGetDWork</a>(<a id="485c36" class="tk">S</a>, 7))[0]) <span class="br">{</span></td></tr>
+<tr name="486" id="486">
+<td>486</td><td>     <span class="kw">case</span> <a id="486c11" class="tk">BSC_IN_Key_OFF</a><a id="486c25" class="tk">:</a></td></tr>
+<tr name="487" id="487">
+<td>487</td><td>      <span class="ct">/* During 'Key_OFF': '&lt;S13&gt;:14' */</span></td></tr>
+<tr name="488" id="488">
+<td>488</td><td>      <span class="kw">if</span> (((<a id="488c13" class="tk">int32_T</a> <a id="488c21" class="tk">*</a>)<a id="488c23" class="tk">ssGetDWork</a>(<a id="488c34" class="tk">S</a>, 2))[0] <a id="488c44" class="tk">==</a> <a id="488c47" class="tk">BSC_event_key_change</a>) <span class="br">{</span></td></tr>
+<tr name="489" id="489">
+<td>489</td><td>        <span class="ct">/* Transition: '&lt;S13&gt;:15' */</span></td></tr>
+<tr name="490" id="490">
+<td>490</td><td>        <span class="ct">/* Exit 'Key_OFF': '&lt;S13&gt;:14' */</span></td></tr>
+<tr name="491" id="491">
+<td>491</td><td>        ((<a id="491c11" class="tk">uint8_T</a> <a id="491c19" class="tk">*</a>)<a id="491c21" class="tk">ssGetDWork</a>(<a id="491c32" class="tk">S</a>, 6))[0] = 0U;</td></tr>
+<tr name="492" id="492">
+<td>492</td><td>        ((<a id="492c11" class="tk">uint8_T</a> <a id="492c19" class="tk">*</a>)<a id="492c21" class="tk">ssGetDWork</a>(<a id="492c32" class="tk">S</a>, 7))[0] = <a id="492c44" class="tk">BSC_IN_Key_ON</a>;</td></tr>
+<tr name="493" id="493">
+<td>493</td><td></td></tr>
+<tr name="494" id="494">
+<td>494</td><td>        <span class="ct">/* Chart: '&lt;S6&gt;/key_cycle_chart' incorporates:</span></td></tr>
+<tr name="495" id="495">
+<td>495</td><td><span class="ct">         *  TriggerPort: '&lt;S13&gt;/input events'</span></td></tr>
+<tr name="496" id="496">
+<td>496</td><td><span class="ct">         */</span></td></tr>
+<tr name="497" id="497">
+<td>497</td><td>        <span class="ct">/* Entry 'Key_ON': '&lt;S13&gt;:17' */</span></td></tr>
+<tr name="498" id="498">
+<td>498</td><td>        <a id="498c9" class="tk">BSC_enter_internal_Key_ON</a>(<a id="498c35" class="tk">rtu_med_fault</a>, <a id="498c50" class="tk">S</a>, <a id="498c53" class="tk">localB</a>);</td></tr>
+<tr name="499" id="499">
+<td>499</td><td>      <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="500" id="500">
+<td>500</td><td>        <span class="kw">if</span> (((<a id="500c15" class="tk">int32_T</a> <a id="500c23" class="tk">*</a>)<a id="500c25" class="tk">ssGetDWork</a>(<a id="500c36" class="tk">S</a>, 2))[0] <a id="500c46" class="tk">==</a> <a id="500c49" class="tk">BSC_event_fault_change</a>) <span class="br">{</span></td></tr>
+<tr name="501" id="501">
+<td>501</td><td>          <span class="ct">/* Transition: '&lt;S13&gt;:65' */</span></td></tr>
+<tr name="502" id="502">
+<td>502</td><td>          <span class="ct">/* Exit 'Key_OFF': '&lt;S13&gt;:14' */</span></td></tr>
+<tr name="503" id="503">
+<td>503</td><td>          ((<a id="503c13" class="tk">uint8_T</a> <a id="503c21" class="tk">*</a>)<a id="503c23" class="tk">ssGetDWork</a>(<a id="503c34" class="tk">S</a>, 6))[0] = 0U;</td></tr>
+<tr name="504" id="504">
+<td>504</td><td>          ((<a id="504c13" class="tk">uint8_T</a> <a id="504c21" class="tk">*</a>)<a id="504c23" class="tk">ssGetDWork</a>(<a id="504c34" class="tk">S</a>, 7))[0] = <a id="504c46" class="tk">BSC_IN_Key_OFF</a>;</td></tr>
+<tr name="505" id="505">
+<td>505</td><td></td></tr>
+<tr name="506" id="506">
+<td>506</td><td>          <span class="ct">/* Chart: '&lt;S6&gt;/key_cycle_chart' incorporates:</span></td></tr>
+<tr name="507" id="507">
+<td>507</td><td><span class="ct">           *  TriggerPort: '&lt;S13&gt;/input events'</span></td></tr>
+<tr name="508" id="508">
+<td>508</td><td><span class="ct">           */</span></td></tr>
+<tr name="509" id="509">
+<td>509</td><td>          <span class="ct">/* Entry 'Key_OFF': '&lt;S13&gt;:14' */</span></td></tr>
+<tr name="510" id="510">
+<td>510</td><td>          <a id="510c11" class="tk">BSC_enter_internal_Key_OFF</a>(<a id="510c38" class="tk">rtu_med_fault</a>, <a id="510c53" class="tk">S</a>, <a id="510c56" class="tk">localB</a>);</td></tr>
+<tr name="511" id="511">
+<td>511</td><td>        <span class="br">}</span></td></tr>
+<tr name="512" id="512">
+<td>512</td><td>      <span class="br">}</span></td></tr>
+<tr name="513" id="513">
+<td>513</td><td>      <span class="kw">break</span>;</td></tr>
+<tr name="514" id="514">
+<td>514</td><td></td></tr>
+<tr name="515" id="515">
+<td>515</td><td>     <span class="kw">case</span> <a id="515c11" class="tk">BSC_IN_Key_ON</a><a id="515c24" class="tk">:</a></td></tr>
+<tr name="516" id="516">
+<td>516</td><td>      <span class="ct">/* During 'Key_ON': '&lt;S13&gt;:17' */</span></td></tr>
+<tr name="517" id="517">
+<td>517</td><td>      <span class="kw">if</span> (((<a id="517c13" class="tk">int32_T</a> <a id="517c21" class="tk">*</a>)<a id="517c23" class="tk">ssGetDWork</a>(<a id="517c34" class="tk">S</a>, 2))[0] <a id="517c44" class="tk">==</a> <a id="517c47" class="tk">BSC_event_key_change</a>) <span class="br">{</span></td></tr>
+<tr name="518" id="518">
+<td>518</td><td>        <span class="ct">/* Transition: '&lt;S13&gt;:11' */</span></td></tr>
+<tr name="519" id="519">
+<td>519</td><td>        <span class="ct">/* Exit 'Key_ON': '&lt;S13&gt;:17' */</span></td></tr>
+<tr name="520" id="520">
+<td>520</td><td>        ((<a id="520c11" class="tk">uint8_T</a> <a id="520c19" class="tk">*</a>)<a id="520c21" class="tk">ssGetDWork</a>(<a id="520c32" class="tk">S</a>, 5))[0] = 0U;</td></tr>
+<tr name="521" id="521">
+<td>521</td><td>        ((<a id="521c11" class="tk">uint8_T</a> <a id="521c19" class="tk">*</a>)<a id="521c21" class="tk">ssGetDWork</a>(<a id="521c32" class="tk">S</a>, 7))[0] = <a id="521c44" class="tk">BSC_IN_Key_OFF</a>;</td></tr>
+<tr name="522" id="522">
+<td>522</td><td></td></tr>
+<tr name="523" id="523">
+<td>523</td><td>        <span class="ct">/* Chart: '&lt;S6&gt;/key_cycle_chart' incorporates:</span></td></tr>
+<tr name="524" id="524">
+<td>524</td><td><span class="ct">         *  TriggerPort: '&lt;S13&gt;/input events'</span></td></tr>
+<tr name="525" id="525">
+<td>525</td><td><span class="ct">         */</span></td></tr>
+<tr name="526" id="526">
+<td>526</td><td>        <span class="ct">/* Entry 'Key_OFF': '&lt;S13&gt;:14' */</span></td></tr>
+<tr name="527" id="527">
+<td>527</td><td>        <a id="527c9" class="tk">BSC_enter_internal_Key_OFF</a>(<a id="527c36" class="tk">rtu_med_fault</a>, <a id="527c51" class="tk">S</a>, <a id="527c54" class="tk">localB</a>);</td></tr>
+<tr name="528" id="528">
+<td>528</td><td>      <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="529" id="529">
+<td>529</td><td>        <span class="kw">if</span> (((<a id="529c15" class="tk">int32_T</a> <a id="529c23" class="tk">*</a>)<a id="529c25" class="tk">ssGetDWork</a>(<a id="529c36" class="tk">S</a>, 2))[0] <a id="529c46" class="tk">==</a> <a id="529c49" class="tk">BSC_event_fault_change</a>) <span class="br">{</span></td></tr>
+<tr name="530" id="530">
+<td>530</td><td>          <span class="ct">/* Transition: '&lt;S13&gt;:66' */</span></td></tr>
+<tr name="531" id="531">
+<td>531</td><td>          <span class="ct">/* Exit 'Key_ON': '&lt;S13&gt;:17' */</span></td></tr>
+<tr name="532" id="532">
+<td>532</td><td>          ((<a id="532c13" class="tk">uint8_T</a> <a id="532c21" class="tk">*</a>)<a id="532c23" class="tk">ssGetDWork</a>(<a id="532c34" class="tk">S</a>, 5))[0] = 0U;</td></tr>
+<tr name="533" id="533">
+<td>533</td><td>          ((<a id="533c13" class="tk">uint8_T</a> <a id="533c21" class="tk">*</a>)<a id="533c23" class="tk">ssGetDWork</a>(<a id="533c34" class="tk">S</a>, 7))[0] = <a id="533c46" class="tk">BSC_IN_Key_ON</a>;</td></tr>
+<tr name="534" id="534">
+<td>534</td><td></td></tr>
+<tr name="535" id="535">
+<td>535</td><td>          <span class="ct">/* Chart: '&lt;S6&gt;/key_cycle_chart' incorporates:</span></td></tr>
+<tr name="536" id="536">
+<td>536</td><td><span class="ct">           *  TriggerPort: '&lt;S13&gt;/input events'</span></td></tr>
+<tr name="537" id="537">
+<td>537</td><td><span class="ct">           */</span></td></tr>
+<tr name="538" id="538">
+<td>538</td><td>          <span class="ct">/* Entry 'Key_ON': '&lt;S13&gt;:17' */</span></td></tr>
+<tr name="539" id="539">
+<td>539</td><td>          <a id="539c11" class="tk">BSC_enter_internal_Key_ON</a>(<a id="539c37" class="tk">rtu_med_fault</a>, <a id="539c52" class="tk">S</a>, <a id="539c55" class="tk">localB</a>);</td></tr>
+<tr name="540" id="540">
+<td>540</td><td>        <span class="br">}</span></td></tr>
+<tr name="541" id="541">
+<td>541</td><td>      <span class="br">}</span></td></tr>
+<tr name="542" id="542">
+<td>542</td><td>      <span class="kw">break</span>;</td></tr>
+<tr name="543" id="543">
+<td>543</td><td></td></tr>
+<tr name="544" id="544">
+<td>544</td><td>     <span class="kw">default</span><a id="544c13" class="tk">:</a></td></tr>
+<tr name="545" id="545">
+<td>545</td><td>      <span class="ct">/* During 'inital_key_off_fault': '&lt;S13&gt;:62' */</span></td></tr>
+<tr name="546" id="546">
+<td>546</td><td>      <span class="kw">if</span> (((<a id="546c13" class="tk">int32_T</a> <a id="546c21" class="tk">*</a>)<a id="546c23" class="tk">ssGetDWork</a>(<a id="546c34" class="tk">S</a>, 2))[0] <a id="546c44" class="tk">==</a> <a id="546c47" class="tk">BSC_event_key_change</a>) <span class="br">{</span></td></tr>
+<tr name="547" id="547">
+<td>547</td><td>        <span class="ct">/* Transition: '&lt;S13&gt;:64' */</span></td></tr>
+<tr name="548" id="548">
+<td>548</td><td>        ((<a id="548c11" class="tk">uint8_T</a> <a id="548c19" class="tk">*</a>)<a id="548c21" class="tk">ssGetDWork</a>(<a id="548c32" class="tk">S</a>, 7))[0] = <a id="548c44" class="tk">BSC_IN_Key_ON</a>;</td></tr>
+<tr name="549" id="549">
+<td>549</td><td></td></tr>
+<tr name="550" id="550">
+<td>550</td><td>        <span class="ct">/* Chart: '&lt;S6&gt;/key_cycle_chart' incorporates:</span></td></tr>
+<tr name="551" id="551">
+<td>551</td><td><span class="ct">         *  TriggerPort: '&lt;S13&gt;/input events'</span></td></tr>
+<tr name="552" id="552">
+<td>552</td><td><span class="ct">         */</span></td></tr>
+<tr name="553" id="553">
+<td>553</td><td>        <span class="ct">/* Entry 'Key_ON': '&lt;S13&gt;:17' */</span></td></tr>
+<tr name="554" id="554">
+<td>554</td><td>        <a id="554c9" class="tk">BSC_enter_internal_Key_ON</a>(<a id="554c35" class="tk">rtu_med_fault</a>, <a id="554c50" class="tk">S</a>, <a id="554c53" class="tk">localB</a>);</td></tr>
+<tr name="555" id="555">
+<td>555</td><td>      <span class="br">}</span></td></tr>
+<tr name="556" id="556">
+<td>556</td><td>      <span class="kw">break</span>;</td></tr>
+<tr name="557" id="557">
+<td>557</td><td>    <span class="br">}</span></td></tr>
+<tr name="558" id="558">
+<td>558</td><td>  <span class="br">}</span></td></tr>
+<tr name="559" id="559">
+<td>559</td><td><span class="br">}</span></td></tr>
+<tr name="560" id="560">
+<td>560</td><td></td></tr>
+<tr name="561" id="561">
+<td>561</td><td><span class="ct">/* Initial conditions for function-call system: '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="562" id="562">
+<td>562</td><td><span class="kw">void</span> <a id="562c6" class="tk">BSC_key_cycle_Init</a>(<a id="562c25" class="tk">SimStruct</a> <a id="562c35" class="tk">*</a> <span class="kw">const</span> <a id="562c43" class="tk">S</a>, <a id="562c46" class="tk">B_key_cycle_BSC_T</a> <a id="562c64" class="tk">*</a><a id="562c65" class="tk">localB</a>)</td></tr>
+<tr name="563" id="563">
+<td>563</td><td><span class="br">{</span></td></tr>
+<tr name="564" id="564">
+<td>564</td><td>  <span class="ct">/* InitializeConditions for Chart: '&lt;S6&gt;/key_cycle_chart' */</span></td></tr>
+<tr name="565" id="565">
+<td>565</td><td>  ((<a id="565c5" class="tk">uint8_T</a> <a id="565c13" class="tk">*</a>)<a id="565c15" class="tk">ssGetDWork</a>(<a id="565c26" class="tk">S</a>, 8))[0] = 0U;</td></tr>
+<tr name="566" id="566">
+<td>566</td><td>  ((<a id="566c5" class="tk">uint8_T</a> <a id="566c13" class="tk">*</a>)<a id="566c15" class="tk">ssGetDWork</a>(<a id="566c26" class="tk">S</a>, 7))[0] = <a id="566c38" class="tk">BSC_IN_NO_ACTIVE_CHILD_f</a>;</td></tr>
+<tr name="567" id="567">
+<td>567</td><td>  ((<a id="567c5" class="tk">uint8_T</a> <a id="567c13" class="tk">*</a>)<a id="567c15" class="tk">ssGetDWork</a>(<a id="567c26" class="tk">S</a>, 3))[0] = 0U;</td></tr>
+<tr name="568" id="568">
+<td>568</td><td>  ((<a id="568c5" class="tk">uint8_T</a> <a id="568c13" class="tk">*</a>)<a id="568c15" class="tk">ssGetDWork</a>(<a id="568c26" class="tk">S</a>, 4))[0] = 0U;</td></tr>
+<tr name="569" id="569">
+<td>569</td><td>  ((<a id="569c5" class="tk">uint8_T</a> <a id="569c13" class="tk">*</a>)<a id="569c15" class="tk">ssGetDWork</a>(<a id="569c26" class="tk">S</a>, 5))[0] = 0U;</td></tr>
+<tr name="570" id="570">
+<td>570</td><td>  ((<a id="570c5" class="tk">uint8_T</a> <a id="570c13" class="tk">*</a>)<a id="570c15" class="tk">ssGetDWork</a>(<a id="570c26" class="tk">S</a>, 6))[0] = 0U;</td></tr>
+<tr name="571" id="571">
+<td>571</td><td>  <a id="571c3" class="tk">localB</a>-&gt;<a id="571c11" class="tk">key_cycle</a> = 1U;</td></tr>
+<tr name="572" id="572">
+<td>572</td><td><span class="br">}</span></td></tr>
+<tr name="573" id="573">
+<td>573</td><td></td></tr>
+<tr name="574" id="574">
+<td>574</td><td><span class="ct">/* Output and update for function-call system: '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="575" id="575">
+<td>575</td><td><span class="kw">void</span> <a id="575c6" class="tk">BSC_key_cycle</a>(<a id="575c20" class="tk">SimStruct</a> <a id="575c30" class="tk">*</a> <span class="kw">const</span> <a id="575c38" class="tk">S</a>, <a id="575c41" class="tk">uint8_T</a> <a id="575c49" class="tk">rtu_med_fault</a>, <a id="575c64" class="tk">uint8_T</a> <a id="575c72" class="tk">rtu_key</a>,</td></tr>
+<tr name="576" id="576">
+<td>576</td><td>                   <a id="576c20" class="tk">B_key_cycle_BSC_T</a> <a id="576c38" class="tk">*</a><a id="576c39" class="tk">localB</a>, <a id="576c47" class="tk">ZCE_key_cycle_BSC_T</a> <a id="576c67" class="tk">*</a><a id="576c68" class="tk">localZCE</a>)</td></tr>
+<tr name="577" id="577">
+<td>577</td><td><span class="br">{</span></td></tr>
+<tr name="578" id="578">
+<td>578</td><td>  <a id="578c3" class="tk">boolean_T</a> <a id="578c13" class="tk">zcEvent_idx_0</a>;</td></tr>
+<tr name="579" id="579">
+<td>579</td><td>  <a id="579c3" class="tk">boolean_T</a> <a id="579c13" class="tk">zcEvent_idx_1</a>;</td></tr>
+<tr name="580" id="580">
+<td>580</td><td></td></tr>
+<tr name="581" id="581">
+<td>581</td><td>  <span class="ct">/* Chart: '&lt;S6&gt;/key_cycle_chart' incorporates:</span></td></tr>
+<tr name="582" id="582">
+<td>582</td><td><span class="ct">   *  TriggerPort: '&lt;S13&gt;/input events'</span></td></tr>
+<tr name="583" id="583">
+<td>583</td><td><span class="ct">   */</span></td></tr>
+<tr name="584" id="584">
+<td>584</td><td>  <a id="584c3" class="tk">zcEvent_idx_0</a> = (((<a id="584c22" class="tk">rtu_key</a> <a id="584c30" class="tk">&gt;</a> 0) <a id="584c35" class="tk">!=</a> (<a id="584c39" class="tk">localZCE</a>-&gt;<a id="584c49" class="tk">key_cycle_chart_Trig_ZCE</a>[0] <a id="584c77" class="tk">==</a></td></tr>
+<tr name="585" id="585">
+<td>585</td><td>    <a id="585c5" class="tk">POS_ZCSIG</a>)) <a id="585c17" class="tk">&amp;&amp;</a> (<a id="585c21" class="tk">localZCE</a>-&gt;<a id="585c31" class="tk">key_cycle_chart_Trig_ZCE</a>[0] <a id="585c59" class="tk">!=</a> <a id="585c62" class="tk">UNINITIALIZED_ZCSIG</a>));</td></tr>
+<tr name="586" id="586">
+<td>586</td><td>  <a id="586c3" class="tk">zcEvent_idx_1</a> = (((<a id="586c22" class="tk">rtu_med_fault</a> <a id="586c36" class="tk">&gt;</a> 0) <a id="586c41" class="tk">!=</a> (<a id="586c45" class="tk">localZCE</a>-&gt;<a id="586c55" class="tk">key_cycle_chart_Trig_ZCE</a>[1]</td></tr>
+<tr name="587" id="587">
+<td>587</td><td>    <a id="587c5" class="tk">==</a> <a id="587c8" class="tk">POS_ZCSIG</a>)) <a id="587c20" class="tk">&amp;&amp;</a> (<a id="587c24" class="tk">localZCE</a>-&gt;<a id="587c34" class="tk">key_cycle_chart_Trig_ZCE</a>[1] <a id="587c62" class="tk">!=</a></td></tr>
+<tr name="588" id="588">
+<td>588</td><td>                       <a id="588c24" class="tk">UNINITIALIZED_ZCSIG</a>));</td></tr>
+<tr name="589" id="589">
+<td>589</td><td>  <span class="kw">if</span> (<a id="589c7" class="tk">zcEvent_idx_0</a> <a id="589c21" class="tk">||</a> <a id="589c24" class="tk">zcEvent_idx_1</a>) <span class="br">{</span></td></tr>
+<tr name="590" id="590">
+<td>590</td><td>    <span class="ct">/* Gateway: BSC/key_cycle/key_cycle_chart */</span></td></tr>
+<tr name="591" id="591">
+<td>591</td><td>    <span class="kw">if</span> ((<a id="591c10" class="tk">int8_T</a>)(<a id="591c18" class="tk">zcEvent_idx_0</a> <a id="591c32" class="tk">?</a> <a id="591c34" class="tk">rtu_key</a> <a id="591c42" class="tk">&gt;</a> 0 <a id="591c46" class="tk">?</a> <a id="591c48" class="tk">RISING_ZCEVENT</a> <a id="591c63" class="tk">:</a> <a id="591c65" class="tk">FALLING_ZCEVENT</a> <a id="591c81" class="tk">:</a></td></tr>
+<tr name="592" id="592">
+<td>592</td><td>                 <a id="592c18" class="tk">NO_ZCEVENT</a>) <a id="592c30" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="593" id="593">
+<td>593</td><td>      <span class="ct">/* Event: '&lt;S13&gt;:8' */</span></td></tr>
+<tr name="594" id="594">
+<td>594</td><td>      ((<a id="594c9" class="tk">int32_T</a> <a id="594c17" class="tk">*</a>)<a id="594c19" class="tk">ssGetDWork</a>(<a id="594c30" class="tk">S</a>, 2))[0] = <a id="594c42" class="tk">BSC_event_key_change</a>;</td></tr>
+<tr name="595" id="595">
+<td>595</td><td>      <a id="595c7" class="tk">BSC_chartstep_c1_BSC</a>(<a id="595c28" class="tk">rtu_med_fault</a>, <a id="595c43" class="tk">S</a>, <a id="595c46" class="tk">localB</a>);</td></tr>
+<tr name="596" id="596">
+<td>596</td><td>    <span class="br">}</span></td></tr>
+<tr name="597" id="597">
+<td>597</td><td></td></tr>
+<tr name="598" id="598">
+<td>598</td><td>    <span class="kw">if</span> ((<a id="598c10" class="tk">int8_T</a>)(<a id="598c18" class="tk">zcEvent_idx_1</a> <a id="598c32" class="tk">?</a> <a id="598c34" class="tk">rtu_med_fault</a> <a id="598c48" class="tk">&gt;</a> 0 <a id="598c52" class="tk">?</a> <a id="598c54" class="tk">RISING_ZCEVENT</a> <a id="598c69" class="tk">:</a></td></tr>
+<tr name="599" id="599">
+<td>599</td><td>                 <a id="599c18" class="tk">FALLING_ZCEVENT</a> <a id="599c34" class="tk">:</a> <a id="599c36" class="tk">NO_ZCEVENT</a>) <a id="599c48" class="tk">!=</a> 0) <span class="br">{</span></td></tr>
+<tr name="600" id="600">
+<td>600</td><td>      <span class="ct">/* Event: '&lt;S13&gt;:56' */</span></td></tr>
+<tr name="601" id="601">
+<td>601</td><td>      ((<a id="601c9" class="tk">int32_T</a> <a id="601c17" class="tk">*</a>)<a id="601c19" class="tk">ssGetDWork</a>(<a id="601c30" class="tk">S</a>, 2))[0] = <a id="601c42" class="tk">BSC_event_fault_change</a>;</td></tr>
+<tr name="602" id="602">
+<td>602</td><td>      <a id="602c7" class="tk">BSC_chartstep_c1_BSC</a>(<a id="602c28" class="tk">rtu_med_fault</a>, <a id="602c43" class="tk">S</a>, <a id="602c46" class="tk">localB</a>);</td></tr>
+<tr name="603" id="603">
+<td>603</td><td>    <span class="br">}</span></td></tr>
+<tr name="604" id="604">
+<td>604</td><td>  <span class="br">}</span></td></tr>
+<tr name="605" id="605">
+<td>605</td><td></td></tr>
+<tr name="606" id="606">
+<td>606</td><td>  <a id="606c3" class="tk">localZCE</a>-&gt;<a id="606c13" class="tk">key_cycle_chart_Trig_ZCE</a>[0] = (<a id="606c44" class="tk">uint8_T</a>)(<a id="606c53" class="tk">rtu_key</a> <a id="606c61" class="tk">&gt;</a> 0);</td></tr>
+<tr name="607" id="607">
+<td>607</td><td>  <a id="607c3" class="tk">localZCE</a>-&gt;<a id="607c13" class="tk">key_cycle_chart_Trig_ZCE</a>[1] = (<a id="607c44" class="tk">uint8_T</a>)(<a id="607c53" class="tk">rtu_med_fault</a> <a id="607c67" class="tk">&gt;</a> 0);</td></tr>
+<tr name="608" id="608">
+<td>608</td><td><span class="br">}</span></td></tr>
+<tr name="609" id="609">
+<td>609</td><td></td></tr>
+<tr name="610" id="610">
+<td>610</td><td><span class="ct">/* Termination for function-call system: '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="611" id="611">
+<td>611</td><td><span class="kw">void</span> <a id="611c6" class="tk">BSC_key_cycle_Term</a>(<a id="611c25" class="tk">SimStruct</a> <a id="611c35" class="tk">*</a><span class="kw">const</span> <a id="611c42" class="tk">S</a>)</td></tr>
+<tr name="612" id="612">
+<td>612</td><td><span class="br">{</span></td></tr>
+<tr name="613" id="613">
+<td>613</td><td><span class="br">}</span></td></tr>
+<tr name="614" id="614">
+<td>614</td><td></td></tr>
+<tr name="615" id="615">
+<td>615</td><td><span class="ct">/* Output and update for function-call system: '&lt;S1&gt;/sleepCheck' */</span></td></tr>
+<tr name="616" id="616">
+<td>616</td><td><span class="kw">void</span> <a id="616c6" class="tk">BSC_sleepCheck</a>(<a id="616c21" class="tk">SimStruct</a> <a id="616c31" class="tk">*</a> <span class="kw">const</span> <a id="616c39" class="tk">S</a>)</td></tr>
+<tr name="617" id="617">
+<td>617</td><td><span class="br">{</span></td></tr>
+<tr name="618" id="618">
+<td>618</td><td>  <span class="ct">/* Logic: '&lt;S8&gt;/Logical Operator3' incorporates:</span></td></tr>
+<tr name="619" id="619">
+<td>619</td><td><span class="ct">   *  Constant: '&lt;S17&gt;/Constant'</span></td></tr>
+<tr name="620" id="620">
+<td>620</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Charger PSR'</span></td></tr>
+<tr name="621" id="621">
+<td>621</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/SOC'</span></td></tr>
+<tr name="622" id="622">
+<td>622</td><td><span class="ct">   *  RelationalOperator: '&lt;S17&gt;/Compare'</span></td></tr>
+<tr name="623" id="623">
+<td>623</td><td><span class="ct">   */</span></td></tr>
+<tr name="624" id="624">
+<td>624</td><td>  ((<a id="624c5" class="tk">B_BSC_T</a> <a id="624c13" class="tk">*</a>) <a id="624c16" class="tk">ssGetLocalBlockIO</a>(<a id="624c34" class="tk">S</a>))-&gt;<a id="624c39" class="tk">LogicalOperator3</a> = ((<a id="624c60" class="tk">*</a>((<span class="kw">const</span> <a id="624c69" class="tk">uint8_T</a> <a id="624c77" class="tk">*</a><a id="624c78" class="tk">*</a>)</td></tr>
+<tr name="625" id="625">
+<td>625</td><td>    <a id="625c5" class="tk">ssGetInputPortSignalPtrs</a>(<a id="625c30" class="tk">S</a>, 1))[0] <a id="625c40" class="tk">!=</a> 0) <a id="625c46" class="tk">&amp;&amp;</a> (<a id="625c50" class="tk">*</a>((<span class="kw">const</span> <a id="625c59" class="tk">real_T</a> <a id="625c66" class="tk">*</a><a id="625c67" class="tk">*</a>)</td></tr>
+<tr name="626" id="626">
+<td>626</td><td>    <a id="626c5" class="tk">ssGetInputPortSignalPtrs</a>(<a id="626c30" class="tk">S</a>, 3))[0] <a id="626c40" class="tk">&gt;=</a> 95.0));</td></tr>
+<tr name="627" id="627">
+<td>627</td><td></td></tr>
+<tr name="628" id="628">
+<td>628</td><td>  <span class="ct">/* Outport: '&lt;S8&gt;/Sleep Mode' */</span></td></tr>
+<tr name="629" id="629">
+<td>629</td><td>  ((<a id="629c5" class="tk">boolean_T</a> <a id="629c15" class="tk">*</a>)<a id="629c17" class="tk">ssGetOutputPortSignal</a>(<a id="629c39" class="tk">S</a>, 3))[0] = ((<a id="629c53" class="tk">B_BSC_T</a> <a id="629c61" class="tk">*</a>) <a id="629c64" class="tk">ssGetLocalBlockIO</a></td></tr>
+<tr name="630" id="630">
+<td>630</td><td>    (<a id="630c6" class="tk">S</a>))-&gt;<a id="630c11" class="tk">LogicalOperator3</a>;</td></tr>
+<tr name="631" id="631">
+<td>631</td><td><span class="br">}</span></td></tr>
+<tr name="632" id="632">
+<td>632</td><td></td></tr>
+<tr name="633" id="633">
+<td>633</td><td><span class="ct">/* Termination for function-call system: '&lt;S1&gt;/sleepCheck' */</span></td></tr>
+<tr name="634" id="634">
+<td>634</td><td><span class="kw">void</span> <a id="634c6" class="tk">BSC_sleepCheck_Term</a>(<a id="634c26" class="tk">SimStruct</a> <a id="634c36" class="tk">*</a><span class="kw">const</span> <a id="634c43" class="tk">S</a>)</td></tr>
+<tr name="635" id="635">
+<td>635</td><td><span class="br">{</span></td></tr>
+<tr name="636" id="636">
+<td>636</td><td><span class="br">}</span></td></tr>
+<tr name="637" id="637">
+<td>637</td><td></td></tr>
+<tr name="638" id="638">
+<td>638</td><td><span class="ct">/* Output and update for function-call system: '&lt;S1&gt;/cc_c  md' */</span></td></tr>
+<tr name="639" id="639">
+<td>639</td><td><span class="kw">void</span> <a id="639c6" class="tk">BSC_cc_cmd</a>(<a id="639c17" class="tk">SimStruct</a> <a id="639c27" class="tk">*</a> <span class="kw">const</span> <a id="639c35" class="tk">S</a>)</td></tr>
+<tr name="640" id="640">
+<td>640</td><td><span class="br">{</span></td></tr>
+<tr name="641" id="641">
+<td>641</td><td>  <a id="641c3" class="tk">B_BSC_T</a> <a id="641c11" class="tk">*</a><a id="641c12" class="tk">_rtB</a>;</td></tr>
+<tr name="642" id="642">
+<td>642</td><td>  <a id="642c3" class="tk">_rtB</a> = ((<a id="642c12" class="tk">B_BSC_T</a> <a id="642c20" class="tk">*</a>) <a id="642c23" class="tk">ssGetLocalBlockIO</a>(<a id="642c41" class="tk">S</a>));</td></tr>
+<tr name="643" id="643">
+<td>643</td><td></td></tr>
+<tr name="644" id="644">
+<td>644</td><td>  <span class="ct">/* Logic: '&lt;S4&gt;/Logical Operator16' incorporates:</span></td></tr>
+<tr name="645" id="645">
+<td>645</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Charger PSR'</span></td></tr>
+<tr name="646" id="646">
+<td>646</td><td><span class="ct">   *  Logic: '&lt;S4&gt;/Logical Operator1'</span></td></tr>
+<tr name="647" id="647">
+<td>647</td><td><span class="ct">   *  Logic: '&lt;S4&gt;/Logical Operator7'</span></td></tr>
+<tr name="648" id="648">
+<td>648</td><td><span class="ct">   */</span></td></tr>
+<tr name="649" id="649">
+<td>649</td><td>  ((<a id="649c5" class="tk">B_BSC_T</a> <a id="649c13" class="tk">*</a>) <a id="649c16" class="tk">ssGetLocalBlockIO</a>(<a id="649c34" class="tk">S</a>))-&gt;<a id="649c39" class="tk">LogicalOperator16</a> = ((<a id="649c61" class="tk">*</a>((<span class="kw">const</span> <a id="649c70" class="tk">uint8_T</a> <a id="649c78" class="tk">*</a><a id="649c79" class="tk">*</a>)</td></tr>
+<tr name="650" id="650">
+<td>650</td><td>    <a id="650c5" class="tk">ssGetInputPortSignalPtrs</a>(<a id="650c30" class="tk">S</a>, 1))[0] <a id="650c40" class="tk">!=</a> 0) <a id="650c46" class="tk">&amp;&amp;</a> (<a id="650c50" class="tk">_rtB</a>-&gt;<a id="650c56" class="tk">key_cycle</a>.<a id="650c66" class="tk">key_cycle</a> <a id="650c76" class="tk">!=</a> 0)</td></tr>
+<tr name="651" id="651">
+<td>651</td><td>    <a id="651c5" class="tk">&amp;&amp;</a> (<a id="651c9" class="tk">!</a>((<a id="651c12" class="tk">B_BSC_T</a> <a id="651c20" class="tk">*</a>) <a id="651c23" class="tk">ssGetLocalBlockIO</a>(<a id="651c41" class="tk">S</a>))-&gt;<a id="651c46" class="tk">LogicalOperator3</a>) <a id="651c64" class="tk">&amp;&amp;</a></td></tr>
+<tr name="652" id="652">
+<td>652</td><td>    (<a id="652c6" class="tk">!</a>(<a id="652c8" class="tk">_rtB</a>-&gt;<a id="652c14" class="tk">MinMax</a> <a id="652c21" class="tk">!=</a> 0)));</td></tr>
+<tr name="653" id="653">
+<td>653</td><td></td></tr>
+<tr name="654" id="654">
+<td>654</td><td>  <span class="ct">/* Logic: '&lt;S4&gt;/Logical Operator2' incorporates:</span></td></tr>
+<tr name="655" id="655">
+<td>655</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Vehicle PSR'</span></td></tr>
+<tr name="656" id="656">
+<td>656</td><td><span class="ct">   *  Logic: '&lt;S4&gt;/Logical Operator8'</span></td></tr>
+<tr name="657" id="657">
+<td>657</td><td><span class="ct">   */</span></td></tr>
+<tr name="658" id="658">
+<td>658</td><td>  ((<a id="658c5" class="tk">B_BSC_T</a> <a id="658c13" class="tk">*</a>) <a id="658c16" class="tk">ssGetLocalBlockIO</a>(<a id="658c34" class="tk">S</a>))-&gt;<a id="658c39" class="tk">LogicalOperator2</a> = ((<a id="658c60" class="tk">*</a>((<span class="kw">const</span> <a id="658c69" class="tk">uint8_T</a> <a id="658c77" class="tk">*</a><a id="658c78" class="tk">*</a>)</td></tr>
+<tr name="659" id="659">
+<td>659</td><td>    <a id="659c5" class="tk">ssGetInputPortSignalPtrs</a>(<a id="659c30" class="tk">S</a>, 0))[0] <a id="659c40" class="tk">!=</a> 0) <a id="659c46" class="tk">&amp;&amp;</a> (<a id="659c50" class="tk">_rtB</a>-&gt;<a id="659c56" class="tk">key_cycle</a>.<a id="659c66" class="tk">key_cycle</a> <a id="659c76" class="tk">!=</a> 0)</td></tr>
+<tr name="660" id="660">
+<td>660</td><td>    <a id="660c5" class="tk">&amp;&amp;</a> (<a id="660c9" class="tk">!</a>(<a id="660c11" class="tk">_rtB</a>-&gt;<a id="660c17" class="tk">MinMax</a> <a id="660c24" class="tk">!=</a> 0)));</td></tr>
+<tr name="661" id="661">
+<td>661</td><td></td></tr>
+<tr name="662" id="662">
+<td>662</td><td>  <span class="ct">/* Outport: '&lt;S4&gt;/main_cc_cmd' */</span></td></tr>
+<tr name="663" id="663">
+<td>663</td><td>  ((<a id="663c5" class="tk">boolean_T</a> <a id="663c15" class="tk">*</a>)<a id="663c17" class="tk">ssGetOutputPortSignal</a>(<a id="663c39" class="tk">S</a>, 1))[0] = ((<a id="663c53" class="tk">B_BSC_T</a> <a id="663c61" class="tk">*</a>) <a id="663c64" class="tk">ssGetLocalBlockIO</a></td></tr>
+<tr name="664" id="664">
+<td>664</td><td>    (<a id="664c6" class="tk">S</a>))-&gt;<a id="664c11" class="tk">LogicalOperator2</a>;</td></tr>
+<tr name="665" id="665">
+<td>665</td><td></td></tr>
+<tr name="666" id="666">
+<td>666</td><td>  <span class="ct">/* Outport: '&lt;S4&gt;/chg_cc_cmd' */</span></td></tr>
+<tr name="667" id="667">
+<td>667</td><td>  ((<a id="667c5" class="tk">boolean_T</a> <a id="667c15" class="tk">*</a>)<a id="667c17" class="tk">ssGetOutputPortSignal</a>(<a id="667c39" class="tk">S</a>, 2))[0] = ((<a id="667c53" class="tk">B_BSC_T</a> <a id="667c61" class="tk">*</a>) <a id="667c64" class="tk">ssGetLocalBlockIO</a></td></tr>
+<tr name="668" id="668">
+<td>668</td><td>    (<a id="668c6" class="tk">S</a>))-&gt;<a id="668c11" class="tk">LogicalOperator16</a>;</td></tr>
+<tr name="669" id="669">
+<td>669</td><td><span class="br">}</span></td></tr>
+<tr name="670" id="670">
+<td>670</td><td></td></tr>
+<tr name="671" id="671">
+<td>671</td><td><span class="ct">/* Termination for function-call system: '&lt;S1&gt;/cc_c  md' */</span></td></tr>
+<tr name="672" id="672">
+<td>672</td><td><span class="kw">void</span> <a id="672c6" class="tk">BSC_cc_cmd_Term</a>(<a id="672c22" class="tk">SimStruct</a> <a id="672c32" class="tk">*</a><span class="kw">const</span> <a id="672c39" class="tk">S</a>)</td></tr>
+<tr name="673" id="673">
+<td>673</td><td><span class="br">{</span></td></tr>
+<tr name="674" id="674">
+<td>674</td><td><span class="br">}</span></td></tr>
+<tr name="675" id="675">
+<td>675</td><td></td></tr>
+<tr name="676" id="676">
+<td>676</td><td><span class="ct">/* Output and update for function-call system: '&lt;S1&gt;/rsnToOpenCC' */</span></td></tr>
+<tr name="677" id="677">
+<td>677</td><td><span class="kw">void</span> <a id="677c6" class="tk">BSC_rsnToOpenCC</a>(<a id="677c22" class="tk">SimStruct</a> <a id="677c32" class="tk">*</a> <span class="kw">const</span> <a id="677c40" class="tk">S</a>)</td></tr>
+<tr name="678" id="678">
+<td>678</td><td><span class="br">{</span></td></tr>
+<tr name="679" id="679">
+<td>679</td><td>  <a id="679c3" class="tk">B_BSC_T</a> <a id="679c11" class="tk">*</a><a id="679c12" class="tk">_rtB</a>;</td></tr>
+<tr name="680" id="680">
+<td>680</td><td>  <a id="680c3" class="tk">PrevZCX_BSC_T</a> <a id="680c17" class="tk">*</a><a id="680c18" class="tk">_rtZCE</a>;</td></tr>
+<tr name="681" id="681">
+<td>681</td><td>  <a id="681c3" class="tk">_rtZCE</a> = ((<a id="681c14" class="tk">PrevZCX_BSC_T</a> <a id="681c28" class="tk">*</a>) <a id="681c31" class="tk">_ssGetPrevZCSigState</a>(<a id="681c52" class="tk">S</a>));</td></tr>
+<tr name="682" id="682">
+<td>682</td><td>  <a id="682c3" class="tk">_rtB</a> = ((<a id="682c12" class="tk">B_BSC_T</a> <a id="682c20" class="tk">*</a>) <a id="682c23" class="tk">ssGetLocalBlockIO</a>(<a id="682c41" class="tk">S</a>));</td></tr>
+<tr name="683" id="683">
+<td>683</td><td></td></tr>
+<tr name="684" id="684">
+<td>684</td><td>  <span class="ct">/* Sum: '&lt;S7&gt;/Add' */</span></td></tr>
+<tr name="685" id="685">
+<td>685</td><td>  <a id="685c3" class="tk">_rtB</a>-&gt;<a id="685c9" class="tk">Add</a> = (<a id="685c16" class="tk">uint8_T</a>)((<a id="685c26" class="tk">uint32_T</a>)<a id="685c35" class="tk">_rtB</a>-&gt;<a id="685c41" class="tk">MinMax</a> <a id="685c48" class="tk">+</a> <a id="685c50" class="tk">_rtB</a>-&gt;<a id="685c56" class="tk">MinMax1</a>);</td></tr>
+<tr name="686" id="686">
+<td>686</td><td></td></tr>
+<tr name="687" id="687">
+<td>687</td><td>  <span class="ct">/* Outputs for Triggered SubSystem: '&lt;S7&gt;/Triggered Subsystem' incorporates:</span></td></tr>
+<tr name="688" id="688">
+<td>688</td><td><span class="ct">   *  TriggerPort: '&lt;S14&gt;/Trigger'</span></td></tr>
+<tr name="689" id="689">
+<td>689</td><td><span class="ct">   */</span></td></tr>
+<tr name="690" id="690">
+<td>690</td><td>  <span class="kw">if</span> (((<a id="690c9" class="tk">_rtB</a>-&gt;<a id="690c15" class="tk">key_cycle</a>.<a id="690c25" class="tk">key_cycle</a> <a id="690c35" class="tk">&gt;</a> 0) <a id="690c40" class="tk">!=</a> (<a id="690c44" class="tk">_rtZCE</a>-&gt;<a id="690c52" class="tk">TriggeredSubsystem_Trig_ZCE</a> <a id="690c80" class="tk">==</a></td></tr>
+<tr name="691" id="691">
+<td>691</td><td>        <a id="691c9" class="tk">POS_ZCSIG</a>)) <a id="691c21" class="tk">&amp;&amp;</a> (<a id="691c25" class="tk">_rtZCE</a>-&gt;<a id="691c33" class="tk">TriggeredSubsystem_Trig_ZCE</a> <a id="691c61" class="tk">!=</a></td></tr>
+<tr name="692" id="692">
+<td>692</td><td>                        <a id="692c25" class="tk">UNINITIALIZED_ZCSIG</a>)) <span class="br">{</span></td></tr>
+<tr name="693" id="693">
+<td>693</td><td>    <span class="ct">/* If: '&lt;S14&gt;/If' incorporates:</span></td></tr>
+<tr name="694" id="694">
+<td>694</td><td><span class="ct">     *  Constant: '&lt;S14&gt;/Constant'</span></td></tr>
+<tr name="695" id="695">
+<td>695</td><td><span class="ct">     *  Inport: '&lt;S15&gt;/In1'</span></td></tr>
+<tr name="696" id="696">
+<td>696</td><td><span class="ct">     *  Inport: '&lt;S16&gt;/In1'</span></td></tr>
+<tr name="697" id="697">
+<td>697</td><td><span class="ct">     */</span></td></tr>
+<tr name="698" id="698">
+<td>698</td><td>    <span class="kw">if</span> (<a id="698c9" class="tk">_rtB</a>-&gt;<a id="698c15" class="tk">Add</a> <a id="698c19" class="tk">&gt;</a> 0) <span class="br">{</span></td></tr>
+<tr name="699" id="699">
+<td>699</td><td>      <span class="ct">/* Outputs for IfAction SubSystem: '&lt;S14&gt;/If Action Subsystem' incorporates:</span></td></tr>
+<tr name="700" id="700">
+<td>700</td><td><span class="ct">       *  ActionPort: '&lt;S15&gt;/Action Port'</span></td></tr>
+<tr name="701" id="701">
+<td>701</td><td><span class="ct">       */</span></td></tr>
+<tr name="702" id="702">
+<td>702</td><td>      <a id="702c7" class="tk">_rtB</a>-&gt;<a id="702c13" class="tk">Merge</a> = <a id="702c21" class="tk">_rtB</a>-&gt;<a id="702c27" class="tk">check_type</a>.<a id="702c38" class="tk">type_of_fault</a>;</td></tr>
+<tr name="703" id="703">
+<td>703</td><td></td></tr>
+<tr name="704" id="704">
+<td>704</td><td>      <span class="ct">/* End of Outputs for SubSystem: '&lt;S14&gt;/If Action Subsystem' */</span></td></tr>
+<tr name="705" id="705">
+<td>705</td><td>    <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="706" id="706">
+<td>706</td><td>      <span class="ct">/* Outputs for IfAction SubSystem: '&lt;S14&gt;/If Action Subsystem' incorporates:</span></td></tr>
+<tr name="707" id="707">
+<td>707</td><td><span class="ct">       *  ActionPort: '&lt;S15&gt;/Action Port'</span></td></tr>
+<tr name="708" id="708">
+<td>708</td><td><span class="ct">       */</span></td></tr>
+<tr name="709" id="709">
+<td>709</td><td>      <span class="ct">/* Outputs for IfAction SubSystem: '&lt;S14&gt;/If Action Subsystem1' incorporates:</span></td></tr>
+<tr name="710" id="710">
+<td>710</td><td><span class="ct">       *  ActionPort: '&lt;S16&gt;/Action Port'</span></td></tr>
+<tr name="711" id="711">
+<td>711</td><td><span class="ct">       */</span></td></tr>
+<tr name="712" id="712">
+<td>712</td><td>      <a id="712c7" class="tk">_rtB</a>-&gt;<a id="712c13" class="tk">Merge</a> = 0U;</td></tr>
+<tr name="713" id="713">
+<td>713</td><td></td></tr>
+<tr name="714" id="714">
+<td>714</td><td>      <span class="ct">/* End of Outputs for SubSystem: '&lt;S14&gt;/If Action Subsystem1' */</span></td></tr>
+<tr name="715" id="715">
+<td>715</td><td>      <span class="ct">/* End of Outputs for SubSystem: '&lt;S14&gt;/If Action Subsystem' */</span></td></tr>
+<tr name="716" id="716">
+<td>716</td><td>    <span class="br">}</span></td></tr>
+<tr name="717" id="717">
+<td>717</td><td></td></tr>
+<tr name="718" id="718">
+<td>718</td><td>    <span class="ct">/* End of If: '&lt;S14&gt;/If' */</span></td></tr>
+<tr name="719" id="719">
+<td>719</td><td>  <span class="br">}</span></td></tr>
+<tr name="720" id="720">
+<td>720</td><td></td></tr>
+<tr name="721" id="721">
+<td>721</td><td>  <a id="721c3" class="tk">_rtZCE</a>-&gt;<a id="721c11" class="tk">TriggeredSubsystem_Trig_ZCE</a> = (<a id="721c42" class="tk">uint8_T</a>)(<a id="721c51" class="tk">_rtB</a>-&gt;<a id="721c57" class="tk">key_cycle</a>.<a id="721c67" class="tk">key_cycle</a> <a id="721c77" class="tk">&gt;</a> 0);</td></tr>
+<tr name="722" id="722">
+<td>722</td><td></td></tr>
+<tr name="723" id="723">
+<td>723</td><td>  <span class="ct">/* End of Outputs for SubSystem: '&lt;S7&gt;/Triggered Subsystem' */</span></td></tr>
+<tr name="724" id="724">
+<td>724</td><td></td></tr>
+<tr name="725" id="725">
+<td>725</td><td>  <span class="ct">/* Outport: '&lt;Root&gt;/Reason to open contactor to CAN' incorporates:</span></td></tr>
+<tr name="726" id="726">
+<td>726</td><td><span class="ct">   *  Outport: '&lt;S7&gt;/reason_to_open_contactor'</span></td></tr>
+<tr name="727" id="727">
+<td>727</td><td><span class="ct">   */</span></td></tr>
+<tr name="728" id="728">
+<td>728</td><td>  ((<a id="728c5" class="tk">uint8_T</a> <a id="728c13" class="tk">*</a>)<a id="728c15" class="tk">ssGetOutputPortSignal</a>(<a id="728c37" class="tk">S</a>, 4))[0] = <a id="728c49" class="tk">_rtB</a>-&gt;<a id="728c55" class="tk">Merge</a>;</td></tr>
+<tr name="729" id="729">
+<td>729</td><td></td></tr>
+<tr name="730" id="730">
+<td>730</td><td>  <span class="ct">/* Outport: '&lt;S7&gt;/severe//med fault' */</span></td></tr>
+<tr name="731" id="731">
+<td>731</td><td>  ((<a id="731c5" class="tk">uint8_T</a> <a id="731c13" class="tk">*</a>)<a id="731c15" class="tk">ssGetOutputPortSignal</a>(<a id="731c37" class="tk">S</a>, 5))[0] = <a id="731c49" class="tk">_rtB</a>-&gt;<a id="731c55" class="tk">Add</a>;</td></tr>
+<tr name="732" id="732">
+<td>732</td><td><span class="br">}</span></td></tr>
+<tr name="733" id="733">
+<td>733</td><td></td></tr>
+<tr name="734" id="734">
+<td>734</td><td><span class="ct">/* Termination for function-call system: '&lt;S1&gt;/rsnToOpenCC' */</span></td></tr>
+<tr name="735" id="735">
+<td>735</td><td><span class="kw">void</span> <a id="735c6" class="tk">BSC_rsnToOpenCC_Term</a>(<a id="735c27" class="tk">SimStruct</a> <a id="735c37" class="tk">*</a><span class="kw">const</span> <a id="735c44" class="tk">S</a>)</td></tr>
+<tr name="736" id="736">
+<td>736</td><td><span class="br">{</span></td></tr>
+<tr name="737" id="737">
+<td>737</td><td><span class="br">}</span></td></tr>
+<tr name="738" id="738">
+<td>738</td><td></td></tr>
+<tr name="739" id="739">
+<td>739</td><td><span class="ct">/* Initial conditions for root system: '&lt;Root&gt;' */</span></td></tr>
+<tr name="740" id="740">
+<td>740</td><td><span class="pp">#define</span> <a id="740c9" class="tk">MDL_INITIALIZE_CONDITIONS</a></td></tr>
+<tr name="741" id="741">
+<td>741</td><td></td></tr>
+<tr name="742" id="742">
+<td>742</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="742c13" class="tk">mdlInitializeConditions</a>(<a id="742c37" class="tk">SimStruct</a> <a id="742c47" class="tk">*</a><a id="742c48" class="tk">S</a>)</td></tr>
+<tr name="743" id="743">
+<td>743</td><td><span class="br">{</span></td></tr>
+<tr name="744" id="744">
+<td>744</td><td>  <a id="744c3" class="tk">B_BSC_T</a> <a id="744c11" class="tk">*</a><a id="744c12" class="tk">_rtB</a>;</td></tr>
+<tr name="745" id="745">
+<td>745</td><td>  <a id="745c3" class="tk">_rtB</a> = ((<a id="745c12" class="tk">B_BSC_T</a> <a id="745c20" class="tk">*</a>) <a id="745c23" class="tk">ssGetLocalBlockIO</a>(<a id="745c41" class="tk">S</a>));</td></tr>
+<tr name="746" id="746">
+<td>746</td><td></td></tr>
+<tr name="747" id="747">
+<td>747</td><td>  <span class="ct">/* InitializeConditions for Atomic SubSystem: '&lt;Root&gt;/BSC' */</span></td></tr>
+<tr name="748" id="748">
+<td>748</td><td>  <span class="ct">/* InitializeConditions for Chart: '&lt;S1&gt;/Chart2' */</span></td></tr>
+<tr name="749" id="749">
+<td>749</td><td>  ((<a id="749c5" class="tk">uint8_T</a> <a id="749c13" class="tk">*</a>)<a id="749c15" class="tk">ssGetDWork</a>(<a id="749c26" class="tk">S</a>, 0))[0] = 0U;</td></tr>
+<tr name="750" id="750">
+<td>750</td><td>  ((<a id="750c5" class="tk">uint8_T</a> <a id="750c13" class="tk">*</a>)<a id="750c15" class="tk">ssGetDWork</a>(<a id="750c26" class="tk">S</a>, 1))[0] = <a id="750c38" class="tk">BSC_IN_NO_ACTIVE_CHILD_p</a>;</td></tr>
+<tr name="751" id="751">
+<td>751</td><td>  <span class="kw">if</span> (<a id="751c7" class="tk">ssIsFirstInitCond</a>(<a id="751c25" class="tk">S</a>)) <span class="br">{</span></td></tr>
+<tr name="752" id="752">
+<td>752</td><td>    <span class="ct">/* InitializeConditions for Function Call SubSystem: '&lt;S1&gt;/check_type' */</span></td></tr>
+<tr name="753" id="753">
+<td>753</td><td>    <a id="753c5" class="tk">BSC_check_type_Init</a>(<a id="753c25" class="tk">&amp;</a><a id="753c26" class="tk">_rtB</a>-&gt;<a id="753c32" class="tk">check_type</a>);</td></tr>
+<tr name="754" id="754">
+<td>754</td><td></td></tr>
+<tr name="755" id="755">
+<td>755</td><td>    <span class="ct">/* End of InitializeConditions for SubSystem: '&lt;S1&gt;/check_type' */</span></td></tr>
+<tr name="756" id="756">
+<td>756</td><td></td></tr>
+<tr name="757" id="757">
+<td>757</td><td>    <span class="ct">/* InitializeConditions for Function Call SubSystem: '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="758" id="758">
+<td>758</td><td>    <a id="758c5" class="tk">BSC_key_cycle_Init</a>(<a id="758c24" class="tk">S</a>, <a id="758c27" class="tk">&amp;</a><a id="758c28" class="tk">_rtB</a>-&gt;<a id="758c34" class="tk">key_cycle</a>);</td></tr>
+<tr name="759" id="759">
+<td>759</td><td></td></tr>
+<tr name="760" id="760">
+<td>760</td><td>    <span class="ct">/* End of InitializeConditions for SubSystem: '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="761" id="761">
+<td>761</td><td>  <span class="br">}</span></td></tr>
+<tr name="762" id="762">
+<td>762</td><td></td></tr>
+<tr name="763" id="763">
+<td>763</td><td>  <span class="ct">/* End of InitializeConditions for Chart: '&lt;S1&gt;/Chart2' */</span></td></tr>
+<tr name="764" id="764">
+<td>764</td><td>  <span class="ct">/* End of InitializeConditions for SubSystem: '&lt;Root&gt;/BSC' */</span></td></tr>
+<tr name="765" id="765">
+<td>765</td><td><span class="br">}</span></td></tr>
+<tr name="766" id="766">
+<td>766</td><td></td></tr>
+<tr name="767" id="767">
+<td>767</td><td><span class="ct">/* Start for root system: '&lt;Root&gt;' */</span></td></tr>
+<tr name="768" id="768">
+<td>768</td><td><span class="pp">#define</span> <a id="768c9" class="tk">MDL_START</a></td></tr>
+<tr name="769" id="769">
+<td>769</td><td></td></tr>
+<tr name="770" id="770">
+<td>770</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="770c13" class="tk">mdlStart</a>(<a id="770c22" class="tk">SimStruct</a> <a id="770c32" class="tk">*</a><a id="770c33" class="tk">S</a>)</td></tr>
+<tr name="771" id="771">
+<td>771</td><td><span class="br">{</span></td></tr>
+<tr name="772" id="772">
+<td>772</td><td>  <span class="ct">/* instance underlying S-Function data */</span></td></tr>
+<tr name="773" id="773">
+<td>773</td><td><span class="pp">#if</span> <a id="773c5" class="tk">defined</a>(<a id="773c13" class="tk">RT_MALLOC</a>) <a id="773c24" class="tk">||</a> <a id="773c27" class="tk">defined</a>(<a id="773c35" class="tk">MATLAB_MEX_FILE</a>)</td></tr>
+<tr name="774" id="774">
+<td>774</td><td><span class="pp">#  if</span> <a id="774c7" class="tk">defined</a>(<a id="774c15" class="tk">MATLAB_MEX_FILE</a>)</td></tr>
+<tr name="775" id="775">
+<td>775</td><td></td></tr>
+<tr name="776" id="776">
+<td>776</td><td>  <span class="ct">/* non-finites */</span></td></tr>
+<tr name="777" id="777">
+<td>777</td><td>  <a id="777c3" class="tk">rt_InitInfAndNaN</a>(<span class="kw">sizeof</span>(<a id="777c27" class="tk">real_T</a>));</td></tr>
+<tr name="778" id="778">
+<td>778</td><td></td></tr>
+<tr name="779" id="779">
+<td>779</td><td><span class="pp">#  endif</span></td></tr>
+<tr name="780" id="780">
+<td>780</td><td></td></tr>
+<tr name="781" id="781">
+<td>781</td><td>  <a id="781c3" class="tk">BSC_malloc</a>(<a id="781c14" class="tk">S</a>);</td></tr>
+<tr name="782" id="782">
+<td>782</td><td>  <span class="kw">if</span> (<a id="782c7" class="tk">ssGetErrorStatus</a>(<a id="782c24" class="tk">S</a>) <a id="782c27" class="tk">!=</a> (<a id="782c31" class="tk">NULL</a>) ) <span class="br">{</span></td></tr>
+<tr name="783" id="783">
+<td>783</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="784" id="784">
+<td>784</td><td>  <span class="br">}</span></td></tr>
+<tr name="785" id="785">
+<td>785</td><td></td></tr>
+<tr name="786" id="786">
+<td>786</td><td><span class="pp">#endif</span></td></tr>
+<tr name="787" id="787">
+<td>787</td><td></td></tr>
+<tr name="788" id="788">
+<td>788</td><td>  <span class="br">{</span></td></tr>
+<tr name="789" id="789">
+<td>789</td><td>    <span class="ct">/* Previous zero-crossing state intialization */</span></td></tr>
+<tr name="790" id="790">
+<td>790</td><td>    <span class="br">{</span></td></tr>
+<tr name="791" id="791">
+<td>791</td><td>      <a id="791c7" class="tk">PrevZCX_BSC_T</a> <a id="791c21" class="tk">*</a><a id="791c22" class="tk">_rtZCE</a>;</td></tr>
+<tr name="792" id="792">
+<td>792</td><td>      <a id="792c7" class="tk">_rtZCE</a> = ((<a id="792c18" class="tk">PrevZCX_BSC_T</a> <a id="792c32" class="tk">*</a>) <a id="792c35" class="tk">_ssGetPrevZCSigState</a>(<a id="792c56" class="tk">S</a>));</td></tr>
+<tr name="793" id="793">
+<td>793</td><td>      <a id="793c7" class="tk">_rtZCE</a>-&gt;<a id="793c15" class="tk">TriggeredSubsystem_Trig_ZCE</a> = <a id="793c45" class="tk">UNINITIALIZED_ZCSIG</a>;</td></tr>
+<tr name="794" id="794">
+<td>794</td><td>      <a id="794c7" class="tk">_rtZCE</a>-&gt;<a id="794c15" class="tk">key_cycle</a>.<a id="794c25" class="tk">key_cycle_chart_Trig_ZCE</a>[0] = <a id="794c55" class="tk">UNINITIALIZED_ZCSIG</a>;</td></tr>
+<tr name="795" id="795">
+<td>795</td><td>      <a id="795c7" class="tk">_rtZCE</a>-&gt;<a id="795c15" class="tk">key_cycle</a>.<a id="795c25" class="tk">key_cycle_chart_Trig_ZCE</a>[1] = <a id="795c55" class="tk">UNINITIALIZED_ZCSIG</a>;</td></tr>
+<tr name="796" id="796">
+<td>796</td><td>    <span class="br">}</span></td></tr>
+<tr name="797" id="797">
+<td>797</td><td>  <span class="br">}</span></td></tr>
+<tr name="798" id="798">
+<td>798</td><td><span class="br">}</span></td></tr>
+<tr name="799" id="799">
+<td>799</td><td></td></tr>
+<tr name="800" id="800">
+<td>800</td><td><span class="ct">/* Outputs for root system: '&lt;Root&gt;' */</span></td></tr>
+<tr name="801" id="801">
+<td>801</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="801c13" class="tk">mdlOutputs</a>(<a id="801c24" class="tk">SimStruct</a> <a id="801c34" class="tk">*</a><a id="801c35" class="tk">S</a>, <a id="801c38" class="tk">int_T</a> <a id="801c44" class="tk">tid</a>)</td></tr>
+<tr name="802" id="802">
+<td>802</td><td><span class="br">{</span></td></tr>
+<tr name="803" id="803">
+<td>803</td><td>  <a id="803c3" class="tk">B_BSC_T</a> <a id="803c11" class="tk">*</a><a id="803c12" class="tk">_rtB</a>;</td></tr>
+<tr name="804" id="804">
+<td>804</td><td>  <a id="804c3" class="tk">PrevZCX_BSC_T</a> <a id="804c17" class="tk">*</a><a id="804c18" class="tk">_rtZCE</a>;</td></tr>
+<tr name="805" id="805">
+<td>805</td><td>  <a id="805c3" class="tk">_rtZCE</a> = ((<a id="805c14" class="tk">PrevZCX_BSC_T</a> <a id="805c28" class="tk">*</a>) <a id="805c31" class="tk">_ssGetPrevZCSigState</a>(<a id="805c52" class="tk">S</a>));</td></tr>
+<tr name="806" id="806">
+<td>806</td><td>  <a id="806c3" class="tk">_rtB</a> = ((<a id="806c12" class="tk">B_BSC_T</a> <a id="806c20" class="tk">*</a>) <a id="806c23" class="tk">ssGetLocalBlockIO</a>(<a id="806c41" class="tk">S</a>));</td></tr>
+<tr name="807" id="807">
+<td>807</td><td></td></tr>
+<tr name="808" id="808">
+<td>808</td><td>  <span class="ct">/* Outputs for Atomic SubSystem: '&lt;Root&gt;/BSC' */</span></td></tr>
+<tr name="809" id="809">
+<td>809</td><td>  <span class="ct">/* Chart: '&lt;S1&gt;/Chart2' incorporates:</span></td></tr>
+<tr name="810" id="810">
+<td>810</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/cc_PrechargeFault[Type11]'</span></td></tr>
+<tr name="811" id="811">
+<td>811</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/high level fault[Type1]'</span></td></tr>
+<tr name="812" id="812">
+<td>812</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/key'</span></td></tr>
+<tr name="813" id="813">
+<td>813</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/low level fault[Type3]'</span></td></tr>
+<tr name="814" id="814">
+<td>814</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/medium level fault[Type2]'</span></td></tr>
+<tr name="815" id="815">
+<td>815</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/vitm_CellsTemperatureHighFault[Type5]'</span></td></tr>
+<tr name="816" id="816">
+<td>816</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/vitm_CellsTemperatureLowFault[Type4]'</span></td></tr>
+<tr name="817" id="817">
+<td>817</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/vitm_CellsVoltageHightFault[Type7]'</span></td></tr>
+<tr name="818" id="818">
+<td>818</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/vitm_CellsVoltageLowFault[Type6]'</span></td></tr>
+<tr name="819" id="819">
+<td>819</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/vitm_HVILFault[Type10]'</span></td></tr>
+<tr name="820" id="820">
+<td>820</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/vitm_PackCurrentFault[Type9]'</span></td></tr>
+<tr name="821" id="821">
+<td>821</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/vitm_PackVoltageFault[Type8]'</span></td></tr>
+<tr name="822" id="822">
+<td>822</td><td><span class="ct">   */</span></td></tr>
+<tr name="823" id="823">
+<td>823</td><td>  <span class="ct">/* Gateway: BSC/Chart2 */</span></td></tr>
+<tr name="824" id="824">
+<td>824</td><td>  <span class="ct">/* During: BSC/Chart2 */</span></td></tr>
+<tr name="825" id="825">
+<td>825</td><td>  <span class="kw">if</span> (((<a id="825c9" class="tk">uint8_T</a> <a id="825c17" class="tk">*</a>)<a id="825c19" class="tk">ssGetDWork</a>(<a id="825c30" class="tk">S</a>, 0))[0] <a id="825c40" class="tk">==</a> 0U) <span class="br">{</span></td></tr>
+<tr name="826" id="826">
+<td>826</td><td>    <span class="ct">/* Entry: BSC/Chart2 */</span></td></tr>
+<tr name="827" id="827">
+<td>827</td><td>    ((<a id="827c7" class="tk">uint8_T</a> <a id="827c15" class="tk">*</a>)<a id="827c17" class="tk">ssGetDWork</a>(<a id="827c28" class="tk">S</a>, 0))[0] = 1U;</td></tr>
+<tr name="828" id="828">
+<td>828</td><td></td></tr>
+<tr name="829" id="829">
+<td>829</td><td>    <span class="ct">/* Entry Internal: BSC/Chart2 */</span></td></tr>
+<tr name="830" id="830">
+<td>830</td><td>    ((<a id="830c7" class="tk">uint8_T</a> <a id="830c15" class="tk">*</a>)<a id="830c17" class="tk">ssGetDWork</a>(<a id="830c28" class="tk">S</a>, 1))[0] = <a id="830c40" class="tk">BSC_IN_main</a>;</td></tr>
+<tr name="831" id="831">
+<td>831</td><td></td></tr>
+<tr name="832" id="832">
+<td>832</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/check_type' */</span></td></tr>
+<tr name="833" id="833">
+<td>833</td><td></td></tr>
+<tr name="834" id="834">
+<td>834</td><td>    <span class="ct">/* Entry Internal 'main': '&lt;S2&gt;:2' */</span></td></tr>
+<tr name="835" id="835">
+<td>835</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:12' */</span></td></tr>
+<tr name="836" id="836">
+<td>836</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:4' */</span></td></tr>
+<tr name="837" id="837">
+<td>837</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:43' */</span></td></tr>
+<tr name="838" id="838">
+<td>838</td><td>    <a id="838c5" class="tk">BSC_check_type</a>(<a id="838c20" class="tk">S</a>, <a id="838c23" class="tk">*</a>((<span class="kw">const</span> <a id="838c32" class="tk">uint8_T</a> <a id="838c40" class="tk">*</a><a id="838c41" class="tk">*</a>)<a id="838c43" class="tk">ssGetInputPortSignalPtrs</a>(<a id="838c68" class="tk">S</a>, 4))[0],</td></tr>
+<tr name="839" id="839">
+<td>839</td><td>                   <a id="839c20" class="tk">*</a>((<span class="kw">const</span> <a id="839c29" class="tk">uint8_T</a> <a id="839c37" class="tk">*</a><a id="839c38" class="tk">*</a>)<a id="839c40" class="tk">ssGetInputPortSignalPtrs</a>(<a id="839c65" class="tk">S</a>, 5))[0], <a id="839c76" class="tk">*</a>((</td></tr>
+<tr name="840" id="840">
+<td>840</td><td>      <span class="kw">const</span> <a id="840c13" class="tk">uint8_T</a> <a id="840c21" class="tk">*</a><a id="840c22" class="tk">*</a>)<a id="840c24" class="tk">ssGetInputPortSignalPtrs</a>(<a id="840c49" class="tk">S</a>, 6))[0], <a id="840c60" class="tk">*</a>((<span class="kw">const</span> <a id="840c69" class="tk">uint8_T</a> <a id="840c77" class="tk">*</a><a id="840c78" class="tk">*</a>)</td></tr>
+<tr name="841" id="841">
+<td>841</td><td>      <a id="841c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="841c32" class="tk">S</a>, 7))[0], <a id="841c43" class="tk">*</a>((<span class="kw">const</span> <a id="841c52" class="tk">uint8_T</a> <a id="841c60" class="tk">*</a><a id="841c61" class="tk">*</a>)</td></tr>
+<tr name="842" id="842">
+<td>842</td><td>      <a id="842c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="842c32" class="tk">S</a>, 8))[0], <a id="842c43" class="tk">*</a>((<span class="kw">const</span> <a id="842c52" class="tk">uint8_T</a> <a id="842c60" class="tk">*</a><a id="842c61" class="tk">*</a>)</td></tr>
+<tr name="843" id="843">
+<td>843</td><td>      <a id="843c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="843c32" class="tk">S</a>, 9))[0], <a id="843c43" class="tk">*</a>((<span class="kw">const</span> <a id="843c52" class="tk">uint8_T</a> <a id="843c60" class="tk">*</a><a id="843c61" class="tk">*</a>)</td></tr>
+<tr name="844" id="844">
+<td>844</td><td>      <a id="844c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="844c32" class="tk">S</a>, 10))[0], <a id="844c44" class="tk">*</a>((<span class="kw">const</span> <a id="844c53" class="tk">uint8_T</a> <a id="844c61" class="tk">*</a><a id="844c62" class="tk">*</a>)</td></tr>
+<tr name="845" id="845">
+<td>845</td><td>      <a id="845c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="845c32" class="tk">S</a>, 11))[0], <a id="845c44" class="tk">*</a>((<span class="kw">const</span> <a id="845c53" class="tk">uint8_T</a> <a id="845c61" class="tk">*</a><a id="845c62" class="tk">*</a>)</td></tr>
+<tr name="846" id="846">
+<td>846</td><td>      <a id="846c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="846c32" class="tk">S</a>, 12))[0], <a id="846c44" class="tk">*</a>((<span class="kw">const</span> <a id="846c53" class="tk">uint8_T</a> <a id="846c61" class="tk">*</a><a id="846c62" class="tk">*</a>)</td></tr>
+<tr name="847" id="847">
+<td>847</td><td>      <a id="847c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="847c32" class="tk">S</a>, 13))[0], <a id="847c44" class="tk">*</a>((<span class="kw">const</span> <a id="847c53" class="tk">uint8_T</a> <a id="847c61" class="tk">*</a><a id="847c62" class="tk">*</a>)</td></tr>
+<tr name="848" id="848">
+<td>848</td><td>      <a id="848c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="848c32" class="tk">S</a>, 14))[0], <a id="848c44" class="tk">&amp;</a><a id="848c45" class="tk">_rtB</a>-&gt;<a id="848c51" class="tk">check_type</a>);</td></tr>
+<tr name="849" id="849">
+<td>849</td><td></td></tr>
+<tr name="850" id="850">
+<td>850</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/check_type' */</span></td></tr>
+<tr name="851" id="851">
+<td>851</td><td></td></tr>
+<tr name="852" id="852">
+<td>852</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/Fault_level' */</span></td></tr>
+<tr name="853" id="853">
+<td>853</td><td></td></tr>
+<tr name="854" id="854">
+<td>854</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:15' */</span></td></tr>
+<tr name="855" id="855">
+<td>855</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:37' */</span></td></tr>
+<tr name="856" id="856">
+<td>856</td><td>    <a id="856c5" class="tk">BSC_Fault_level</a>(<a id="856c21" class="tk">S</a>);</td></tr>
+<tr name="857" id="857">
+<td>857</td><td></td></tr>
+<tr name="858" id="858">
+<td>858</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/Fault_level' */</span></td></tr>
+<tr name="859" id="859">
+<td>859</td><td></td></tr>
+<tr name="860" id="860">
+<td>860</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="861" id="861">
+<td>861</td><td></td></tr>
+<tr name="862" id="862">
+<td>862</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:30' */</span></td></tr>
+<tr name="863" id="863">
+<td>863</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:39' */</span></td></tr>
+<tr name="864" id="864">
+<td>864</td><td>    <a id="864c5" class="tk">BSC_key_cycle</a>(<a id="864c19" class="tk">S</a>, <a id="864c22" class="tk">_rtB</a>-&gt;<a id="864c28" class="tk">MinMax1</a>, <a id="864c37" class="tk">*</a>((<span class="kw">const</span> <a id="864c46" class="tk">uint8_T</a> <a id="864c54" class="tk">*</a><a id="864c55" class="tk">*</a>)<a id="864c57" class="tk">ssGetInputPortSignalPtrs</a></td></tr>
+<tr name="865" id="865">
+<td>865</td><td>      (<a id="865c8" class="tk">S</a>, 2))[0], <a id="865c19" class="tk">&amp;</a><a id="865c20" class="tk">_rtB</a>-&gt;<a id="865c26" class="tk">key_cycle</a>, <a id="865c37" class="tk">&amp;</a><a id="865c38" class="tk">_rtZCE</a>-&gt;<a id="865c46" class="tk">key_cycle</a>);</td></tr>
+<tr name="866" id="866">
+<td>866</td><td></td></tr>
+<tr name="867" id="867">
+<td>867</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="868" id="868">
+<td>868</td><td></td></tr>
+<tr name="869" id="869">
+<td>869</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/sleepCheck' */</span></td></tr>
+<tr name="870" id="870">
+<td>870</td><td></td></tr>
+<tr name="871" id="871">
+<td>871</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:33' */</span></td></tr>
+<tr name="872" id="872">
+<td>872</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:41' */</span></td></tr>
+<tr name="873" id="873">
+<td>873</td><td>    <a id="873c5" class="tk">BSC_sleepCheck</a>(<a id="873c20" class="tk">S</a>);</td></tr>
+<tr name="874" id="874">
+<td>874</td><td></td></tr>
+<tr name="875" id="875">
+<td>875</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/sleepCheck' */</span></td></tr>
+<tr name="876" id="876">
+<td>876</td><td></td></tr>
+<tr name="877" id="877">
+<td>877</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/cc_c  md' */</span></td></tr>
+<tr name="878" id="878">
+<td>878</td><td></td></tr>
+<tr name="879" id="879">
+<td>879</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:8' */</span></td></tr>
+<tr name="880" id="880">
+<td>880</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:40' */</span></td></tr>
+<tr name="881" id="881">
+<td>881</td><td>    <a id="881c5" class="tk">BSC_cc_cmd</a>(<a id="881c16" class="tk">S</a>);</td></tr>
+<tr name="882" id="882">
+<td>882</td><td></td></tr>
+<tr name="883" id="883">
+<td>883</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/cc_c  md' */</span></td></tr>
+<tr name="884" id="884">
+<td>884</td><td></td></tr>
+<tr name="885" id="885">
+<td>885</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/rsnToOpenCC' */</span></td></tr>
+<tr name="886" id="886">
+<td>886</td><td></td></tr>
+<tr name="887" id="887">
+<td>887</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:10' */</span></td></tr>
+<tr name="888" id="888">
+<td>888</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:38' */</span></td></tr>
+<tr name="889" id="889">
+<td>889</td><td>    <a id="889c5" class="tk">BSC_rsnToOpenCC</a>(<a id="889c21" class="tk">S</a>);</td></tr>
+<tr name="890" id="890">
+<td>890</td><td></td></tr>
+<tr name="891" id="891">
+<td>891</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/rsnToOpenCC' */</span></td></tr>
+<tr name="892" id="892">
+<td>892</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="893" id="893">
+<td>893</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/check_type' */</span></td></tr>
+<tr name="894" id="894">
+<td>894</td><td></td></tr>
+<tr name="895" id="895">
+<td>895</td><td>    <span class="ct">/* During 'main': '&lt;S2&gt;:2' */</span></td></tr>
+<tr name="896" id="896">
+<td>896</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:12' */</span></td></tr>
+<tr name="897" id="897">
+<td>897</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:4' */</span></td></tr>
+<tr name="898" id="898">
+<td>898</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:43' */</span></td></tr>
+<tr name="899" id="899">
+<td>899</td><td>    <a id="899c5" class="tk">BSC_check_type</a>(<a id="899c20" class="tk">S</a>, <a id="899c23" class="tk">*</a>((<span class="kw">const</span> <a id="899c32" class="tk">uint8_T</a> <a id="899c40" class="tk">*</a><a id="899c41" class="tk">*</a>)<a id="899c43" class="tk">ssGetInputPortSignalPtrs</a>(<a id="899c68" class="tk">S</a>, 4))[0],</td></tr>
+<tr name="900" id="900">
+<td>900</td><td>                   <a id="900c20" class="tk">*</a>((<span class="kw">const</span> <a id="900c29" class="tk">uint8_T</a> <a id="900c37" class="tk">*</a><a id="900c38" class="tk">*</a>)<a id="900c40" class="tk">ssGetInputPortSignalPtrs</a>(<a id="900c65" class="tk">S</a>, 5))[0], <a id="900c76" class="tk">*</a>((</td></tr>
+<tr name="901" id="901">
+<td>901</td><td>      <span class="kw">const</span> <a id="901c13" class="tk">uint8_T</a> <a id="901c21" class="tk">*</a><a id="901c22" class="tk">*</a>)<a id="901c24" class="tk">ssGetInputPortSignalPtrs</a>(<a id="901c49" class="tk">S</a>, 6))[0], <a id="901c60" class="tk">*</a>((<span class="kw">const</span> <a id="901c69" class="tk">uint8_T</a> <a id="901c77" class="tk">*</a><a id="901c78" class="tk">*</a>)</td></tr>
+<tr name="902" id="902">
+<td>902</td><td>      <a id="902c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="902c32" class="tk">S</a>, 7))[0], <a id="902c43" class="tk">*</a>((<span class="kw">const</span> <a id="902c52" class="tk">uint8_T</a> <a id="902c60" class="tk">*</a><a id="902c61" class="tk">*</a>)</td></tr>
+<tr name="903" id="903">
+<td>903</td><td>      <a id="903c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="903c32" class="tk">S</a>, 8))[0], <a id="903c43" class="tk">*</a>((<span class="kw">const</span> <a id="903c52" class="tk">uint8_T</a> <a id="903c60" class="tk">*</a><a id="903c61" class="tk">*</a>)</td></tr>
+<tr name="904" id="904">
+<td>904</td><td>      <a id="904c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="904c32" class="tk">S</a>, 9))[0], <a id="904c43" class="tk">*</a>((<span class="kw">const</span> <a id="904c52" class="tk">uint8_T</a> <a id="904c60" class="tk">*</a><a id="904c61" class="tk">*</a>)</td></tr>
+<tr name="905" id="905">
+<td>905</td><td>      <a id="905c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="905c32" class="tk">S</a>, 10))[0], <a id="905c44" class="tk">*</a>((<span class="kw">const</span> <a id="905c53" class="tk">uint8_T</a> <a id="905c61" class="tk">*</a><a id="905c62" class="tk">*</a>)</td></tr>
+<tr name="906" id="906">
+<td>906</td><td>      <a id="906c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="906c32" class="tk">S</a>, 11))[0], <a id="906c44" class="tk">*</a>((<span class="kw">const</span> <a id="906c53" class="tk">uint8_T</a> <a id="906c61" class="tk">*</a><a id="906c62" class="tk">*</a>)</td></tr>
+<tr name="907" id="907">
+<td>907</td><td>      <a id="907c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="907c32" class="tk">S</a>, 12))[0], <a id="907c44" class="tk">*</a>((<span class="kw">const</span> <a id="907c53" class="tk">uint8_T</a> <a id="907c61" class="tk">*</a><a id="907c62" class="tk">*</a>)</td></tr>
+<tr name="908" id="908">
+<td>908</td><td>      <a id="908c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="908c32" class="tk">S</a>, 13))[0], <a id="908c44" class="tk">*</a>((<span class="kw">const</span> <a id="908c53" class="tk">uint8_T</a> <a id="908c61" class="tk">*</a><a id="908c62" class="tk">*</a>)</td></tr>
+<tr name="909" id="909">
+<td>909</td><td>      <a id="909c7" class="tk">ssGetInputPortSignalPtrs</a>(<a id="909c32" class="tk">S</a>, 14))[0], <a id="909c44" class="tk">&amp;</a><a id="909c45" class="tk">_rtB</a>-&gt;<a id="909c51" class="tk">check_type</a>);</td></tr>
+<tr name="910" id="910">
+<td>910</td><td></td></tr>
+<tr name="911" id="911">
+<td>911</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/check_type' */</span></td></tr>
+<tr name="912" id="912">
+<td>912</td><td></td></tr>
+<tr name="913" id="913">
+<td>913</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/Fault_level' */</span></td></tr>
+<tr name="914" id="914">
+<td>914</td><td></td></tr>
+<tr name="915" id="915">
+<td>915</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:15' */</span></td></tr>
+<tr name="916" id="916">
+<td>916</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:37' */</span></td></tr>
+<tr name="917" id="917">
+<td>917</td><td>    <a id="917c5" class="tk">BSC_Fault_level</a>(<a id="917c21" class="tk">S</a>);</td></tr>
+<tr name="918" id="918">
+<td>918</td><td></td></tr>
+<tr name="919" id="919">
+<td>919</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/Fault_level' */</span></td></tr>
+<tr name="920" id="920">
+<td>920</td><td></td></tr>
+<tr name="921" id="921">
+<td>921</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="922" id="922">
+<td>922</td><td></td></tr>
+<tr name="923" id="923">
+<td>923</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:30' */</span></td></tr>
+<tr name="924" id="924">
+<td>924</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:39' */</span></td></tr>
+<tr name="925" id="925">
+<td>925</td><td>    <a id="925c5" class="tk">BSC_key_cycle</a>(<a id="925c19" class="tk">S</a>, <a id="925c22" class="tk">_rtB</a>-&gt;<a id="925c28" class="tk">MinMax1</a>, <a id="925c37" class="tk">*</a>((<span class="kw">const</span> <a id="925c46" class="tk">uint8_T</a> <a id="925c54" class="tk">*</a><a id="925c55" class="tk">*</a>)<a id="925c57" class="tk">ssGetInputPortSignalPtrs</a></td></tr>
+<tr name="926" id="926">
+<td>926</td><td>      (<a id="926c8" class="tk">S</a>, 2))[0], <a id="926c19" class="tk">&amp;</a><a id="926c20" class="tk">_rtB</a>-&gt;<a id="926c26" class="tk">key_cycle</a>, <a id="926c37" class="tk">&amp;</a><a id="926c38" class="tk">_rtZCE</a>-&gt;<a id="926c46" class="tk">key_cycle</a>);</td></tr>
+<tr name="927" id="927">
+<td>927</td><td></td></tr>
+<tr name="928" id="928">
+<td>928</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/key_cycle' */</span></td></tr>
+<tr name="929" id="929">
+<td>929</td><td></td></tr>
+<tr name="930" id="930">
+<td>930</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/sleepCheck' */</span></td></tr>
+<tr name="931" id="931">
+<td>931</td><td></td></tr>
+<tr name="932" id="932">
+<td>932</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:33' */</span></td></tr>
+<tr name="933" id="933">
+<td>933</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:41' */</span></td></tr>
+<tr name="934" id="934">
+<td>934</td><td>    <a id="934c5" class="tk">BSC_sleepCheck</a>(<a id="934c20" class="tk">S</a>);</td></tr>
+<tr name="935" id="935">
+<td>935</td><td></td></tr>
+<tr name="936" id="936">
+<td>936</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/sleepCheck' */</span></td></tr>
+<tr name="937" id="937">
+<td>937</td><td></td></tr>
+<tr name="938" id="938">
+<td>938</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/cc_c  md' */</span></td></tr>
+<tr name="939" id="939">
+<td>939</td><td></td></tr>
+<tr name="940" id="940">
+<td>940</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:8' */</span></td></tr>
+<tr name="941" id="941">
+<td>941</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:40' */</span></td></tr>
+<tr name="942" id="942">
+<td>942</td><td>    <a id="942c5" class="tk">BSC_cc_cmd</a>(<a id="942c16" class="tk">S</a>);</td></tr>
+<tr name="943" id="943">
+<td>943</td><td></td></tr>
+<tr name="944" id="944">
+<td>944</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/cc_c  md' */</span></td></tr>
+<tr name="945" id="945">
+<td>945</td><td></td></tr>
+<tr name="946" id="946">
+<td>946</td><td>    <span class="ct">/* Outputs for Function Call SubSystem: '&lt;S1&gt;/rsnToOpenCC' */</span></td></tr>
+<tr name="947" id="947">
+<td>947</td><td></td></tr>
+<tr name="948" id="948">
+<td>948</td><td>    <span class="ct">/* Transition: '&lt;S2&gt;:10' */</span></td></tr>
+<tr name="949" id="949">
+<td>949</td><td>    <span class="ct">/* Event: '&lt;S2&gt;:38' */</span></td></tr>
+<tr name="950" id="950">
+<td>950</td><td>    <a id="950c5" class="tk">BSC_rsnToOpenCC</a>(<a id="950c21" class="tk">S</a>);</td></tr>
+<tr name="951" id="951">
+<td>951</td><td></td></tr>
+<tr name="952" id="952">
+<td>952</td><td>    <span class="ct">/* End of Outputs for SubSystem: '&lt;S1&gt;/rsnToOpenCC' */</span></td></tr>
+<tr name="953" id="953">
+<td>953</td><td>  <span class="br">}</span></td></tr>
+<tr name="954" id="954">
+<td>954</td><td></td></tr>
+<tr name="955" id="955">
+<td>955</td><td>  <span class="ct">/* End of Chart: '&lt;S1&gt;/Chart2' */</span></td></tr>
+<tr name="956" id="956">
+<td>956</td><td></td></tr>
+<tr name="957" id="957">
+<td>957</td><td>  <span class="ct">/* Outport: '&lt;Root&gt;/CVTN supply signal' incorporates:</span></td></tr>
+<tr name="958" id="958">
+<td>958</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Charger PSR'</span></td></tr>
+<tr name="959" id="959">
+<td>959</td><td><span class="ct">   *  Inport: '&lt;Root&gt;/Vehicle PSR'</span></td></tr>
+<tr name="960" id="960">
+<td>960</td><td><span class="ct">   *  Logic: '&lt;S1&gt;/Logical Operator5'</span></td></tr>
+<tr name="961" id="961">
+<td>961</td><td><span class="ct">   */</span></td></tr>
+<tr name="962" id="962">
+<td>962</td><td>  ((<a id="962c5" class="tk">boolean_T</a> <a id="962c15" class="tk">*</a>)<a id="962c17" class="tk">ssGetOutputPortSignal</a>(<a id="962c39" class="tk">S</a>, 0))[0] = ((<a id="962c53" class="tk">*</a>((<span class="kw">const</span> <a id="962c62" class="tk">uint8_T</a> <a id="962c70" class="tk">*</a><a id="962c71" class="tk">*</a>)</td></tr>
+<tr name="963" id="963">
+<td>963</td><td>    <a id="963c5" class="tk">ssGetInputPortSignalPtrs</a>(<a id="963c30" class="tk">S</a>, 0))[0] <a id="963c40" class="tk">!=</a> 0) <a id="963c46" class="tk">||</a> (<a id="963c50" class="tk">*</a>((<span class="kw">const</span> <a id="963c59" class="tk">uint8_T</a> <a id="963c67" class="tk">*</a><a id="963c68" class="tk">*</a>)</td></tr>
+<tr name="964" id="964">
+<td>964</td><td>    <a id="964c5" class="tk">ssGetInputPortSignalPtrs</a>(<a id="964c30" class="tk">S</a>, 1))[0] <a id="964c40" class="tk">!=</a> 0));</td></tr>
+<tr name="965" id="965">
+<td>965</td><td></td></tr>
+<tr name="966" id="966">
+<td>966</td><td>  <span class="ct">/* End of Outputs for SubSystem: '&lt;Root&gt;/BSC' */</span></td></tr>
+<tr name="967" id="967">
+<td>967</td><td></td></tr>
+<tr name="968" id="968">
+<td>968</td><td>  <span class="ct">/* Outport: '&lt;Root&gt;/Reason to open contactor to CAN' */</span></td></tr>
+<tr name="969" id="969">
+<td>969</td><td>  ((<a id="969c5" class="tk">uint8_T</a> <a id="969c13" class="tk">*</a>)<a id="969c15" class="tk">ssGetOutputPortSignal</a>(<a id="969c37" class="tk">S</a>, 4))[0] = <a id="969c49" class="tk">_rtB</a>-&gt;<a id="969c55" class="tk">Merge</a>;</td></tr>
+<tr name="970" id="970">
+<td>970</td><td></td></tr>
+<tr name="971" id="971">
+<td>971</td><td>  <span class="ct">/* Outport: '&lt;Root&gt;/Fault Type' */</span></td></tr>
+<tr name="972" id="972">
+<td>972</td><td>  ((<a id="972c5" class="tk">uint8_T</a> <a id="972c13" class="tk">*</a>)<a id="972c15" class="tk">ssGetOutputPortSignal</a>(<a id="972c37" class="tk">S</a>, 7))[0] = <a id="972c49" class="tk">_rtB</a>-&gt;<a id="972c55" class="tk">check_type</a>.<a id="972c66" class="tk">type_of_fault</a>;</td></tr>
+<tr name="973" id="973">
+<td>973</td><td>  <a id="973c3" class="tk">UNUSED_PARAMETER</a>(<a id="973c20" class="tk">tid</a>);</td></tr>
+<tr name="974" id="974">
+<td>974</td><td><span class="br">}</span></td></tr>
+<tr name="975" id="975">
+<td>975</td><td></td></tr>
+<tr name="976" id="976">
+<td>976</td><td><span class="ct">/* Update for root system: '&lt;Root&gt;' */</span></td></tr>
+<tr name="977" id="977">
+<td>977</td><td><span class="pp">#define</span> <a id="977c9" class="tk">MDL_UPDATE</a></td></tr>
+<tr name="978" id="978">
+<td>978</td><td></td></tr>
+<tr name="979" id="979">
+<td>979</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="979c13" class="tk">mdlUpdate</a>(<a id="979c23" class="tk">SimStruct</a> <a id="979c33" class="tk">*</a><a id="979c34" class="tk">S</a>, <a id="979c37" class="tk">int_T</a> <a id="979c43" class="tk">tid</a>)</td></tr>
+<tr name="980" id="980">
+<td>980</td><td><span class="br">{</span></td></tr>
+<tr name="981" id="981">
+<td>981</td><td>  <a id="981c3" class="tk">UNUSED_PARAMETER</a>(<a id="981c20" class="tk">tid</a>);</td></tr>
+<tr name="982" id="982">
+<td>982</td><td><span class="br">}</span></td></tr>
+<tr name="983" id="983">
+<td>983</td><td></td></tr>
+<tr name="984" id="984">
+<td>984</td><td><span class="ct">/* Termination for root system: '&lt;Root&gt;' */</span></td></tr>
+<tr name="985" id="985">
+<td>985</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="985c13" class="tk">mdlTerminate</a>(<a id="985c26" class="tk">SimStruct</a> <a id="985c36" class="tk">*</a><a id="985c37" class="tk">S</a>)</td></tr>
+<tr name="986" id="986">
+<td>986</td><td><span class="br">{</span></td></tr>
+<tr name="987" id="987">
+<td>987</td><td></td></tr>
+<tr name="988" id="988">
+<td>988</td><td><span class="pp">#if</span> <a id="988c5" class="tk">defined</a>(<a id="988c13" class="tk">RT_MALLOC</a>) <a id="988c24" class="tk">||</a> <a id="988c27" class="tk">defined</a>(<a id="988c35" class="tk">MATLAB_MEX_FILE</a>)</td></tr>
+<tr name="989" id="989">
+<td>989</td><td></td></tr>
+<tr name="990" id="990">
+<td>990</td><td>  <span class="kw">if</span> (<a id="990c7" class="tk">ssGetUserData</a>(<a id="990c21" class="tk">S</a>) <a id="990c24" class="tk">!=</a> (<a id="990c28" class="tk">NULL</a>) ) <span class="br">{</span></td></tr>
+<tr name="991" id="991">
+<td>991</td><td>    <a id="991c5" class="tk">rt_FREE</a>(<a id="991c13" class="tk">ssGetLocalBlockIO</a>(<a id="991c31" class="tk">S</a>));</td></tr>
+<tr name="992" id="992">
+<td>992</td><td>    <a id="992c5" class="tk">rt_FREE</a>(<a id="992c13" class="tk">_ssGetPrevZCSigState</a>(<a id="992c34" class="tk">S</a>));</td></tr>
+<tr name="993" id="993">
+<td>993</td><td>  <span class="br">}</span></td></tr>
+<tr name="994" id="994">
+<td>994</td><td></td></tr>
+<tr name="995" id="995">
+<td>995</td><td>  <a id="995c3" class="tk">rt_FREE</a>(<a id="995c11" class="tk">ssGetUserData</a>(<a id="995c25" class="tk">S</a>));</td></tr>
+<tr name="996" id="996">
+<td>996</td><td></td></tr>
+<tr name="997" id="997">
+<td>997</td><td><span class="pp">#endif</span></td></tr>
+<tr name="998" id="998">
+<td>998</td><td></td></tr>
+<tr name="999" id="999">
+<td>999</td><td><span class="br">}</span></td></tr>
+<tr name="1000" id="1000">
+<td>1000</td><td></td></tr>
+<tr name="1001" id="1001">
+<td>1001</td><td><span class="pp">#if</span> <a id="1001c5" class="tk">defined</a>(<a id="1001c13" class="tk">RT_MALLOC</a>) <a id="1001c24" class="tk">||</a> <a id="1001c27" class="tk">defined</a>(<a id="1001c35" class="tk">MATLAB_MEX_FILE</a>)</td></tr>
+<tr name="1002" id="1002">
+<td>1002</td><td><span class="pp">#  include "BSC_mid.h"</span></td></tr>
+<tr name="1003" id="1003">
+<td>1003</td><td><span class="pp">#endif</span></td></tr>
+<tr name="1004" id="1004">
+<td>1004</td><td></td></tr>
+<tr name="1005" id="1005">
+<td>1005</td><td><span class="ct">/* Function to initialize sizes. */</span></td></tr>
+<tr name="1006" id="1006">
+<td>1006</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="1006c13" class="tk">mdlInitializeSizes</a>(<a id="1006c32" class="tk">SimStruct</a> <a id="1006c42" class="tk">*</a><a id="1006c43" class="tk">S</a>)</td></tr>
+<tr name="1007" id="1007">
+<td>1007</td><td><span class="br">{</span></td></tr>
+<tr name="1008" id="1008">
+<td>1008</td><td>  <a id="1008c3" class="tk">ssSetNumSampleTimes</a>(<a id="1008c23" class="tk">S</a>, 1);           <span class="ct">/* Number of sample times */</span></td></tr>
+<tr name="1009" id="1009">
+<td>1009</td><td>  <a id="1009c3" class="tk">ssSetNumContStates</a>(<a id="1009c22" class="tk">S</a>, 0);            <span class="ct">/* Number of continuous states */</span></td></tr>
+<tr name="1010" id="1010">
+<td>1010</td><td>  <a id="1010c3" class="tk">ssSetNumNonsampledZCs</a>(<a id="1010c25" class="tk">S</a>, 0);         <span class="ct">/* Number of nonsampled ZCs */</span></td></tr>
+<tr name="1011" id="1011">
+<td>1011</td><td></td></tr>
+<tr name="1012" id="1012">
+<td>1012</td><td>  <span class="ct">/* Number of output ports */</span></td></tr>
+<tr name="1013" id="1013">
+<td>1013</td><td>  <span class="kw">if</span> (<a id="1013c7" class="tk">!</a><a id="1013c8" class="tk">ssSetNumOutputPorts</a>(<a id="1013c28" class="tk">S</a>, 8))</td></tr>
+<tr name="1014" id="1014">
+<td>1014</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="1015" id="1015">
+<td>1015</td><td></td></tr>
+<tr name="1016" id="1016">
+<td>1016</td><td>  <span class="ct">/* outport number: 0 */</span></td></tr>
+<tr name="1017" id="1017">
+<td>1017</td><td>  <span class="kw">if</span> (<a id="1017c7" class="tk">!</a><a id="1017c8" class="tk">ssSetOutputPortVectorDimension</a>(<a id="1017c39" class="tk">S</a>, 0, 1))</td></tr>
+<tr name="1018" id="1018">
+<td>1018</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="1019" id="1019">
+<td>1019</td><td>  <span class="kw">if</span> (<a id="1019c7" class="tk">ssGetSimMode</a>(<a id="1019c20" class="tk">S</a>) <a id="1019c23" class="tk">!=</a> <a id="1019c26" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1020" id="1020">
+<td>1020</td><td>    <a id="1020c5" class="tk">ssSetOutputPortDataType</a>(<a id="1020c29" class="tk">S</a>, 0, <a id="1020c35" class="tk">SS_BOOLEAN</a>);</td></tr>
+<tr name="1021" id="1021">
+<td>1021</td><td>  <span class="br">}</span></td></tr>
+<tr name="1022" id="1022">
+<td>1022</td><td></td></tr>
+<tr name="1023" id="1023">
+<td>1023</td><td>  <a id="1023c3" class="tk">ssSetOutputPortOptimOpts</a>(<a id="1023c28" class="tk">S</a>, 0, <a id="1023c34" class="tk">SS_REUSABLE_AND_LOCAL</a>);</td></tr>
+<tr name="1024" id="1024">
+<td>1024</td><td></td></tr>
+<tr name="1025" id="1025">
+<td>1025</td><td>  <span class="ct">/* outport number: 1 */</span></td></tr>
+<tr name="1026" id="1026">
+<td>1026</td><td>  <span class="kw">if</span> (<a id="1026c7" class="tk">!</a><a id="1026c8" class="tk">ssSetOutputPortVectorDimension</a>(<a id="1026c39" class="tk">S</a>, 1, 1))</td></tr>
+<tr name="1027" id="1027">
+<td>1027</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="1028" id="1028">
+<td>1028</td><td>  <span class="kw">if</span> (<a id="1028c7" class="tk">ssGetSimMode</a>(<a id="1028c20" class="tk">S</a>) <a id="1028c23" class="tk">!=</a> <a id="1028c26" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1029" id="1029">
+<td>1029</td><td>    <a id="1029c5" class="tk">ssSetOutputPortDataType</a>(<a id="1029c29" class="tk">S</a>, 1, <a id="1029c35" class="tk">SS_BOOLEAN</a>);</td></tr>
+<tr name="1030" id="1030">
+<td>1030</td><td>  <span class="br">}</span></td></tr>
+<tr name="1031" id="1031">
+<td>1031</td><td></td></tr>
+<tr name="1032" id="1032">
+<td>1032</td><td>  <a id="1032c3" class="tk">ssSetOutputPortOptimOpts</a>(<a id="1032c28" class="tk">S</a>, 1, <a id="1032c34" class="tk">SS_REUSABLE_AND_LOCAL</a>);</td></tr>
+<tr name="1033" id="1033">
+<td>1033</td><td></td></tr>
+<tr name="1034" id="1034">
+<td>1034</td><td>  <span class="ct">/* outport number: 2 */</span></td></tr>
+<tr name="1035" id="1035">
+<td>1035</td><td>  <span class="kw">if</span> (<a id="1035c7" class="tk">!</a><a id="1035c8" class="tk">ssSetOutputPortVectorDimension</a>(<a id="1035c39" class="tk">S</a>, 2, 1))</td></tr>
+<tr name="1036" id="1036">
+<td>1036</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="1037" id="1037">
+<td>1037</td><td>  <span class="kw">if</span> (<a id="1037c7" class="tk">ssGetSimMode</a>(<a id="1037c20" class="tk">S</a>) <a id="1037c23" class="tk">!=</a> <a id="1037c26" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1038" id="1038">
+<td>1038</td><td>    <a id="1038c5" class="tk">ssSetOutputPortDataType</a>(<a id="1038c29" class="tk">S</a>, 2, <a id="1038c35" class="tk">SS_BOOLEAN</a>);</td></tr>
+<tr name="1039" id="1039">
+<td>1039</td><td>  <span class="br">}</span></td></tr>
+<tr name="1040" id="1040">
+<td>1040</td><td></td></tr>
+<tr name="1041" id="1041">
+<td>1041</td><td>  <a id="1041c3" class="tk">ssSetOutputPortOptimOpts</a>(<a id="1041c28" class="tk">S</a>, 2, <a id="1041c34" class="tk">SS_REUSABLE_AND_LOCAL</a>);</td></tr>
+<tr name="1042" id="1042">
+<td>1042</td><td></td></tr>
+<tr name="1043" id="1043">
+<td>1043</td><td>  <span class="ct">/* outport number: 3 */</span></td></tr>
+<tr name="1044" id="1044">
+<td>1044</td><td>  <span class="kw">if</span> (<a id="1044c7" class="tk">!</a><a id="1044c8" class="tk">ssSetOutputPortVectorDimension</a>(<a id="1044c39" class="tk">S</a>, 3, 1))</td></tr>
+<tr name="1045" id="1045">
+<td>1045</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="1046" id="1046">
+<td>1046</td><td>  <span class="kw">if</span> (<a id="1046c7" class="tk">ssGetSimMode</a>(<a id="1046c20" class="tk">S</a>) <a id="1046c23" class="tk">!=</a> <a id="1046c26" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1047" id="1047">
+<td>1047</td><td>    <a id="1047c5" class="tk">ssSetOutputPortDataType</a>(<a id="1047c29" class="tk">S</a>, 3, <a id="1047c35" class="tk">SS_BOOLEAN</a>);</td></tr>
+<tr name="1048" id="1048">
+<td>1048</td><td>  <span class="br">}</span></td></tr>
+<tr name="1049" id="1049">
+<td>1049</td><td></td></tr>
+<tr name="1050" id="1050">
+<td>1050</td><td>  <a id="1050c3" class="tk">ssSetOutputPortOptimOpts</a>(<a id="1050c28" class="tk">S</a>, 3, <a id="1050c34" class="tk">SS_REUSABLE_AND_LOCAL</a>);</td></tr>
+<tr name="1051" id="1051">
+<td>1051</td><td></td></tr>
+<tr name="1052" id="1052">
+<td>1052</td><td>  <span class="ct">/* outport number: 4 */</span></td></tr>
+<tr name="1053" id="1053">
+<td>1053</td><td>  <span class="kw">if</span> (<a id="1053c7" class="tk">!</a><a id="1053c8" class="tk">ssSetOutputPortVectorDimension</a>(<a id="1053c39" class="tk">S</a>, 4, 1))</td></tr>
+<tr name="1054" id="1054">
+<td>1054</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="1055" id="1055">
+<td>1055</td><td>  <span class="kw">if</span> (<a id="1055c7" class="tk">ssGetSimMode</a>(<a id="1055c20" class="tk">S</a>) <a id="1055c23" class="tk">!=</a> <a id="1055c26" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1056" id="1056">
+<td>1056</td><td>    <a id="1056c5" class="tk">ssSetOutputPortDataType</a>(<a id="1056c29" class="tk">S</a>, 4, <a id="1056c35" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1057" id="1057">
+<td>1057</td><td>  <span class="br">}</span></td></tr>
+<tr name="1058" id="1058">
+<td>1058</td><td></td></tr>
+<tr name="1059" id="1059">
+<td>1059</td><td>  <a id="1059c3" class="tk">ssSetOutputPortOptimOpts</a>(<a id="1059c28" class="tk">S</a>, 4, <a id="1059c34" class="tk">SS_REUSABLE_AND_LOCAL</a>);</td></tr>
+<tr name="1060" id="1060">
+<td>1060</td><td></td></tr>
+<tr name="1061" id="1061">
+<td>1061</td><td>  <span class="ct">/* outport number: 5 */</span></td></tr>
+<tr name="1062" id="1062">
+<td>1062</td><td>  <span class="kw">if</span> (<a id="1062c7" class="tk">!</a><a id="1062c8" class="tk">ssSetOutputPortVectorDimension</a>(<a id="1062c39" class="tk">S</a>, 5, 1))</td></tr>
+<tr name="1063" id="1063">
+<td>1063</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="1064" id="1064">
+<td>1064</td><td>  <span class="kw">if</span> (<a id="1064c7" class="tk">ssGetSimMode</a>(<a id="1064c20" class="tk">S</a>) <a id="1064c23" class="tk">!=</a> <a id="1064c26" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1065" id="1065">
+<td>1065</td><td>    <a id="1065c5" class="tk">ssSetOutputPortDataType</a>(<a id="1065c29" class="tk">S</a>, 5, <a id="1065c35" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1066" id="1066">
+<td>1066</td><td>  <span class="br">}</span></td></tr>
+<tr name="1067" id="1067">
+<td>1067</td><td></td></tr>
+<tr name="1068" id="1068">
+<td>1068</td><td>  <a id="1068c3" class="tk">ssSetOutputPortOptimOpts</a>(<a id="1068c28" class="tk">S</a>, 5, <a id="1068c34" class="tk">SS_REUSABLE_AND_LOCAL</a>);</td></tr>
+<tr name="1069" id="1069">
+<td>1069</td><td></td></tr>
+<tr name="1070" id="1070">
+<td>1070</td><td>  <span class="ct">/* outport number: 6 */</span></td></tr>
+<tr name="1071" id="1071">
+<td>1071</td><td>  <span class="kw">if</span> (<a id="1071c7" class="tk">!</a><a id="1071c8" class="tk">ssSetOutputPortVectorDimension</a>(<a id="1071c39" class="tk">S</a>, 6, 1))</td></tr>
+<tr name="1072" id="1072">
+<td>1072</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="1073" id="1073">
+<td>1073</td><td>  <span class="kw">if</span> (<a id="1073c7" class="tk">ssGetSimMode</a>(<a id="1073c20" class="tk">S</a>) <a id="1073c23" class="tk">!=</a> <a id="1073c26" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1074" id="1074">
+<td>1074</td><td>    <a id="1074c5" class="tk">ssSetOutputPortDataType</a>(<a id="1074c29" class="tk">S</a>, 6, <a id="1074c35" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1075" id="1075">
+<td>1075</td><td>  <span class="br">}</span></td></tr>
+<tr name="1076" id="1076">
+<td>1076</td><td></td></tr>
+<tr name="1077" id="1077">
+<td>1077</td><td>  <a id="1077c3" class="tk">ssSetOutputPortOptimOpts</a>(<a id="1077c28" class="tk">S</a>, 6, <a id="1077c34" class="tk">SS_REUSABLE_AND_LOCAL</a>);</td></tr>
+<tr name="1078" id="1078">
+<td>1078</td><td></td></tr>
+<tr name="1079" id="1079">
+<td>1079</td><td>  <span class="ct">/* outport number: 7 */</span></td></tr>
+<tr name="1080" id="1080">
+<td>1080</td><td>  <span class="kw">if</span> (<a id="1080c7" class="tk">!</a><a id="1080c8" class="tk">ssSetOutputPortVectorDimension</a>(<a id="1080c39" class="tk">S</a>, 7, 1))</td></tr>
+<tr name="1081" id="1081">
+<td>1081</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="1082" id="1082">
+<td>1082</td><td>  <span class="kw">if</span> (<a id="1082c7" class="tk">ssGetSimMode</a>(<a id="1082c20" class="tk">S</a>) <a id="1082c23" class="tk">!=</a> <a id="1082c26" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1083" id="1083">
+<td>1083</td><td>    <a id="1083c5" class="tk">ssSetOutputPortDataType</a>(<a id="1083c29" class="tk">S</a>, 7, <a id="1083c35" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1084" id="1084">
+<td>1084</td><td>  <span class="br">}</span></td></tr>
+<tr name="1085" id="1085">
+<td>1085</td><td></td></tr>
+<tr name="1086" id="1086">
+<td>1086</td><td>  <a id="1086c3" class="tk">ssSetOutputPortOptimOpts</a>(<a id="1086c28" class="tk">S</a>, 7, <a id="1086c34" class="tk">SS_REUSABLE_AND_LOCAL</a>);</td></tr>
+<tr name="1087" id="1087">
+<td>1087</td><td></td></tr>
+<tr name="1088" id="1088">
+<td>1088</td><td>  <span class="ct">/* Number of input ports */</span></td></tr>
+<tr name="1089" id="1089">
+<td>1089</td><td>  <span class="kw">if</span> (<a id="1089c7" class="tk">!</a><a id="1089c8" class="tk">ssSetNumInputPorts</a>(<a id="1089c27" class="tk">S</a>, 15))</td></tr>
+<tr name="1090" id="1090">
+<td>1090</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="1091" id="1091">
+<td>1091</td><td></td></tr>
+<tr name="1092" id="1092">
+<td>1092</td><td>  <span class="ct">/* inport number: 0 */</span></td></tr>
+<tr name="1093" id="1093">
+<td>1093</td><td>  <span class="br">{</span></td></tr>
+<tr name="1094" id="1094">
+<td>1094</td><td>    <span class="kw">if</span> (<a id="1094c9" class="tk">!</a><a id="1094c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1094c40" class="tk">S</a>, 0, 1))</td></tr>
+<tr name="1095" id="1095">
+<td>1095</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1096" id="1096">
+<td>1096</td><td>    <span class="kw">if</span> (<a id="1096c9" class="tk">ssGetSimMode</a>(<a id="1096c22" class="tk">S</a>) <a id="1096c25" class="tk">!=</a> <a id="1096c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1097" id="1097">
+<td>1097</td><td>      <a id="1097c7" class="tk">ssSetInputPortDataType</a>(<a id="1097c30" class="tk">S</a>, 0, <a id="1097c36" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1098" id="1098">
+<td>1098</td><td>    <span class="br">}</span></td></tr>
+<tr name="1099" id="1099">
+<td>1099</td><td></td></tr>
+<tr name="1100" id="1100">
+<td>1100</td><td>    <a id="1100c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1100c37" class="tk">S</a>, 0, 1);</td></tr>
+<tr name="1101" id="1101">
+<td>1101</td><td>    <a id="1101c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1101c32" class="tk">S</a>, 0, 0);</td></tr>
+<tr name="1102" id="1102">
+<td>1102</td><td>    <a id="1102c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1102c29" class="tk">S</a>, 0, <a id="1102c35" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1103" id="1103">
+<td>1103</td><td>  <span class="br">}</span></td></tr>
+<tr name="1104" id="1104">
+<td>1104</td><td></td></tr>
+<tr name="1105" id="1105">
+<td>1105</td><td>  <span class="ct">/* inport number: 1 */</span></td></tr>
+<tr name="1106" id="1106">
+<td>1106</td><td>  <span class="br">{</span></td></tr>
+<tr name="1107" id="1107">
+<td>1107</td><td>    <span class="kw">if</span> (<a id="1107c9" class="tk">!</a><a id="1107c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1107c40" class="tk">S</a>, 1, 1))</td></tr>
+<tr name="1108" id="1108">
+<td>1108</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1109" id="1109">
+<td>1109</td><td>    <span class="kw">if</span> (<a id="1109c9" class="tk">ssGetSimMode</a>(<a id="1109c22" class="tk">S</a>) <a id="1109c25" class="tk">!=</a> <a id="1109c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1110" id="1110">
+<td>1110</td><td>      <a id="1110c7" class="tk">ssSetInputPortDataType</a>(<a id="1110c30" class="tk">S</a>, 1, <a id="1110c36" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1111" id="1111">
+<td>1111</td><td>    <span class="br">}</span></td></tr>
+<tr name="1112" id="1112">
+<td>1112</td><td></td></tr>
+<tr name="1113" id="1113">
+<td>1113</td><td>    <a id="1113c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1113c37" class="tk">S</a>, 1, 1);</td></tr>
+<tr name="1114" id="1114">
+<td>1114</td><td>    <a id="1114c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1114c32" class="tk">S</a>, 1, 0);</td></tr>
+<tr name="1115" id="1115">
+<td>1115</td><td>    <a id="1115c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1115c29" class="tk">S</a>, 1, <a id="1115c35" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1116" id="1116">
+<td>1116</td><td>  <span class="br">}</span></td></tr>
+<tr name="1117" id="1117">
+<td>1117</td><td></td></tr>
+<tr name="1118" id="1118">
+<td>1118</td><td>  <span class="ct">/* inport number: 2 */</span></td></tr>
+<tr name="1119" id="1119">
+<td>1119</td><td>  <span class="br">{</span></td></tr>
+<tr name="1120" id="1120">
+<td>1120</td><td>    <span class="kw">if</span> (<a id="1120c9" class="tk">!</a><a id="1120c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1120c40" class="tk">S</a>, 2, 1))</td></tr>
+<tr name="1121" id="1121">
+<td>1121</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1122" id="1122">
+<td>1122</td><td>    <span class="kw">if</span> (<a id="1122c9" class="tk">ssGetSimMode</a>(<a id="1122c22" class="tk">S</a>) <a id="1122c25" class="tk">!=</a> <a id="1122c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1123" id="1123">
+<td>1123</td><td>      <a id="1123c7" class="tk">ssSetInputPortDataType</a>(<a id="1123c30" class="tk">S</a>, 2, <a id="1123c36" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1124" id="1124">
+<td>1124</td><td>    <span class="br">}</span></td></tr>
+<tr name="1125" id="1125">
+<td>1125</td><td></td></tr>
+<tr name="1126" id="1126">
+<td>1126</td><td>    <a id="1126c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1126c37" class="tk">S</a>, 2, 1);</td></tr>
+<tr name="1127" id="1127">
+<td>1127</td><td>    <a id="1127c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1127c32" class="tk">S</a>, 2, 0);</td></tr>
+<tr name="1128" id="1128">
+<td>1128</td><td>    <a id="1128c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1128c29" class="tk">S</a>, 2, <a id="1128c35" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1129" id="1129">
+<td>1129</td><td>  <span class="br">}</span></td></tr>
+<tr name="1130" id="1130">
+<td>1130</td><td></td></tr>
+<tr name="1131" id="1131">
+<td>1131</td><td>  <span class="ct">/* inport number: 3 */</span></td></tr>
+<tr name="1132" id="1132">
+<td>1132</td><td>  <span class="br">{</span></td></tr>
+<tr name="1133" id="1133">
+<td>1133</td><td>    <span class="kw">if</span> (<a id="1133c9" class="tk">!</a><a id="1133c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1133c40" class="tk">S</a>, 3, 1))</td></tr>
+<tr name="1134" id="1134">
+<td>1134</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1135" id="1135">
+<td>1135</td><td>    <span class="kw">if</span> (<a id="1135c9" class="tk">ssGetSimMode</a>(<a id="1135c22" class="tk">S</a>) <a id="1135c25" class="tk">!=</a> <a id="1135c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1136" id="1136">
+<td>1136</td><td>      <a id="1136c7" class="tk">ssSetInputPortDataType</a>(<a id="1136c30" class="tk">S</a>, 3, <a id="1136c36" class="tk">SS_DOUBLE</a>);</td></tr>
+<tr name="1137" id="1137">
+<td>1137</td><td>    <span class="br">}</span></td></tr>
+<tr name="1138" id="1138">
+<td>1138</td><td></td></tr>
+<tr name="1139" id="1139">
+<td>1139</td><td>    <a id="1139c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1139c37" class="tk">S</a>, 3, 1);</td></tr>
+<tr name="1140" id="1140">
+<td>1140</td><td>    <a id="1140c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1140c32" class="tk">S</a>, 3, 0);</td></tr>
+<tr name="1141" id="1141">
+<td>1141</td><td>    <a id="1141c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1141c29" class="tk">S</a>, 3, <a id="1141c35" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1142" id="1142">
+<td>1142</td><td>  <span class="br">}</span></td></tr>
+<tr name="1143" id="1143">
+<td>1143</td><td></td></tr>
+<tr name="1144" id="1144">
+<td>1144</td><td>  <span class="ct">/* inport number: 4 */</span></td></tr>
+<tr name="1145" id="1145">
+<td>1145</td><td>  <span class="br">{</span></td></tr>
+<tr name="1146" id="1146">
+<td>1146</td><td>    <span class="kw">if</span> (<a id="1146c9" class="tk">!</a><a id="1146c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1146c40" class="tk">S</a>, 4, 1))</td></tr>
+<tr name="1147" id="1147">
+<td>1147</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1148" id="1148">
+<td>1148</td><td>    <span class="kw">if</span> (<a id="1148c9" class="tk">ssGetSimMode</a>(<a id="1148c22" class="tk">S</a>) <a id="1148c25" class="tk">!=</a> <a id="1148c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1149" id="1149">
+<td>1149</td><td>      <a id="1149c7" class="tk">ssSetInputPortDataType</a>(<a id="1149c30" class="tk">S</a>, 4, <a id="1149c36" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1150" id="1150">
+<td>1150</td><td>    <span class="br">}</span></td></tr>
+<tr name="1151" id="1151">
+<td>1151</td><td></td></tr>
+<tr name="1152" id="1152">
+<td>1152</td><td>    <a id="1152c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1152c37" class="tk">S</a>, 4, 1);</td></tr>
+<tr name="1153" id="1153">
+<td>1153</td><td>    <a id="1153c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1153c32" class="tk">S</a>, 4, 0);</td></tr>
+<tr name="1154" id="1154">
+<td>1154</td><td>    <a id="1154c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1154c29" class="tk">S</a>, 4, <a id="1154c35" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1155" id="1155">
+<td>1155</td><td>  <span class="br">}</span></td></tr>
+<tr name="1156" id="1156">
+<td>1156</td><td></td></tr>
+<tr name="1157" id="1157">
+<td>1157</td><td>  <span class="ct">/* inport number: 5 */</span></td></tr>
+<tr name="1158" id="1158">
+<td>1158</td><td>  <span class="br">{</span></td></tr>
+<tr name="1159" id="1159">
+<td>1159</td><td>    <span class="kw">if</span> (<a id="1159c9" class="tk">!</a><a id="1159c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1159c40" class="tk">S</a>, 5, 1))</td></tr>
+<tr name="1160" id="1160">
+<td>1160</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1161" id="1161">
+<td>1161</td><td>    <span class="kw">if</span> (<a id="1161c9" class="tk">ssGetSimMode</a>(<a id="1161c22" class="tk">S</a>) <a id="1161c25" class="tk">!=</a> <a id="1161c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1162" id="1162">
+<td>1162</td><td>      <a id="1162c7" class="tk">ssSetInputPortDataType</a>(<a id="1162c30" class="tk">S</a>, 5, <a id="1162c36" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1163" id="1163">
+<td>1163</td><td>    <span class="br">}</span></td></tr>
+<tr name="1164" id="1164">
+<td>1164</td><td></td></tr>
+<tr name="1165" id="1165">
+<td>1165</td><td>    <a id="1165c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1165c37" class="tk">S</a>, 5, 1);</td></tr>
+<tr name="1166" id="1166">
+<td>1166</td><td>    <a id="1166c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1166c32" class="tk">S</a>, 5, 0);</td></tr>
+<tr name="1167" id="1167">
+<td>1167</td><td>    <a id="1167c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1167c29" class="tk">S</a>, 5, <a id="1167c35" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1168" id="1168">
+<td>1168</td><td>  <span class="br">}</span></td></tr>
+<tr name="1169" id="1169">
+<td>1169</td><td></td></tr>
+<tr name="1170" id="1170">
+<td>1170</td><td>  <span class="ct">/* inport number: 6 */</span></td></tr>
+<tr name="1171" id="1171">
+<td>1171</td><td>  <span class="br">{</span></td></tr>
+<tr name="1172" id="1172">
+<td>1172</td><td>    <span class="kw">if</span> (<a id="1172c9" class="tk">!</a><a id="1172c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1172c40" class="tk">S</a>, 6, 1))</td></tr>
+<tr name="1173" id="1173">
+<td>1173</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1174" id="1174">
+<td>1174</td><td>    <span class="kw">if</span> (<a id="1174c9" class="tk">ssGetSimMode</a>(<a id="1174c22" class="tk">S</a>) <a id="1174c25" class="tk">!=</a> <a id="1174c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1175" id="1175">
+<td>1175</td><td>      <a id="1175c7" class="tk">ssSetInputPortDataType</a>(<a id="1175c30" class="tk">S</a>, 6, <a id="1175c36" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1176" id="1176">
+<td>1176</td><td>    <span class="br">}</span></td></tr>
+<tr name="1177" id="1177">
+<td>1177</td><td></td></tr>
+<tr name="1178" id="1178">
+<td>1178</td><td>    <a id="1178c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1178c37" class="tk">S</a>, 6, 1);</td></tr>
+<tr name="1179" id="1179">
+<td>1179</td><td>    <a id="1179c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1179c32" class="tk">S</a>, 6, 0);</td></tr>
+<tr name="1180" id="1180">
+<td>1180</td><td>    <a id="1180c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1180c29" class="tk">S</a>, 6, <a id="1180c35" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1181" id="1181">
+<td>1181</td><td>  <span class="br">}</span></td></tr>
+<tr name="1182" id="1182">
+<td>1182</td><td></td></tr>
+<tr name="1183" id="1183">
+<td>1183</td><td>  <span class="ct">/* inport number: 7 */</span></td></tr>
+<tr name="1184" id="1184">
+<td>1184</td><td>  <span class="br">{</span></td></tr>
+<tr name="1185" id="1185">
+<td>1185</td><td>    <span class="kw">if</span> (<a id="1185c9" class="tk">!</a><a id="1185c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1185c40" class="tk">S</a>, 7, 1))</td></tr>
+<tr name="1186" id="1186">
+<td>1186</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1187" id="1187">
+<td>1187</td><td>    <span class="kw">if</span> (<a id="1187c9" class="tk">ssGetSimMode</a>(<a id="1187c22" class="tk">S</a>) <a id="1187c25" class="tk">!=</a> <a id="1187c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1188" id="1188">
+<td>1188</td><td>      <a id="1188c7" class="tk">ssSetInputPortDataType</a>(<a id="1188c30" class="tk">S</a>, 7, <a id="1188c36" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1189" id="1189">
+<td>1189</td><td>    <span class="br">}</span></td></tr>
+<tr name="1190" id="1190">
+<td>1190</td><td></td></tr>
+<tr name="1191" id="1191">
+<td>1191</td><td>    <a id="1191c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1191c37" class="tk">S</a>, 7, 1);</td></tr>
+<tr name="1192" id="1192">
+<td>1192</td><td>    <a id="1192c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1192c32" class="tk">S</a>, 7, 0);</td></tr>
+<tr name="1193" id="1193">
+<td>1193</td><td>    <a id="1193c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1193c29" class="tk">S</a>, 7, <a id="1193c35" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1194" id="1194">
+<td>1194</td><td>  <span class="br">}</span></td></tr>
+<tr name="1195" id="1195">
+<td>1195</td><td></td></tr>
+<tr name="1196" id="1196">
+<td>1196</td><td>  <span class="ct">/* inport number: 8 */</span></td></tr>
+<tr name="1197" id="1197">
+<td>1197</td><td>  <span class="br">{</span></td></tr>
+<tr name="1198" id="1198">
+<td>1198</td><td>    <span class="kw">if</span> (<a id="1198c9" class="tk">!</a><a id="1198c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1198c40" class="tk">S</a>, 8, 1))</td></tr>
+<tr name="1199" id="1199">
+<td>1199</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1200" id="1200">
+<td>1200</td><td>    <span class="kw">if</span> (<a id="1200c9" class="tk">ssGetSimMode</a>(<a id="1200c22" class="tk">S</a>) <a id="1200c25" class="tk">!=</a> <a id="1200c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1201" id="1201">
+<td>1201</td><td>      <a id="1201c7" class="tk">ssSetInputPortDataType</a>(<a id="1201c30" class="tk">S</a>, 8, <a id="1201c36" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1202" id="1202">
+<td>1202</td><td>    <span class="br">}</span></td></tr>
+<tr name="1203" id="1203">
+<td>1203</td><td></td></tr>
+<tr name="1204" id="1204">
+<td>1204</td><td>    <a id="1204c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1204c37" class="tk">S</a>, 8, 1);</td></tr>
+<tr name="1205" id="1205">
+<td>1205</td><td>    <a id="1205c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1205c32" class="tk">S</a>, 8, 0);</td></tr>
+<tr name="1206" id="1206">
+<td>1206</td><td>    <a id="1206c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1206c29" class="tk">S</a>, 8, <a id="1206c35" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1207" id="1207">
+<td>1207</td><td>  <span class="br">}</span></td></tr>
+<tr name="1208" id="1208">
+<td>1208</td><td></td></tr>
+<tr name="1209" id="1209">
+<td>1209</td><td>  <span class="ct">/* inport number: 9 */</span></td></tr>
+<tr name="1210" id="1210">
+<td>1210</td><td>  <span class="br">{</span></td></tr>
+<tr name="1211" id="1211">
+<td>1211</td><td>    <span class="kw">if</span> (<a id="1211c9" class="tk">!</a><a id="1211c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1211c40" class="tk">S</a>, 9, 1))</td></tr>
+<tr name="1212" id="1212">
+<td>1212</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1213" id="1213">
+<td>1213</td><td>    <span class="kw">if</span> (<a id="1213c9" class="tk">ssGetSimMode</a>(<a id="1213c22" class="tk">S</a>) <a id="1213c25" class="tk">!=</a> <a id="1213c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1214" id="1214">
+<td>1214</td><td>      <a id="1214c7" class="tk">ssSetInputPortDataType</a>(<a id="1214c30" class="tk">S</a>, 9, <a id="1214c36" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1215" id="1215">
+<td>1215</td><td>    <span class="br">}</span></td></tr>
+<tr name="1216" id="1216">
+<td>1216</td><td></td></tr>
+<tr name="1217" id="1217">
+<td>1217</td><td>    <a id="1217c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1217c37" class="tk">S</a>, 9, 1);</td></tr>
+<tr name="1218" id="1218">
+<td>1218</td><td>    <a id="1218c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1218c32" class="tk">S</a>, 9, 0);</td></tr>
+<tr name="1219" id="1219">
+<td>1219</td><td>    <a id="1219c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1219c29" class="tk">S</a>, 9, <a id="1219c35" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1220" id="1220">
+<td>1220</td><td>  <span class="br">}</span></td></tr>
+<tr name="1221" id="1221">
+<td>1221</td><td></td></tr>
+<tr name="1222" id="1222">
+<td>1222</td><td>  <span class="ct">/* inport number: 10 */</span></td></tr>
+<tr name="1223" id="1223">
+<td>1223</td><td>  <span class="br">{</span></td></tr>
+<tr name="1224" id="1224">
+<td>1224</td><td>    <span class="kw">if</span> (<a id="1224c9" class="tk">!</a><a id="1224c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1224c40" class="tk">S</a>, 10, 1))</td></tr>
+<tr name="1225" id="1225">
+<td>1225</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1226" id="1226">
+<td>1226</td><td>    <span class="kw">if</span> (<a id="1226c9" class="tk">ssGetSimMode</a>(<a id="1226c22" class="tk">S</a>) <a id="1226c25" class="tk">!=</a> <a id="1226c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1227" id="1227">
+<td>1227</td><td>      <a id="1227c7" class="tk">ssSetInputPortDataType</a>(<a id="1227c30" class="tk">S</a>, 10, <a id="1227c37" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1228" id="1228">
+<td>1228</td><td>    <span class="br">}</span></td></tr>
+<tr name="1229" id="1229">
+<td>1229</td><td></td></tr>
+<tr name="1230" id="1230">
+<td>1230</td><td>    <a id="1230c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1230c37" class="tk">S</a>, 10, 1);</td></tr>
+<tr name="1231" id="1231">
+<td>1231</td><td>    <a id="1231c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1231c32" class="tk">S</a>, 10, 0);</td></tr>
+<tr name="1232" id="1232">
+<td>1232</td><td>    <a id="1232c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1232c29" class="tk">S</a>, 10, <a id="1232c36" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1233" id="1233">
+<td>1233</td><td>  <span class="br">}</span></td></tr>
+<tr name="1234" id="1234">
+<td>1234</td><td></td></tr>
+<tr name="1235" id="1235">
+<td>1235</td><td>  <span class="ct">/* inport number: 11 */</span></td></tr>
+<tr name="1236" id="1236">
+<td>1236</td><td>  <span class="br">{</span></td></tr>
+<tr name="1237" id="1237">
+<td>1237</td><td>    <span class="kw">if</span> (<a id="1237c9" class="tk">!</a><a id="1237c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1237c40" class="tk">S</a>, 11, 1))</td></tr>
+<tr name="1238" id="1238">
+<td>1238</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1239" id="1239">
+<td>1239</td><td>    <span class="kw">if</span> (<a id="1239c9" class="tk">ssGetSimMode</a>(<a id="1239c22" class="tk">S</a>) <a id="1239c25" class="tk">!=</a> <a id="1239c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1240" id="1240">
+<td>1240</td><td>      <a id="1240c7" class="tk">ssSetInputPortDataType</a>(<a id="1240c30" class="tk">S</a>, 11, <a id="1240c37" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1241" id="1241">
+<td>1241</td><td>    <span class="br">}</span></td></tr>
+<tr name="1242" id="1242">
+<td>1242</td><td></td></tr>
+<tr name="1243" id="1243">
+<td>1243</td><td>    <a id="1243c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1243c37" class="tk">S</a>, 11, 1);</td></tr>
+<tr name="1244" id="1244">
+<td>1244</td><td>    <a id="1244c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1244c32" class="tk">S</a>, 11, 0);</td></tr>
+<tr name="1245" id="1245">
+<td>1245</td><td>    <a id="1245c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1245c29" class="tk">S</a>, 11, <a id="1245c36" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1246" id="1246">
+<td>1246</td><td>  <span class="br">}</span></td></tr>
+<tr name="1247" id="1247">
+<td>1247</td><td></td></tr>
+<tr name="1248" id="1248">
+<td>1248</td><td>  <span class="ct">/* inport number: 12 */</span></td></tr>
+<tr name="1249" id="1249">
+<td>1249</td><td>  <span class="br">{</span></td></tr>
+<tr name="1250" id="1250">
+<td>1250</td><td>    <span class="kw">if</span> (<a id="1250c9" class="tk">!</a><a id="1250c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1250c40" class="tk">S</a>, 12, 1))</td></tr>
+<tr name="1251" id="1251">
+<td>1251</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1252" id="1252">
+<td>1252</td><td>    <span class="kw">if</span> (<a id="1252c9" class="tk">ssGetSimMode</a>(<a id="1252c22" class="tk">S</a>) <a id="1252c25" class="tk">!=</a> <a id="1252c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1253" id="1253">
+<td>1253</td><td>      <a id="1253c7" class="tk">ssSetInputPortDataType</a>(<a id="1253c30" class="tk">S</a>, 12, <a id="1253c37" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1254" id="1254">
+<td>1254</td><td>    <span class="br">}</span></td></tr>
+<tr name="1255" id="1255">
+<td>1255</td><td></td></tr>
+<tr name="1256" id="1256">
+<td>1256</td><td>    <a id="1256c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1256c37" class="tk">S</a>, 12, 1);</td></tr>
+<tr name="1257" id="1257">
+<td>1257</td><td>    <a id="1257c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1257c32" class="tk">S</a>, 12, 0);</td></tr>
+<tr name="1258" id="1258">
+<td>1258</td><td>    <a id="1258c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1258c29" class="tk">S</a>, 12, <a id="1258c36" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1259" id="1259">
+<td>1259</td><td>  <span class="br">}</span></td></tr>
+<tr name="1260" id="1260">
+<td>1260</td><td></td></tr>
+<tr name="1261" id="1261">
+<td>1261</td><td>  <span class="ct">/* inport number: 13 */</span></td></tr>
+<tr name="1262" id="1262">
+<td>1262</td><td>  <span class="br">{</span></td></tr>
+<tr name="1263" id="1263">
+<td>1263</td><td>    <span class="kw">if</span> (<a id="1263c9" class="tk">!</a><a id="1263c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1263c40" class="tk">S</a>, 13, 1))</td></tr>
+<tr name="1264" id="1264">
+<td>1264</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1265" id="1265">
+<td>1265</td><td>    <span class="kw">if</span> (<a id="1265c9" class="tk">ssGetSimMode</a>(<a id="1265c22" class="tk">S</a>) <a id="1265c25" class="tk">!=</a> <a id="1265c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1266" id="1266">
+<td>1266</td><td>      <a id="1266c7" class="tk">ssSetInputPortDataType</a>(<a id="1266c30" class="tk">S</a>, 13, <a id="1266c37" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1267" id="1267">
+<td>1267</td><td>    <span class="br">}</span></td></tr>
+<tr name="1268" id="1268">
+<td>1268</td><td></td></tr>
+<tr name="1269" id="1269">
+<td>1269</td><td>    <a id="1269c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1269c37" class="tk">S</a>, 13, 1);</td></tr>
+<tr name="1270" id="1270">
+<td>1270</td><td>    <a id="1270c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1270c32" class="tk">S</a>, 13, 0);</td></tr>
+<tr name="1271" id="1271">
+<td>1271</td><td>    <a id="1271c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1271c29" class="tk">S</a>, 13, <a id="1271c36" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1272" id="1272">
+<td>1272</td><td>  <span class="br">}</span></td></tr>
+<tr name="1273" id="1273">
+<td>1273</td><td></td></tr>
+<tr name="1274" id="1274">
+<td>1274</td><td>  <span class="ct">/* inport number: 14 */</span></td></tr>
+<tr name="1275" id="1275">
+<td>1275</td><td>  <span class="br">{</span></td></tr>
+<tr name="1276" id="1276">
+<td>1276</td><td>    <span class="kw">if</span> (<a id="1276c9" class="tk">!</a><a id="1276c10" class="tk">ssSetInputPortVectorDimension</a>(<a id="1276c40" class="tk">S</a>, 14, 1))</td></tr>
+<tr name="1277" id="1277">
+<td>1277</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1278" id="1278">
+<td>1278</td><td>    <span class="kw">if</span> (<a id="1278c9" class="tk">ssGetSimMode</a>(<a id="1278c22" class="tk">S</a>) <a id="1278c25" class="tk">!=</a> <a id="1278c28" class="tk">SS_SIMMODE_SIZES_CALL_ONLY</a>) <span class="br">{</span></td></tr>
+<tr name="1279" id="1279">
+<td>1279</td><td>      <a id="1279c7" class="tk">ssSetInputPortDataType</a>(<a id="1279c30" class="tk">S</a>, 14, <a id="1279c37" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1280" id="1280">
+<td>1280</td><td>    <span class="br">}</span></td></tr>
+<tr name="1281" id="1281">
+<td>1281</td><td></td></tr>
+<tr name="1282" id="1282">
+<td>1282</td><td>    <a id="1282c5" class="tk">ssSetInputPortDirectFeedThrough</a>(<a id="1282c37" class="tk">S</a>, 14, 1);</td></tr>
+<tr name="1283" id="1283">
+<td>1283</td><td>    <a id="1283c5" class="tk">ssSetInputPortOverWritable</a>(<a id="1283c32" class="tk">S</a>, 14, 0);</td></tr>
+<tr name="1284" id="1284">
+<td>1284</td><td>    <a id="1284c5" class="tk">ssSetInputPortOptimOpts</a>(<a id="1284c29" class="tk">S</a>, 14, <a id="1284c36" class="tk">SS_NOT_REUSABLE_AND_GLOBAL</a>);</td></tr>
+<tr name="1285" id="1285">
+<td>1285</td><td>  <span class="br">}</span></td></tr>
+<tr name="1286" id="1286">
+<td>1286</td><td></td></tr>
+<tr name="1287" id="1287">
+<td>1287</td><td>  <a id="1287c3" class="tk">ssSetRTWGeneratedSFcn</a>(<a id="1287c25" class="tk">S</a>, 1);         <span class="ct">/* Generated S-function */</span></td></tr>
+<tr name="1288" id="1288">
+<td>1288</td><td></td></tr>
+<tr name="1289" id="1289">
+<td>1289</td><td>  <span class="ct">/* DWork */</span></td></tr>
+<tr name="1290" id="1290">
+<td>1290</td><td>  <span class="kw">if</span> (<a id="1290c7" class="tk">!</a><a id="1290c8" class="tk">ssSetNumDWork</a>(<a id="1290c22" class="tk">S</a>, 9)) <span class="br">{</span></td></tr>
+<tr name="1291" id="1291">
+<td>1291</td><td>    <span class="kw">return</span>;</td></tr>
+<tr name="1292" id="1292">
+<td>1292</td><td>  <span class="br">}</span></td></tr>
+<tr name="1293" id="1293">
+<td>1293</td><td></td></tr>
+<tr name="1294" id="1294">
+<td>1294</td><td>  <span class="ct">/* '&lt;S1&gt;/Chart2': DWORK1 */</span></td></tr>
+<tr name="1295" id="1295">
+<td>1295</td><td>  <a id="1295c3" class="tk">ssSetDWorkName</a>(<a id="1295c18" class="tk">S</a>, 0, "DWORK0");</td></tr>
+<tr name="1296" id="1296">
+<td>1296</td><td>  <a id="1296c3" class="tk">ssSetDWorkWidth</a>(<a id="1296c19" class="tk">S</a>, 0, 1);</td></tr>
+<tr name="1297" id="1297">
+<td>1297</td><td>  <a id="1297c3" class="tk">ssSetDWorkDataType</a>(<a id="1297c22" class="tk">S</a>, 0, <a id="1297c28" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1298" id="1298">
+<td>1298</td><td></td></tr>
+<tr name="1299" id="1299">
+<td>1299</td><td>  <span class="ct">/* '&lt;S1&gt;/Chart2': DWORK2 */</span></td></tr>
+<tr name="1300" id="1300">
+<td>1300</td><td>  <a id="1300c3" class="tk">ssSetDWorkName</a>(<a id="1300c18" class="tk">S</a>, 1, "DWORK1");</td></tr>
+<tr name="1301" id="1301">
+<td>1301</td><td>  <a id="1301c3" class="tk">ssSetDWorkWidth</a>(<a id="1301c19" class="tk">S</a>, 1, 1);</td></tr>
+<tr name="1302" id="1302">
+<td>1302</td><td>  <a id="1302c3" class="tk">ssSetDWorkDataType</a>(<a id="1302c22" class="tk">S</a>, 1, <a id="1302c28" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1303" id="1303">
+<td>1303</td><td></td></tr>
+<tr name="1304" id="1304">
+<td>1304</td><td>  <span class="ct">/* '&lt;S6&gt;/key_cycle_chart': DWORK1 */</span></td></tr>
+<tr name="1305" id="1305">
+<td>1305</td><td>  <a id="1305c3" class="tk">ssSetDWorkName</a>(<a id="1305c18" class="tk">S</a>, 2, "DWORK2");</td></tr>
+<tr name="1306" id="1306">
+<td>1306</td><td>  <a id="1306c3" class="tk">ssSetDWorkWidth</a>(<a id="1306c19" class="tk">S</a>, 2, 1);</td></tr>
+<tr name="1307" id="1307">
+<td>1307</td><td>  <a id="1307c3" class="tk">ssSetDWorkDataType</a>(<a id="1307c22" class="tk">S</a>, 2, <a id="1307c28" class="tk">SS_INT32</a>);</td></tr>
+<tr name="1308" id="1308">
+<td>1308</td><td></td></tr>
+<tr name="1309" id="1309">
+<td>1309</td><td>  <span class="ct">/* '&lt;S6&gt;/key_cycle_chart': DWORK4 */</span></td></tr>
+<tr name="1310" id="1310">
+<td>1310</td><td>  <a id="1310c3" class="tk">ssSetDWorkName</a>(<a id="1310c18" class="tk">S</a>, 3, "DWORK3");</td></tr>
+<tr name="1311" id="1311">
+<td>1311</td><td>  <a id="1311c3" class="tk">ssSetDWorkWidth</a>(<a id="1311c19" class="tk">S</a>, 3, 1);</td></tr>
+<tr name="1312" id="1312">
+<td>1312</td><td>  <a id="1312c3" class="tk">ssSetDWorkDataType</a>(<a id="1312c22" class="tk">S</a>, 3, <a id="1312c28" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1313" id="1313">
+<td>1313</td><td></td></tr>
+<tr name="1314" id="1314">
+<td>1314</td><td>  <span class="ct">/* '&lt;S6&gt;/key_cycle_chart': DWORK5 */</span></td></tr>
+<tr name="1315" id="1315">
+<td>1315</td><td>  <a id="1315c3" class="tk">ssSetDWorkName</a>(<a id="1315c18" class="tk">S</a>, 4, "DWORK4");</td></tr>
+<tr name="1316" id="1316">
+<td>1316</td><td>  <a id="1316c3" class="tk">ssSetDWorkWidth</a>(<a id="1316c19" class="tk">S</a>, 4, 1);</td></tr>
+<tr name="1317" id="1317">
+<td>1317</td><td>  <a id="1317c3" class="tk">ssSetDWorkDataType</a>(<a id="1317c22" class="tk">S</a>, 4, <a id="1317c28" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1318" id="1318">
+<td>1318</td><td></td></tr>
+<tr name="1319" id="1319">
+<td>1319</td><td>  <span class="ct">/* '&lt;S6&gt;/key_cycle_chart': DWORK6 */</span></td></tr>
+<tr name="1320" id="1320">
+<td>1320</td><td>  <a id="1320c3" class="tk">ssSetDWorkName</a>(<a id="1320c18" class="tk">S</a>, 5, "DWORK5");</td></tr>
+<tr name="1321" id="1321">
+<td>1321</td><td>  <a id="1321c3" class="tk">ssSetDWorkWidth</a>(<a id="1321c19" class="tk">S</a>, 5, 1);</td></tr>
+<tr name="1322" id="1322">
+<td>1322</td><td>  <a id="1322c3" class="tk">ssSetDWorkDataType</a>(<a id="1322c22" class="tk">S</a>, 5, <a id="1322c28" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1323" id="1323">
+<td>1323</td><td></td></tr>
+<tr name="1324" id="1324">
+<td>1324</td><td>  <span class="ct">/* '&lt;S6&gt;/key_cycle_chart': DWORK7 */</span></td></tr>
+<tr name="1325" id="1325">
+<td>1325</td><td>  <a id="1325c3" class="tk">ssSetDWorkName</a>(<a id="1325c18" class="tk">S</a>, 6, "DWORK6");</td></tr>
+<tr name="1326" id="1326">
+<td>1326</td><td>  <a id="1326c3" class="tk">ssSetDWorkWidth</a>(<a id="1326c19" class="tk">S</a>, 6, 1);</td></tr>
+<tr name="1327" id="1327">
+<td>1327</td><td>  <a id="1327c3" class="tk">ssSetDWorkDataType</a>(<a id="1327c22" class="tk">S</a>, 6, <a id="1327c28" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1328" id="1328">
+<td>1328</td><td></td></tr>
+<tr name="1329" id="1329">
+<td>1329</td><td>  <span class="ct">/* '&lt;S6&gt;/key_cycle_chart': DWORK3 */</span></td></tr>
+<tr name="1330" id="1330">
+<td>1330</td><td>  <a id="1330c3" class="tk">ssSetDWorkName</a>(<a id="1330c18" class="tk">S</a>, 7, "DWORK7");</td></tr>
+<tr name="1331" id="1331">
+<td>1331</td><td>  <a id="1331c3" class="tk">ssSetDWorkWidth</a>(<a id="1331c19" class="tk">S</a>, 7, 1);</td></tr>
+<tr name="1332" id="1332">
+<td>1332</td><td>  <a id="1332c3" class="tk">ssSetDWorkDataType</a>(<a id="1332c22" class="tk">S</a>, 7, <a id="1332c28" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1333" id="1333">
+<td>1333</td><td></td></tr>
+<tr name="1334" id="1334">
+<td>1334</td><td>  <span class="ct">/* '&lt;S6&gt;/key_cycle_chart': DWORK2 */</span></td></tr>
+<tr name="1335" id="1335">
+<td>1335</td><td>  <a id="1335c3" class="tk">ssSetDWorkName</a>(<a id="1335c18" class="tk">S</a>, 8, "DWORK8");</td></tr>
+<tr name="1336" id="1336">
+<td>1336</td><td>  <a id="1336c3" class="tk">ssSetDWorkWidth</a>(<a id="1336c19" class="tk">S</a>, 8, 1);</td></tr>
+<tr name="1337" id="1337">
+<td>1337</td><td>  <a id="1337c3" class="tk">ssSetDWorkDataType</a>(<a id="1337c22" class="tk">S</a>, 8, <a id="1337c28" class="tk">SS_UINT8</a>);</td></tr>
+<tr name="1338" id="1338">
+<td>1338</td><td></td></tr>
+<tr name="1339" id="1339">
+<td>1339</td><td>  <span class="ct">/* Tunable Parameters */</span></td></tr>
+<tr name="1340" id="1340">
+<td>1340</td><td>  <a id="1340c3" class="tk">ssSetNumSFcnParams</a>(<a id="1340c22" class="tk">S</a>, 0);</td></tr>
+<tr name="1341" id="1341">
+<td>1341</td><td></td></tr>
+<tr name="1342" id="1342">
+<td>1342</td><td>  <span class="ct">/* Number of expected parameters */</span></td></tr>
+<tr name="1343" id="1343">
+<td>1343</td><td><span class="pp">#if</span> <a id="1343c5" class="tk">defined</a>(<a id="1343c13" class="tk">MATLAB_MEX_FILE</a>)</td></tr>
+<tr name="1344" id="1344">
+<td>1344</td><td></td></tr>
+<tr name="1345" id="1345">
+<td>1345</td><td>  <span class="kw">if</span> (<a id="1345c7" class="tk">ssGetNumSFcnParams</a>(<a id="1345c26" class="tk">S</a>) <a id="1345c29" class="tk">==</a> <a id="1345c32" class="tk">ssGetSFcnParamsCount</a>(<a id="1345c53" class="tk">S</a>)) <span class="br">{</span></td></tr>
+<tr name="1346" id="1346">
+<td>1346</td><td></td></tr>
+<tr name="1347" id="1347">
+<td>1347</td><td><span class="pp">#if</span> <a id="1347c5" class="tk">defined</a>(<a id="1347c13" class="tk">MDL_CHECK_PARAMETERS</a>)</td></tr>
+<tr name="1348" id="1348">
+<td>1348</td><td></td></tr>
+<tr name="1349" id="1349">
+<td>1349</td><td>    <a id="1349c5" class="tk">mdlCheckParameters</a>(<a id="1349c24" class="tk">S</a>);</td></tr>
+<tr name="1350" id="1350">
+<td>1350</td><td></td></tr>
+<tr name="1351" id="1351">
+<td>1351</td><td><span class="pp">#endif</span>                                 <span class="ct">/* MDL_CHECK_PARAMETERS */</span></td></tr>
+<tr name="1352" id="1352">
+<td>1352</td><td></td></tr>
+<tr name="1353" id="1353">
+<td>1353</td><td>    <span class="kw">if</span> (<a id="1353c9" class="tk">ssGetErrorStatus</a>(<a id="1353c26" class="tk">S</a>) <a id="1353c29" class="tk">!=</a> (<a id="1353c33" class="tk">NULL</a>) ) <span class="br">{</span></td></tr>
+<tr name="1354" id="1354">
+<td>1354</td><td>      <span class="kw">return</span>;</td></tr>
+<tr name="1355" id="1355">
+<td>1355</td><td>    <span class="br">}</span></td></tr>
+<tr name="1356" id="1356">
+<td>1356</td><td>  <span class="br">}</span> <span class="kw">else</span> <span class="br">{</span></td></tr>
+<tr name="1357" id="1357">
+<td>1357</td><td>    <span class="kw">return</span>;                            <span class="ct">/* Parameter mismatch will be reported by Simulink */</span></td></tr>
+<tr name="1358" id="1358">
+<td>1358</td><td>  <span class="br">}</span></td></tr>
+<tr name="1359" id="1359">
+<td>1359</td><td></td></tr>
+<tr name="1360" id="1360">
+<td>1360</td><td><span class="pp">#endif</span>                                 <span class="ct">/* MATLAB_MEX_FILE */</span></td></tr>
+<tr name="1361" id="1361">
+<td>1361</td><td></td></tr>
+<tr name="1362" id="1362">
+<td>1362</td><td>  <span class="ct">/* Options */</span></td></tr>
+<tr name="1363" id="1363">
+<td>1363</td><td>  <a id="1363c3" class="tk">ssSetOptions</a>(<a id="1363c16" class="tk">S</a>, (<a id="1363c20" class="tk">SS_OPTION_RUNTIME_EXCEPTION_FREE_CODE</a> <a id="1363c58" class="tk">|</a></td></tr>
+<tr name="1364" id="1364">
+<td>1364</td><td>                   <a id="1364c20" class="tk">SS_OPTION_DISALLOW_CONSTANT_SAMPLE_TIME</a> ));</td></tr>
+<tr name="1365" id="1365">
+<td>1365</td><td></td></tr>
+<tr name="1366" id="1366">
+<td>1366</td><td><span class="pp">#if</span> <a id="1366c5" class="tk">SS_SFCN_FOR_SIM</a></td></tr>
+<tr name="1367" id="1367">
+<td>1367</td><td></td></tr>
+<tr name="1368" id="1368">
+<td>1368</td><td>  <span class="br">{</span></td></tr>
+<tr name="1369" id="1369">
+<td>1369</td><td>    <a id="1369c5" class="tk">ssSupportsMultipleExecInstances</a>(<a id="1369c37" class="tk">S</a>, true);</td></tr>
+<tr name="1370" id="1370">
+<td>1370</td><td>    <a id="1370c5" class="tk">ssHasStateInsideForEachSS</a>(<a id="1370c31" class="tk">S</a>, false);</td></tr>
+<tr name="1371" id="1371">
+<td>1371</td><td>    <a id="1371c5" class="tk">ssSetModelReferenceSampleTimeInheritanceRule</a>(<a id="1371c50" class="tk">S</a>,</td></tr>
+<tr name="1372" id="1372">
+<td>1372</td><td>      <a id="1372c7" class="tk">USE_DEFAULT_FOR_DISCRETE_INHERITANCE</a>);</td></tr>
+<tr name="1373" id="1373">
+<td>1373</td><td>  <span class="br">}</span></td></tr>
+<tr name="1374" id="1374">
+<td>1374</td><td></td></tr>
+<tr name="1375" id="1375">
+<td>1375</td><td><span class="pp">#endif</span></td></tr>
+<tr name="1376" id="1376">
+<td>1376</td><td></td></tr>
+<tr name="1377" id="1377">
+<td>1377</td><td><span class="br">}</span></td></tr>
+<tr name="1378" id="1378">
+<td>1378</td><td></td></tr>
+<tr name="1379" id="1379">
+<td>1379</td><td><span class="ct">/* Function to initialize sample times. */</span></td></tr>
+<tr name="1380" id="1380">
+<td>1380</td><td><span class="kw">static</span> <span class="kw">void</span> <a id="1380c13" class="tk">mdlInitializeSampleTimes</a>(<a id="1380c38" class="tk">SimStruct</a> <a id="1380c48" class="tk">*</a><a id="1380c49" class="tk">S</a>)</td></tr>
+<tr name="1381" id="1381">
+<td>1381</td><td><span class="br">{</span></td></tr>
+<tr name="1382" id="1382">
+<td>1382</td><td>  <a id="1382c3" class="tk">ssSetSampleTime</a>(<a id="1382c19" class="tk">S</a>, 0, <a id="1382c25" class="tk">INHERITED_SAMPLE_TIME</a>);</td></tr>
+<tr name="1383" id="1383">
+<td>1383</td><td>  <a id="1383c3" class="tk">ssSetOffsetTime</a>(<a id="1383c19" class="tk">S</a>, 0, 0.0);</td></tr>
+<tr name="1384" id="1384">
+<td>1384</td><td><span class="br">}</span></td></tr>
+<tr name="1385" id="1385">
+<td>1385</td><td></td></tr>
+<tr name="1386" id="1386">
+<td>1386</td><td><span class="pp">#if</span> <a id="1386c5" class="tk">defined</a>(<a id="1386c13" class="tk">MATLAB_MEX_FILE</a>)</td></tr>
+<tr name="1387" id="1387">
+<td>1387</td><td><span class="pp"># include "fixedpoint.c"</span></td></tr>
+<tr name="1388" id="1388">
+<td>1388</td><td><span class="pp"># include "simulink.c"</span></td></tr>
+<tr name="1389" id="1389">
+<td>1389</td><td><span class="pp">#else</span></td></tr>
+<tr name="1390" id="1390">
+<td>1390</td><td><span class="pp"># undef</span> <a id="1390c9" class="tk">S_FUNCTION_NAME</a></td></tr>
+<tr name="1391" id="1391">
+<td>1391</td><td><span class="pp"># define</span> <a id="1391c10" class="tk">S_FUNCTION_NAME</a>               <a id="1391c40" class="tk">BSC_sf</a></td></tr>
+<tr name="1392" id="1392">
+<td>1392</td><td><span class="pp"># include "cg_sfun.h"</span></td></tr>
+<tr name="1393" id="1393">
+<td>1393</td><td><span class="pp">#endif</span>                                 <span class="ct">/* defined(MATLAB_MEX_FILE) */</span></td></tr>
+<tr name="1394" id="1394">
+<td>1394</td><td></td></tr>
+</table>
+</pre>
+</body>
+</html>

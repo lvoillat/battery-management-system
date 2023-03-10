@@ -1,0 +1,36 @@
+%implements s2_b0_y89th_ModelPrevZCStateInit "C"
+
+%function ModelPrevZCStateInit(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+PrevZCX_CC_T *_rtZCE;
+%closefile localVarDecl
+%<SLibCG_TrackZCEvent(2)>\
+_rtZCE = %<(SLibCG_SE(SLibGetPreviousZCStructPtr()))>;
+_rtZCE->ResettableDelay_Reset_ZCE = UNINITIALIZED_ZCSIG;
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("ModelPrevZCStateInit", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "ModelPrevZCStateInit"))
+%<SLibCG_AccessArg(0, 4, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 4, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "ModelPrevZCStateInit", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "ModelPrevZCStateInit"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 4, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void ModelPrevZCStateInit(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 4, 0)
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 4, fcnProtoType)>
+%<LibSetSystemField(system, "CachedModelPrevZCStateInitLocalVars", localVarDecl)>
+%endfunction

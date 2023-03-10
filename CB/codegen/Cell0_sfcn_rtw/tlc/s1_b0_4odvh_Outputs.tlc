@@ -1,0 +1,92 @@
+%implements s1_b0_4odvh_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+real_T minV;
+boolean_T rtb_LogicalOperator[40];
+boolean_T rtb_LogicalOperator2;
+uint32_T tmp;
+int32_T i;
+%closefile localVarDecl
+%<SLibCG_TrackEO(1)>\
+%<SLibCG_TrackEO(0)>\
+%<SLibCG_TrackEI(2)>\
+%<SLibCG_TrackEI(1)>\
+/* Outputs for Atomic SubSystem: '<Root>/Cell Balancing' */
+/* MinMax: '<S1>/MinMax1' incorporates:
+ *  Inport: '<Root>/cell_soc'
+ */
+minV = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[0];
+for (i = 0; i < 39; i++) {
+    if (!((minV <= *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[i + 1]) || rtIsNaN(*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[i + 1]))) {
+        minV = *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[i + 1];
+    }
+}
+/* Logic: '<S1>/LogicalOperator2' incorporates:
+ *  Constant: '<S1>/Constant1'
+ *  Constant: '<S1>/Constant6'
+ *  Inport: '<Root>/battery_mode'
+ *  MinMax: '<S1>/MinMax1'
+ *  RelationalOperator: '<S1>/RelationalOperator2'
+ *  RelationalOperator: '<S1>/RelationalOperator4'
+ */
+rtb_LogicalOperator2 = ((*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0] == %<(SLibCG_SE(SLibCGIR_PV(0, 0, 1, 1, "", -1, "", 0)))>) && (minV >= %<(SLibCG_SE(SLibCGIR_PV(2, 0, 1, 1, "", -1, "", 0)))>));
+/* Logic: '<S1>/LogicalOperator' incorporates:
+ *  Constant: '<S1>/Constant2'
+ *  Inport: '<Root>/cell_soc'
+ *  MinMax: '<S1>/MinMax1'
+ *  RelationalOperator: '<S1>/RelationalOperator1'
+ *  Sum: '<S1>/Subtract1'
+ */
+for (i = 0; i < 40; i++) {
+    rtb_LogicalOperator[i] = ((*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[i] - minV >= %<(SLibCG_SE(SLibCGIR_PV(1, 0, 1, 1, "", -1, "", 0)))>) && rtb_LogicalOperator2);
+}
+/* End of Logic: '<S1>/LogicalOperator' */
+
+/* Sum: '<S1>/Sum of Elements' */
+tmp = rtb_LogicalOperator[0];
+for (i = 0; i < 39; i++) {
+    tmp += rtb_LogicalOperator[i + 1];
+}
+/* End of Outputs for SubSystem: '<Root>/Cell Balancing' */
+
+/* Outport: '<Root>/cell_balancing_command' */
+for (i = 0; i < 40; i++) {
+    ((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 0))[i] = rtb_LogicalOperator[i];
+}
+/* End of Outport: '<Root>/cell_balancing_command' */
+
+/* Outputs for Atomic SubSystem: '<Root>/Cell Balancing' */
+/* Outport: '<Root>/cell_balancing_status' incorporates:
+ *  Constant: '<S1>/Constant3'
+ *  RelationalOperator: '<S1>/RelationalOperator3'
+ *  Sum: '<S1>/Sum of Elements'
+ */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 1))[0] = ((uint8_T)tmp >= 0.5);
+/* End of Outputs for SubSystem: '<Root>/Cell Balancing' */
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(0, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 1, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

@@ -1,0 +1,106 @@
+%implements s13_b0_etgpi_InitializeConditions "C"
+
+%function InitializeConditions(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+B_BSC_T *_rtB;
+%closefile localVarDecl
+%assign _modelSS = ""
+
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%<SLibInsertAsyncTaskInitializeCode(system)>
+%<SLibWriteMachineInitialize()>
+/* InitializeConditions for Atomic SubSystem: '<Root>/BSC' */
+/* InitializeConditions for Chart: '<S1>/Chart2' */
+%<SLibCG_SetDWV(0, 0, 13, 1, "", -1, "", 0, "0U")>\
+%<SLibCG_SetDWV(1, 0, 13, 1, "", -1, "", 0, "BSC_IN_NO_ACTIVE_CHILD_p")>\
+if (%<(SLibIsFirstInitCond())>) {
+%assign   InitializeConditions_open_check_type_11_1 = ""
+%openfile InitializeConditions_open_check_type_11_1
+
+    /* InitializeConditions for Function Call SubSystem: '<S1>/check_type' */
+%closefile InitializeConditions_open_check_type_11_1
+
+%assign    InitializeConditions_body_check_type_11_1 = ""
+%openfile  InitializeConditions_body_check_type_11_1
+
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[1], "Initialize",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type_Init",1,0)
+%<SLibCG_AccessArg(6 ,0, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type_Init",1,1)
+%<SLibCG_TrackBlockIO(13)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_check_type_Init", ["%<tSimStruct>", "&_rtB->check_type"], 1, 0, 3, 0, 3, 13)>\
+
+%endif
+%closefile InitializeConditions_body_check_type_11_1
+
+%assign    InitializeConditions_close_check_type_11_1 = ""
+%openfile  InitializeConditions_close_check_type_11_1
+
+    /* End of InitializeConditions for SubSystem: '<S1>/check_type' */
+%closefile InitializeConditions_close_check_type_11_1
+%<SLibCG_DumpSSCode(InitializeConditions_open_check_type_11_1, InitializeConditions_body_check_type_11_1, InitializeConditions_close_check_type_11_1)>
+
+
+%assign   InitializeConditions_open_key_cycle_11_3 = ""
+%openfile InitializeConditions_open_key_cycle_11_3
+
+    /* InitializeConditions for Function Call SubSystem: '<S1>/key_cycle' */
+%closefile InitializeConditions_open_key_cycle_11_3
+
+%assign    InitializeConditions_body_key_cycle_11_3 = ""
+%openfile  InitializeConditions_body_key_cycle_11_3
+
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Initialize",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_key_cycle_Init",4,0)
+%<SLibCG_AccessArg(6 ,0, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_key_cycle_Init",4,1)
+%<SLibCG_TrackBlockIO(13)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_key_cycle_Init", ["%<tSimStruct>", "&_rtB->key_cycle"], 4, 0, 3, 0, 3, 13)>\
+
+%endif
+%closefile InitializeConditions_body_key_cycle_11_3
+
+%assign    InitializeConditions_close_key_cycle_11_3 = ""
+%openfile  InitializeConditions_close_key_cycle_11_3
+
+    /* End of InitializeConditions for SubSystem: '<S1>/key_cycle' */
+%closefile InitializeConditions_close_key_cycle_11_3
+%<SLibCG_DumpSSCode(InitializeConditions_open_key_cycle_11_3, InitializeConditions_body_key_cycle_11_3, InitializeConditions_close_key_cycle_11_3)>
+
+}
+/* End of InitializeConditions for Chart: '<S1>/Chart2' */
+/* End of InitializeConditions for SubSystem: '<Root>/BSC' */
+%<SLibInsertInitPeriodicCStatesFcn(system)>
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[6].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Initialize", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Initialize"))
+%<SLibCG_AccessArg(6, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(6, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Initialize", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Initialize"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(6, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void InitializeConditions(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(6, 0, 0)
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(6, 0, fcnProtoType)>
+%<LibSetSystemField(system, "CachedInitializeLocalVars", localVarDecl)>
+%endfunction

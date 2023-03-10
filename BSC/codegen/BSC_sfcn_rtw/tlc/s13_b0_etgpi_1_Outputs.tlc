@@ -1,0 +1,86 @@
+%implements s13_b0_etgpi_1_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+boolean_T zcEvent_idx_0;
+boolean_T zcEvent_idx_1;
+%closefile localVarDecl
+%assign _modelSS = ""
+
+/* Chart: '<S6>/key_cycle_chart' incorporates:
+ *  TriggerPort: '<S13>/input events'
+ */
+zcEvent_idx_0 = (((rtu_key > 0) != (localZCE->key_cycle_chart_Trig_ZCE[0] == POS_ZCSIG)) && (localZCE->key_cycle_chart_Trig_ZCE[0] != UNINITIALIZED_ZCSIG));
+zcEvent_idx_1 = (((rtu_med_fault > 0) != (localZCE->key_cycle_chart_Trig_ZCE[1] == POS_ZCSIG)) && (localZCE->key_cycle_chart_Trig_ZCE[1] != UNINITIALIZED_ZCSIG));
+if (zcEvent_idx_0 || zcEvent_idx_1) {
+    /* Gateway: BSC/key_cycle/key_cycle_chart */
+    if ((int8_T)(zcEvent_idx_0 ? rtu_key > 0 ? RISING_ZCEVENT : FALLING_ZCEVENT : NO_ZCEVENT) != 0) {
+        /* Event: '<S13>:8' */
+%<SLibCG_SetDWV(2, 0, 4, 1, "", -1, "", 0, "BSC_event_key_change")>\
+%if SLibCG_FcnCallArgAccessed(1,4,0,0)
+%<SLibCG_AccessArg(1 ,4, 1)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,4,0,1)
+%<SLibCG_AccessArg(1 ,4, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,4,0,2)
+%<SLibCG_AccessArg(1 ,4, 3)>
+%endif
+
+        %<(SLibCGCallSubFcn("BSC_chartstep_c1_BSC", ["rtu_med_fault", "%<tSimStruct>", "localB"], 1, 4, 0))>;
+    }
+    if ((int8_T)(zcEvent_idx_1 ? rtu_med_fault > 0 ? RISING_ZCEVENT : FALLING_ZCEVENT : NO_ZCEVENT) != 0) {
+        /* Event: '<S13>:56' */
+%<SLibCG_SetDWV(2, 0, 4, 1, "", -1, "", 0, "BSC_event_fault_change")>\
+%if SLibCG_FcnCallArgAccessed(1,4,1,0)
+%<SLibCG_AccessArg(1 ,4, 1)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,4,1,1)
+%<SLibCG_AccessArg(1 ,4, 0)>
+%endif
+%if SLibCG_FcnCallArgAccessed(1,4,1,2)
+%<SLibCG_AccessArg(1 ,4, 3)>
+%endif
+
+        %<(SLibCGCallSubFcn("BSC_chartstep_c1_BSC", ["rtu_med_fault", "%<tSimStruct>", "localB"], 1, 4, 1))>;
+    }
+}
+localZCE->key_cycle_chart_Trig_ZCE[0] = (uint8_T)(rtu_key > 0);
+localZCE->key_cycle_chart_Trig_ZCE[1] = (uint8_T)(rtu_med_fault > 0);
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[1].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(1, 4, 0)>
+%endif
+%if SLibCG_ArgAccessed(1, 4, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(1, 4, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void BSC_key_cycle(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(1, 4, 0)
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%endif
+%<comma>uint8_T rtu_med_fault\
+%assign comma = ", "
+%<comma>uint8_T rtu_key\
+%assign comma = ", "
+%if SLibCG_ArgAccessed(1, 4, 3)
+%<comma>B_key_cycle_BSC_T *localB\
+%assign comma = ", "
+%endif
+%<comma>ZCE_key_cycle_BSC_T *localZCE\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(1, 4, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

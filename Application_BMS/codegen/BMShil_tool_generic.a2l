@@ -1,0 +1,5248 @@
+/* ASAP2 file for OpenECU and a generic calibration tool.
+ * Auto-generated from 'capi.py' (version 2.8.0 (r2019-1)) at Mon Apr 19 14:33:45 2021 (local time).
+ *
+ * Information taken from:
+ *     BMShil.dde_group.tmp
+ *     automatic library DDEs
+ */
+
+ASAP2_VERSION 1 31
+
+/begin PROJECT
+  New_model_v0.0.0_M110_000
+  "(none)"
+
+  /begin HEADER
+    "(none)"
+    VERSION "0_0_0"
+  /end HEADER
+
+  /begin MODULE
+    OpenECU_M110_000
+    ""
+
+    /begin MOD_PAR
+      ""
+
+      /begin MEMORY_SEGMENT
+        Strategy
+        "Strategy/application code"
+        CODE
+        FLASH
+        INTERN
+        0x80000
+        0x41458
+        -1 -1 -1 -1 -1
+      /end MEMORY_SEGMENT
+
+      /begin MEMORY_SEGMENT
+        Calibration
+        "Calibration data"
+        DATA
+        FLASH
+        INTERN
+        0x40000
+        0x2aec
+        -1 -1 -1 -1 -1
+      /end MEMORY_SEGMENT
+
+    /end MOD_PAR
+
+    /* Scalar measurable for DDE 'BMS_CellTemp'. */
+    /begin MEASUREMENT BMS_CellTemp
+      "Cell1 Temperature"
+      FLOAT32_IEEE
+      CU_BMS_CELLTEMP
+      1
+      100
+      0.0
+      0.0
+      ECU_ADDRESS 0x40002714
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BMS_CELLTEMP
+      "Conversion method for BMS_CellTemp"
+      RAT_FUNC
+      "%10.3"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'BMS_CellVoltage'. */
+    /begin MEASUREMENT BMS_CellVoltage
+      "Cell1 Voltage"
+      FLOAT32_IEEE
+      CU_BMS_CELLVOLTAGE
+      1
+      100
+      0.0
+      0.0
+      ECU_ADDRESS 0x40002710
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BMS_CELLVOLTAGE
+      "Conversion method for BMS_CellVoltage"
+      RAT_FUNC
+      "%10.3"
+      "V"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'BMS_MedFault'. */
+    /begin MEASUREMENT BMS_MedFault
+      "(not defined)"
+      FLOAT32_IEEE
+      CU_BMS_MEDFAULT
+      1
+      100
+      0.0
+      0.0
+      ECU_ADDRESS 0x4000270c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BMS_MEDFAULT
+      "Conversion method for BMS_MedFault"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'BMS_RawPackCurrent'. */
+    /begin MEASUREMENT BMS_RawPackCurrent
+      "Raw Pack Current"
+      FLOAT32_IEEE
+      CU_BMS_RAWPACKCURRENT
+      1
+      100
+      0.0
+      0.0
+      ECU_ADDRESS 0x40002708
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BMS_RAWPACKCURRENT
+      "Conversion method for BMS_RawPackCurrent"
+      RAT_FUNC
+      "%10.3"
+      "A"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'BMS_RawPackVoltage'. */
+    /begin MEASUREMENT BMS_RawPackVoltage
+      "Raw Pack Voltage"
+      FLOAT32_IEEE
+      CU_BMS_RAWPACKVOLTAGE
+      1
+      100
+      0.0
+      0.0
+      ECU_ADDRESS 0x40002704
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BMS_RAWPACKVOLTAGE
+      "Conversion method for BMS_RawPackVoltage"
+      RAT_FUNC
+      "%10.3"
+      "V"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'BMS_RawVehSideVoltage'. */
+    /begin MEASUREMENT BMS_RawVehSideVoltage
+      "Raw Vehicle Side Voltage"
+      FLOAT32_IEEE
+      CU_BMS_RAWVEHSIDEVOLTAGE
+      1
+      100
+      0.0
+      0.0
+      ECU_ADDRESS 0x40002700
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BMS_RAWVEHSIDEVOLTAGE
+      "Conversion method for BMS_RawVehSideVoltage"
+      RAT_FUNC
+      "%10.3"
+      "V"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'BMS_error'. */
+    /begin MEASUREMENT BMS_error
+      "(not defined)"
+      UBYTE
+      CU_BMS_ERROR
+      1
+      100
+      0.0
+      1.0
+      ECU_ADDRESS 0x400026fd
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BMS_ERROR
+      "Conversion method for BMS_error"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'BMS_overrun'. */
+    /begin MEASUREMENT BMS_overrun
+      "(not defined)"
+      UBYTE
+      CU_BMS_OVERRUN
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x400026fc
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BMS_OVERRUN
+      "Conversion method for BMS_overrun"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'BMS_trig'. */
+    /begin MEASUREMENT BMS_trig
+      "(not defined)"
+      UBYTE
+      CU_BMS_TRIG
+      1
+      100
+      0.0
+      1.0
+      ECU_ADDRESS 0x400026fb
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BMS_TRIG
+      "Conversion method for BMS_trig"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'BMSc_airTemperature'. */
+    /begin CHARACTERISTIC BMSc_airTemperature
+      "(not defined)"
+      VALUE
+      0x40774
+      RL_BMSC_AIRTEMPERATURE
+      30.000000
+      CU_BMSC_AIRTEMPERATURE
+      10.000000
+      40.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BMSC_AIRTEMPERATURE
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BMSC_AIRTEMPERATURE
+      "Conversion method for BMSc_airTemperature"
+      RAT_FUNC
+      "%10.1"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'SOCc_CapacityFilterCoeff'. */
+    /begin CHARACTERISTIC SOCc_CapacityFilterCoeff
+      "(not defined)"
+      VALUE
+      0x40770
+      RL_SOCC_CAPACITYFILTERCOEFF
+      1.000000
+      CU_SOCC_CAPACITYFILTERCOEFF
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOCC_CAPACITYFILTERCOEFF
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOCC_CAPACITYFILTERCOEFF
+      "Conversion method for SOCc_CapacityFilterCoeff"
+      RAT_FUNC
+      "%10.4"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Vector/array calibration for DDE 'SOCv_InitalSOC'. */
+    /begin CHARACTERISTIC SOCv_InitalSOC
+      "(not defined)"
+      VAL_BLK
+      0x406d0
+      RL_SOCV_INITALSOC
+      0.000000
+      CU_SOCV_INITALSOC
+      0.000000
+      0.000000
+      NUMBER 40
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOCV_INITALSOC
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOCV_INITALSOC
+      "Conversion method for SOCv_InitalSOC"
+      RAT_FUNC
+      "%10.0"
+      "pct"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Vector/array calibration for DDE 'SOCv_factoryInitSohC'. */
+    /begin CHARACTERISTIC SOCv_factoryInitSohC
+      "(not defined)"
+      VAL_BLK
+      0x40630
+      RL_SOCV_FACTORYINITSOHC
+      0.000000
+      CU_SOCV_FACTORYINITSOHC
+      1.000000
+      1.000000
+      NUMBER 40
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOCV_FACTORYINITSOHC
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOCV_FACTORYINITSOHC
+      "Conversion method for SOCv_factoryInitSohC"
+      RAT_FUNC
+      "%10.3"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'bmsc_CellMaxVolt'. */
+    /begin CHARACTERISTIC bmsc_CellMaxVolt
+      "(not defined)"
+      VALUE
+      0x4062c
+      RL_BMSC_CELLMAXVOLT
+      0.000000
+      CU_BMSC_CELLMAXVOLT
+      4.200000
+      4.200000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BMSC_CELLMAXVOLT
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BMSC_CELLMAXVOLT
+      "Conversion method for bmsc_CellMaxVolt"
+      RAT_FUNC
+      "%10.2"
+      "V"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'bmsc_CellMinVolt'. */
+    /begin CHARACTERISTIC bmsc_CellMinVolt
+      "(not defined)"
+      VALUE
+      0x40628
+      RL_BMSC_CELLMINVOLT
+      0.000000
+      CU_BMSC_CELLMINVOLT
+      2.700000
+      2.700000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BMSC_CELLMINVOLT
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BMSC_CELLMINVOLT
+      "Conversion method for bmsc_CellMinVolt"
+      RAT_FUNC
+      "%10.2"
+      "V"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'bmsc_NumberInPara'. */
+    /begin CHARACTERISTIC bmsc_NumberInPara
+      "(not defined)"
+      VALUE
+      0x40624
+      RL_BMSC_NUMBERINPARA
+      0.000000
+      CU_BMSC_NUMBERINPARA
+      1.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BMSC_NUMBERINPARA
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BMSC_NUMBERINPARA
+      "Conversion method for bmsc_NumberInPara"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'bmsc_NumberInSeries'. */
+    /begin CHARACTERISTIC bmsc_NumberInSeries
+      "(not defined)"
+      VALUE
+      0x40620
+      RL_BMSC_NUMBERINSERIES
+      0.000000
+      CU_BMSC_NUMBERINSERIES
+      40.000000
+      40.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BMSC_NUMBERINSERIES
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BMSC_NUMBERINSERIES
+      "Conversion method for bmsc_NumberInSeries"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'bsc_ChargerValue'. */
+    /begin MEASUREMENT bsc_ChargerValue
+      "Charger Signal"
+      UBYTE
+      CU_BSC_CHARGERVALUE
+      1
+      100
+      0.0
+      1.0
+      ECU_ADDRESS 0x400026fa
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BSC_CHARGERVALUE
+      "Conversion method for bsc_ChargerValue"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'bsc_ChgContactorCmd'. */
+    /begin MEASUREMENT bsc_ChgContactorCmd
+      "Charger contactor cmd"
+      UBYTE
+      CU_BSC_CHGCONTACTORCMD
+      1
+      100
+      0.0
+      1.0
+      ECU_ADDRESS 0x400026f9
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BSC_CHGCONTACTORCMD
+      "Conversion method for bsc_ChgContactorCmd"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'bsc_FaultType'. */
+    /begin MEASUREMENT bsc_FaultType
+      "Fault Type"
+      UBYTE
+      CU_BSC_FAULTTYPE
+      1
+      100
+      0.0
+      11.0
+      ECU_ADDRESS 0x400026f8
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BSC_FAULTTYPE
+      "Conversion method for bsc_FaultType"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'bsc_KeyValue'. */
+    /begin MEASUREMENT bsc_KeyValue
+      "Key Value"
+      UBYTE
+      CU_BSC_KEYVALUE
+      1
+      100
+      0.0
+      1.0
+      ECU_ADDRESS 0x400026f7
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BSC_KEYVALUE
+      "Conversion method for bsc_KeyValue"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'bsc_MainContactorCmd'. */
+    /begin MEASUREMENT bsc_MainContactorCmd
+      "Main contactor cmd"
+      UBYTE
+      CU_BSC_MAINCONTACTORCMD
+      1
+      100
+      0.0
+      1.0
+      ECU_ADDRESS 0x400026f6
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BSC_MAINCONTACTORCMD
+      "Conversion method for bsc_MainContactorCmd"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'bsc_ReasonToOpen'. */
+    /begin MEASUREMENT bsc_ReasonToOpen
+      "Main contactor cmd"
+      UBYTE
+      CU_BSC_REASONTOOPEN
+      1
+      100
+      0.0
+      11.0
+      ECU_ADDRESS 0x400026f5
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BSC_REASONTOOPEN
+      "Conversion method for bsc_ReasonToOpen"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'bsc_VehiclePSR'. */
+    /begin MEASUREMENT bsc_VehiclePSR
+      "Vehicle PSR signal"
+      UBYTE
+      CU_BSC_VEHICLEPSR
+      1
+      100
+      0.0
+      1.0
+      ECU_ADDRESS 0x400026f4
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BSC_VEHICLEPSR
+      "Conversion method for bsc_VehiclePSR"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Vector/array calibration for DDE 'bscv_LowFaultType'. */
+    /begin CHARACTERISTIC bscv_LowFaultType
+      "(not defined)"
+      VAL_BLK
+      0x40618
+      RL_BSCV_LOWFAULTTYPE
+      6.000000
+      CU_BSCV_LOWFAULTTYPE
+      3.000000
+      9.000000
+      NUMBER 7
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BSCV_LOWFAULTTYPE
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BSCV_LOWFAULTTYPE
+      "Conversion method for bscv_LowFaultType"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Vector/array calibration for DDE 'bscv_MediumFaultType'. */
+    /begin CHARACTERISTIC bscv_MediumFaultType
+      "(not defined)"
+      VAL_BLK
+      0x40614
+      RL_BSCV_MEDIUMFAULTTYPE
+      9.000000
+      CU_BSCV_MEDIUMFAULTTYPE
+      2.000000
+      11.000000
+      NUMBER 3
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BSCV_MEDIUMFAULTTYPE
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BSCV_MEDIUMFAULTTYPE
+      "Conversion method for bscv_MediumFaultType"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Vector/array calibration for DDE 'bscv_SevereFaultType'. */
+    /begin CHARACTERISTIC bscv_SevereFaultType
+      "(not defined)"
+      VAL_BLK
+      0x40610
+      RL_BSCV_SEVEREFAULTTYPE
+      0.000000
+      CU_BSCV_SEVEREFAULTTYPE
+      1.000000
+      1.000000
+      NUMBER 1
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BSCV_SEVEREFAULTTYPE
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BSCV_SEVEREFAULTTYPE
+      "Conversion method for bscv_SevereFaultType"
+      RAT_FUNC
+      "%10.0"
+      "state"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'btc_coolant_flow_pct'. */
+    /begin MEASUREMENT btc_coolant_flow_pct
+      "(not defined)"
+      FLOAT32_IEEE
+      CU_BTC_COOLANT_FLOW_PCT
+      1
+      100
+      0.0
+      0.0
+      ECU_ADDRESS 0x400026f0
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_BTC_COOLANT_FLOW_PCT
+      "Conversion method for btc_coolant_flow_pct"
+      RAT_FUNC
+      "%10.1"
+      "pct"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_Ki'. */
+    /begin CHARACTERISTIC btcc_Ki
+      "Ki for PI to control fan cmd"
+      VALUE
+      0x4060c
+      RL_BTCC_KI
+      50.000000
+      CU_BTCC_KI
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_KI
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_KI
+      "Conversion method for btcc_Ki"
+      RAT_FUNC
+      "%10.2"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_Kp'. */
+    /begin CHARACTERISTIC btcc_Kp
+      "Kp for PI to control fan cmd"
+      VALUE
+      0x40608
+      RL_BTCC_KP
+      50.000000
+      CU_BTCC_KP
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_KP
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_KP
+      "Conversion method for btcc_Kp"
+      RAT_FUNC
+      "%10.2"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_ambient_temp_highth'. */
+    /begin CHARACTERISTIC btcc_ambient_temp_highth
+      "ambient high temperature threshold"
+      VALUE
+      0x40604
+      RL_BTCC_AMBIENT_TEMP_HIGHTH
+      50.000000
+      CU_BTCC_AMBIENT_TEMP_HIGHTH
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_AMBIENT_TEMP_HIGHTH
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_AMBIENT_TEMP_HIGHTH
+      "Conversion method for btcc_ambient_temp_highth"
+      RAT_FUNC
+      "%10.1"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_ambient_temp_lowth'. */
+    /begin CHARACTERISTIC btcc_ambient_temp_lowth
+      "ambient low temperature threshold"
+      VALUE
+      0x40600
+      RL_BTCC_AMBIENT_TEMP_LOWTH
+      50.000000
+      CU_BTCC_AMBIENT_TEMP_LOWTH
+      -50.000000
+      0.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_AMBIENT_TEMP_LOWTH
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_AMBIENT_TEMP_LOWTH
+      "Conversion method for btcc_ambient_temp_lowth"
+      RAT_FUNC
+      "%10.1"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_cell_temp_diffth'. */
+    /begin CHARACTERISTIC btcc_cell_temp_diffth
+      "maximum allowable temperature difference between cells"
+      VALUE
+      0x405fc
+      RL_BTCC_CELL_TEMP_DIFFTH
+      50.000000
+      CU_BTCC_CELL_TEMP_DIFFTH
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_CELL_TEMP_DIFFTH
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_CELL_TEMP_DIFFTH
+      "Conversion method for btcc_cell_temp_diffth"
+      RAT_FUNC
+      "%10.1"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_full_soc'. */
+    /begin CHARACTERISTIC btcc_full_soc
+      "Minimum voltage before damage to battery pack."
+      VALUE
+      0x405f8
+      RL_BTCC_FULL_SOC
+      120.000000
+      CU_BTCC_FULL_SOC
+      0.000000
+      120.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_FULL_SOC
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_FULL_SOC
+      "Conversion method for btcc_full_soc"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_max_temp_highth'. */
+    /begin CHARACTERISTIC btcc_max_temp_highth
+      "maximum battery temperature high threshold"
+      VALUE
+      0x405f4
+      RL_BTCC_MAX_TEMP_HIGHTH
+      50.000000
+      CU_BTCC_MAX_TEMP_HIGHTH
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_MAX_TEMP_HIGHTH
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_MAX_TEMP_HIGHTH
+      "Conversion method for btcc_max_temp_highth"
+      RAT_FUNC
+      "%10.1"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_max_temp_lowth'. */
+    /begin CHARACTERISTIC btcc_max_temp_lowth
+      "maximum battery temperature low threshold"
+      VALUE
+      0x405f0
+      RL_BTCC_MAX_TEMP_LOWTH
+      50.000000
+      CU_BTCC_MAX_TEMP_LOWTH
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_MAX_TEMP_LOWTH
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_MAX_TEMP_LOWTH
+      "Conversion method for btcc_max_temp_lowth"
+      RAT_FUNC
+      "%10.1"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_min_temp_highth'. */
+    /begin CHARACTERISTIC btcc_min_temp_highth
+      "minimum battery temperature high threshold"
+      VALUE
+      0x405ec
+      RL_BTCC_MIN_TEMP_HIGHTH
+      50.000000
+      CU_BTCC_MIN_TEMP_HIGHTH
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_MIN_TEMP_HIGHTH
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_MIN_TEMP_HIGHTH
+      "Conversion method for btcc_min_temp_highth"
+      RAT_FUNC
+      "%10.1"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_min_temp_lowth'. */
+    /begin CHARACTERISTIC btcc_min_temp_lowth
+      "minimum battery temperature low threshold"
+      VALUE
+      0x405e8
+      RL_BTCC_MIN_TEMP_LOWTH
+      50.000000
+      CU_BTCC_MIN_TEMP_LOWTH
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_MIN_TEMP_LOWTH
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_MIN_TEMP_LOWTH
+      "Conversion method for btcc_min_temp_lowth"
+      RAT_FUNC
+      "%10.1"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_number_in_series'. */
+    /begin CHARACTERISTIC btcc_number_in_series
+      "Number of logical cells wired in series in the battery pack"
+      VALUE
+      0x405e4
+      RL_BTCC_NUMBER_IN_SERIES
+      50.000000
+      CU_BTCC_NUMBER_IN_SERIES
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_NUMBER_IN_SERIES
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_NUMBER_IN_SERIES
+      "Conversion method for btcc_number_in_series"
+      RAT_FUNC
+      "%10.0"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'btcc_pack_in_parallel'. */
+    /begin CHARACTERISTIC btcc_pack_in_parallel
+      "Number of logical cells wired in parallel in the battery pack"
+      VALUE
+      0x405e0
+      RL_BTCC_PACK_IN_PARALLEL
+      1.000000
+      CU_BTCC_PACK_IN_PARALLEL
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_BTCC_PACK_IN_PARALLEL
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_BTCC_PACK_IN_PARALLEL
+      "Conversion method for btcc_pack_in_parallel"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'cblc_battChargingMode'. */
+    /begin CHARACTERISTIC cblc_battChargingMode
+      "(not defined)"
+      VALUE
+      0x405dc
+      RL_CBLC_BATTCHARGINGMODE
+      0.000000
+      CU_CBLC_BATTCHARGINGMODE
+      5.000000
+      5.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_CBLC_BATTCHARGINGMODE
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_CBLC_BATTCHARGINGMODE
+      "Conversion method for cblc_battChargingMode"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'cblc_deltaSocThreshBalance'. */
+    /begin CHARACTERISTIC cblc_deltaSocThreshBalance
+      "(not defined)"
+      VALUE
+      0x405d8
+      RL_CBLC_DELTASOCTHRESHBALANCE
+      1.000000
+      CU_CBLC_DELTASOCTHRESHBALANCE
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_CBLC_DELTASOCTHRESHBALANCE
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_CBLC_DELTASOCTHRESHBALANCE
+      "Conversion method for cblc_deltaSocThreshBalance"
+      RAT_FUNC
+      "%10.1"
+      "pct"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'cblc_socThreshBalance'. */
+    /begin CHARACTERISTIC cblc_socThreshBalance
+      "(not defined)"
+      VALUE
+      0x405d4
+      RL_CBLC_SOCTHRESHBALANCE
+      100.000000
+      CU_CBLC_SOCTHRESHBALANCE
+      0.000000
+      100.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_CBLC_SOCTHRESHBALANCE
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_CBLC_SOCTHRESHBALANCE
+      "Conversion method for cblc_socThreshBalance"
+      RAT_FUNC
+      "%10.0"
+      "pct"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_app_build_day'. */
+    /begin MEASUREMENT mpl_app_build_day
+      "Date application was built in days."
+      UWORD
+      CU_MPL_APP_BUILD_DAY
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0xb34fc
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_APP_BUILD_DAY
+      "Conversion method for mpl_app_build_day"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_app_build_hour'. */
+    /begin MEASUREMENT mpl_app_build_hour
+      "Time application was built in hours"
+      UWORD
+      CU_MPL_APP_BUILD_HOUR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0xb34fe
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_APP_BUILD_HOUR
+      "Conversion method for mpl_app_build_hour"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_app_build_min'. */
+    /begin MEASUREMENT mpl_app_build_min
+      "Time application was built in minutes"
+      UWORD
+      CU_MPL_APP_BUILD_MIN
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0xb3500
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_APP_BUILD_MIN
+      "Conversion method for mpl_app_build_min"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_app_build_month'. */
+    /begin MEASUREMENT mpl_app_build_month
+      "Date application was built in months."
+      UWORD
+      CU_MPL_APP_BUILD_MONTH
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0xb34fa
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_APP_BUILD_MONTH
+      "Conversion method for mpl_app_build_month"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_app_build_sec'. */
+    /begin MEASUREMENT mpl_app_build_sec
+      "Time application was built in seconds"
+      UWORD
+      CU_MPL_APP_BUILD_SEC
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0xb3502
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_APP_BUILD_SEC
+      "Conversion method for mpl_app_build_sec"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_app_build_year'. */
+    /begin MEASUREMENT mpl_app_build_year
+      "Date application was built in years."
+      UWORD
+      CU_MPL_APP_BUILD_YEAR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0xb34f8
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_APP_BUILD_YEAR
+      "Conversion method for mpl_app_build_year"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_app_ver_major'. */
+    /begin MEASUREMENT mpl_app_ver_major
+      "App major version number"
+      UWORD
+      CU_MPL_APP_VER_MAJOR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x42740
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_APP_VER_MAJOR
+      "Conversion method for mpl_app_ver_major"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_app_ver_minor'. */
+    /begin MEASUREMENT mpl_app_ver_minor
+      "App minor version number"
+      UWORD
+      CU_MPL_APP_VER_MINOR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x4273e
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_APP_VER_MINOR
+      "Conversion method for mpl_app_ver_minor"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_app_ver_sub'. */
+    /begin MEASUREMENT mpl_app_ver_sub
+      "App sub-minor version number"
+      UWORD
+      CU_MPL_APP_VER_SUB
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x4273c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_APP_VER_SUB
+      "Conversion method for mpl_app_ver_sub"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_boot_build_day'. */
+    /begin MEASUREMENT mpl_boot_build_day
+      "Boot build day"
+      UWORD
+      CU_MPL_BOOT_BUILD_DAY
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002856
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_BOOT_BUILD_DAY
+      "Conversion method for mpl_boot_build_day"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_boot_build_month'. */
+    /begin MEASUREMENT mpl_boot_build_month
+      "Boot build month"
+      UWORD
+      CU_MPL_BOOT_BUILD_MONTH
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002858
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_BOOT_BUILD_MONTH
+      "Conversion method for mpl_boot_build_month"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_boot_build_year'. */
+    /begin MEASUREMENT mpl_boot_build_year
+      "Boot build year"
+      UWORD
+      CU_MPL_BOOT_BUILD_YEAR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x4000285a
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_BOOT_BUILD_YEAR
+      "Conversion method for mpl_boot_build_year"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_boot_part_num_group'. */
+    /begin MEASUREMENT mpl_boot_part_num_group
+      "Boot Group ID number in the part number"
+      UBYTE
+      CU_MPL_BOOT_PART_NUM_GROUP
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x4000285c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_BOOT_PART_NUM_GROUP
+      "Conversion method for mpl_boot_part_num_group"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_boot_part_num_id'. */
+    /begin MEASUREMENT mpl_boot_part_num_id
+      "Boot Part ID in the part number"
+      ULONG
+      CU_MPL_BOOT_PART_NUM_ID
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40002860
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_BOOT_PART_NUM_ID
+      "Conversion method for mpl_boot_part_num_id"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_boot_part_num_issue'. */
+    /begin MEASUREMENT mpl_boot_part_num_issue
+      "Boot Issue Number in the part number"
+      UWORD
+      CU_MPL_BOOT_PART_NUM_ISSUE
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002864
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_BOOT_PART_NUM_ISSUE
+      "Conversion method for mpl_boot_part_num_issue"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_boot_part_num_letter'. */
+    /begin MEASUREMENT mpl_boot_part_num_letter
+      "Boot Group Letter in the part number"
+      UBYTE
+      CU_MPL_BOOT_PART_NUM_LETTER
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x4000285d
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_BOOT_PART_NUM_LETTER
+      "Conversion method for mpl_boot_part_num_letter"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_boot_ver_major'. */
+    /begin MEASUREMENT mpl_boot_ver_major
+      "Boot major version number"
+      UWORD
+      CU_MPL_BOOT_VER_MAJOR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002850
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_BOOT_VER_MAJOR
+      "Conversion method for mpl_boot_ver_major"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_boot_ver_minor'. */
+    /begin MEASUREMENT mpl_boot_ver_minor
+      "Boot minor version number"
+      UWORD
+      CU_MPL_BOOT_VER_MINOR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002852
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_BOOT_VER_MINOR
+      "Conversion method for mpl_boot_ver_minor"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_boot_ver_sub'. */
+    /begin MEASUREMENT mpl_boot_ver_sub
+      "Boot sub minor version number"
+      UWORD
+      CU_MPL_BOOT_VER_SUB
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002854
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_BOOT_VER_SUB
+      "Conversion method for mpl_boot_ver_sub"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_cpu_loaded'. */
+    /begin MEASUREMENT mpl_cpu_loaded
+      "CPU loading each 50ms"
+      UBYTE
+      CU_MPL_CPU_LOADED
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002a70
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_CPU_LOADED
+      "Conversion method for mpl_cpu_loaded"
+      RAT_FUNC
+      "%10.0"
+      "%"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_cpu_loaded_1000ms'. */
+    /begin MEASUREMENT mpl_cpu_loaded_1000ms
+      "CPU loading each second"
+      UBYTE
+      CU_MPL_CPU_LOADED_1000MS
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002a71
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_CPU_LOADED_1000MS
+      "Conversion method for mpl_cpu_loaded_1000ms"
+      RAT_FUNC
+      "%10.0"
+      "%"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_cpu_loaded_50ms'. */
+    /begin MEASUREMENT mpl_cpu_loaded_50ms
+      "CPU loading each 50ms"
+      UBYTE
+      CU_MPL_CPU_LOADED_50MS
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002a70
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_CPU_LOADED_50MS
+      "Conversion method for mpl_cpu_loaded_50ms"
+      RAT_FUNC
+      "%10.0"
+      "%"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ecc_flash_address'. */
+    /begin MEASUREMENT mpl_ecc_flash_address
+      "Address of last Flash non-correctable ECC error, zero if no error has occurred."
+      ULONG
+      CU_MPL_ECC_FLASH_ADDRESS
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40002830
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_ECC_FLASH_ADDRESS
+      "Conversion method for mpl_ecc_flash_address"
+      RAT_FUNC
+      "%10.0"
+      "addr"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ecc_ram_address'. */
+    /begin MEASUREMENT mpl_ecc_ram_address
+      "Address of last RAM non-correctable ECC error, zero if no error has occurred."
+      ULONG
+      CU_MPL_ECC_RAM_ADDRESS
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x4000282c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_ECC_RAM_ADDRESS
+      "Conversion method for mpl_ecc_ram_address"
+      RAT_FUNC
+      "%10.0"
+      "addr"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_flp_div_by_zero'. */
+    /begin MEASUREMENT mpl_flp_div_by_zero
+      "Set if FLP division by zero has occurred since the last reset, clear otherwise."
+      UBYTE
+      CU_MPL_FLP_DIV_BY_ZERO
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002a7e
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_FLP_DIV_BY_ZERO
+      "Conversion method for mpl_flp_div_by_zero"
+      RAT_FUNC
+      "%10.0"
+      "flag"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_flp_inexact'. */
+    /begin MEASUREMENT mpl_flp_inexact
+      "Set if an inexact FLP result has occurred since the last reset, clear otherwise."
+      UBYTE
+      CU_MPL_FLP_INEXACT
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002a7f
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_FLP_INEXACT
+      "Conversion method for mpl_flp_inexact"
+      RAT_FUNC
+      "%10.0"
+      "flag"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_flp_invalid'. */
+    /begin MEASUREMENT mpl_flp_invalid
+      "Set if an invalid FLP result has occurred since the last reset, clear otherwise."
+      UBYTE
+      CU_MPL_FLP_INVALID
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002a80
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_FLP_INVALID
+      "Conversion method for mpl_flp_invalid"
+      RAT_FUNC
+      "%10.0"
+      "flag"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_flp_overflow'. */
+    /begin MEASUREMENT mpl_flp_overflow
+      "Set if FLP overflow has occurred since the last reset, clear otherwise."
+      UBYTE
+      CU_MPL_FLP_OVERFLOW
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002a7c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_FLP_OVERFLOW
+      "Conversion method for mpl_flp_overflow"
+      RAT_FUNC
+      "%10.0"
+      "flag"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_flp_underflow'. */
+    /begin MEASUREMENT mpl_flp_underflow
+      "Set if FLP underflow has occurred since the last reset, clear otherwise."
+      UBYTE
+      CU_MPL_FLP_UNDERFLOW
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002a7d
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_FLP_UNDERFLOW
+      "Conversion method for mpl_flp_underflow"
+      RAT_FUNC
+      "%10.0"
+      "flag"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_max_cpu_loaded'. */
+    /begin MEASUREMENT mpl_max_cpu_loaded
+      "Maximum CPU loading seen since startup"
+      UBYTE
+      CU_MPL_MAX_CPU_LOADED
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002a74
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MAX_CPU_LOADED
+      "Conversion method for mpl_max_cpu_loaded"
+      RAT_FUNC
+      "%10.0"
+      "%"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_max_cpu_loaded_1000ms'. */
+    /begin MEASUREMENT mpl_max_cpu_loaded_1000ms
+      "Maximum CPU loading seen since startup"
+      UBYTE
+      CU_MPL_MAX_CPU_LOADED_1000MS
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002a75
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MAX_CPU_LOADED_1000MS
+      "Conversion method for mpl_max_cpu_loaded_1000ms"
+      RAT_FUNC
+      "%10.0"
+      "%"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_max_cpu_loaded_50ms'. */
+    /begin MEASUREMENT mpl_max_cpu_loaded_50ms
+      "Maximum CPU loading seen since startup"
+      UBYTE
+      CU_MPL_MAX_CPU_LOADED_50MS
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002a74
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MAX_CPU_LOADED_50MS
+      "Conversion method for mpl_max_cpu_loaded_50ms"
+      RAT_FUNC
+      "%10.0"
+      "%"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_max_used_stack'. */
+    /begin MEASUREMENT mpl_max_used_stack
+      "Amount of stack used during runtime so far."
+      ULONG
+      CU_MPL_MAX_USED_STACK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40002a84
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MAX_USED_STACK
+      "Conversion method for mpl_max_used_stack"
+      RAT_FUNC
+      "%10.0"
+      "bytes"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_pcp_client'. */
+    /begin MEASUREMENT mpl_mtt_pcp_client
+      "Duration of library task: pcp_client"
+      ULONG
+      CU_MPL_MTT_PCP_CLIENT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bf4
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PCP_CLIENT
+      "Conversion method for mpl_mtt_pcp_client"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_pcx_can_callback'. */
+    /begin MEASUREMENT mpl_mtt_pcx_can_callback
+      "Duration of library task: pcx_can_callback"
+      ULONG
+      CU_MPL_MTT_PCX_CAN_CALLBACK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bc4
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PCX_CAN_CALLBACK
+      "Conversion method for mpl_mtt_pcx_can_callback"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_pcx_periodic'. */
+    /begin MEASUREMENT mpl_mtt_pcx_periodic
+      "Duration of library task: pcx_periodic"
+      ULONG
+      CU_MPL_MTT_PCX_PERIODIC
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005be4
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PCX_PERIODIC
+      "Conversion method for mpl_mtt_pcx_periodic"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_pcx_qemptier'. */
+    /begin MEASUREMENT mpl_mtt_pcx_qemptier
+      "Duration of library task: pcx_qemptier"
+      ULONG
+      CU_MPL_MTT_PCX_QEMPTIER
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005be8
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PCX_QEMPTIER
+      "Conversion method for mpl_mtt_pcx_qemptier"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_pcx_qemptier_mcp2515'. */
+    /begin MEASUREMENT mpl_mtt_pcx_qemptier_mcp2515
+      "Duration of library task: pcx_qemptier_mcp2515"
+      ULONG
+      CU_MPL_MTT_PCX_QEMPTIER_MCP2515
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bc0
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PCX_QEMPTIER_MCP2515
+      "Conversion method for mpl_mtt_pcx_qemptier_mcp2515"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_pdg_client_task'. */
+    /begin MEASUREMENT mpl_mtt_pdg_client_task
+      "Duration of library task: pdg_client_task"
+      ULONG
+      CU_MPL_MTT_PDG_CLIENT_TASK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bd8
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PDG_CLIENT_TASK
+      "Conversion method for mpl_mtt_pdg_client_task"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_pdtc_client_task'. */
+    /begin MEASUREMENT mpl_mtt_pdtc_client_task
+      "Duration of library task: pdtc_client_task"
+      ULONG
+      CU_MPL_MTT_PDTC_CLIENT_TASK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005be0
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PDTC_CLIENT_TASK
+      "Conversion method for mpl_mtt_pdtc_client_task"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_pfc_task'. */
+    /begin MEASUREMENT mpl_mtt_pfc_task
+      "Duration of library task: pfc_task"
+      ULONG
+      CU_MPL_MTT_PFC_TASK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bac
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PFC_TASK
+      "Conversion method for mpl_mtt_pfc_task"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_pff_client'. */
+    /begin MEASUREMENT mpl_mtt_pff_client
+      "Duration of library task: pff_client"
+      ULONG
+      CU_MPL_MTT_PFF_CLIENT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bcc
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PFF_CLIENT
+      "Conversion method for mpl_mtt_pff_client"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_pfs_client'. */
+    /begin MEASUREMENT mpl_mtt_pfs_client
+      "Duration of library task: pfs_client"
+      ULONG
+      CU_MPL_MTT_PFS_CLIENT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bd0
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PFS_CLIENT
+      "Conversion method for mpl_mtt_pfs_client"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_piso_client_task'. */
+    /begin MEASUREMENT mpl_mtt_piso_client_task
+      "Duration of library task: piso_client_task"
+      ULONG
+      CU_MPL_MTT_PISO_CLIENT_TASK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bd4
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PISO_CLIENT_TASK
+      "Conversion method for mpl_mtt_piso_client_task"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_pj1939_client'. */
+    /begin MEASUREMENT mpl_mtt_pj1939_client
+      "Duration of library task: pj1939_client"
+      ULONG
+      CU_MPL_MTT_PJ1939_CLIENT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bc8
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PJ1939_CLIENT
+      "Conversion method for mpl_mtt_pj1939_client"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_ppm_task'. */
+    /begin MEASUREMENT mpl_mtt_ppm_task
+      "Duration of library task: ppm_task"
+      ULONG
+      CU_MPL_MTT_PPM_TASK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005ba8
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PPM_TASK
+      "Conversion method for mpl_mtt_ppm_task"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_psc_watchdog'. */
+    /begin MEASUREMENT mpl_mtt_psc_watchdog
+      "Duration of library task: psc_watchdog"
+      ULONG
+      CU_MPL_MTT_PSC_WATCHDOG
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bf0
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PSC_WATCHDOG
+      "Conversion method for mpl_mtt_psc_watchdog"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_psp_mcp2515_data'. */
+    /begin MEASUREMENT mpl_mtt_psp_mcp2515_data
+      "Duration of library task: psp_mcp2515_data"
+      ULONG
+      CU_MPL_MTT_PSP_MCP2515_DATA
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bb0
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PSP_MCP2515_DATA
+      "Conversion method for mpl_mtt_psp_mcp2515_data"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_psp_mcp2515_int'. */
+    /begin MEASUREMENT mpl_mtt_psp_mcp2515_int
+      "Duration of library task: psp_mcp2515_int"
+      ULONG
+      CU_MPL_MTT_PSP_MCP2515_INT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bbc
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PSP_MCP2515_INT
+      "Conversion method for mpl_mtt_psp_mcp2515_int"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_psp_mcp2515_spi'. */
+    /begin MEASUREMENT mpl_mtt_psp_mcp2515_spi
+      "Duration of library task: psp_mcp2515_spi"
+      ULONG
+      CU_MPL_MTT_PSP_MCP2515_SPI
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bb8
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PSP_MCP2515_SPI
+      "Conversion method for mpl_mtt_psp_mcp2515_spi"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_psp_periodic'. */
+    /begin MEASUREMENT mpl_mtt_psp_periodic
+      "Duration of library task: psp_periodic"
+      ULONG
+      CU_MPL_MTT_PSP_PERIODIC
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bec
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PSP_PERIODIC
+      "Conversion method for mpl_mtt_psp_periodic"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_psp_receive'. */
+    /begin MEASUREMENT mpl_mtt_psp_receive
+      "Duration of library task: psp_receive"
+      ULONG
+      CU_MPL_MTT_PSP_RECEIVE
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bb4
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_PSP_RECEIVE
+      "Conversion method for mpl_mtt_psp_receive"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_mtt_task_100ms'. */
+    /begin MEASUREMENT mpl_mtt_task_100ms
+      "Duration of application task: task_100ms"
+      ULONG
+      CU_MPL_MTT_TASK_100MS
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bdc
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_MTT_TASK_100MS
+      "Conversion method for mpl_mtt_task_100ms"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_pcp_client'. */
+    /begin MEASUREMENT mpl_ovrc_pcp_client
+      "Overrun count of library task: pcp_client"
+      UBYTE
+      CU_MPL_OVRC_PCP_CLIENT
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d27
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PCP_CLIENT
+      "Conversion method for mpl_ovrc_pcp_client"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_pcx_can_callback'. */
+    /begin MEASUREMENT mpl_ovrc_pcx_can_callback
+      "Overrun count of library task: pcx_can_callback"
+      UBYTE
+      CU_MPL_OVRC_PCX_CAN_CALLBACK
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d1b
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PCX_CAN_CALLBACK
+      "Conversion method for mpl_ovrc_pcx_can_callback"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_pcx_periodic'. */
+    /begin MEASUREMENT mpl_ovrc_pcx_periodic
+      "Overrun count of library task: pcx_periodic"
+      UBYTE
+      CU_MPL_OVRC_PCX_PERIODIC
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d23
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PCX_PERIODIC
+      "Conversion method for mpl_ovrc_pcx_periodic"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_pcx_qemptier'. */
+    /begin MEASUREMENT mpl_ovrc_pcx_qemptier
+      "Overrun count of library task: pcx_qemptier"
+      UBYTE
+      CU_MPL_OVRC_PCX_QEMPTIER
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d24
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PCX_QEMPTIER
+      "Conversion method for mpl_ovrc_pcx_qemptier"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_pcx_qemptier_mcp2515'. */
+    /begin MEASUREMENT mpl_ovrc_pcx_qemptier_mcp2515
+      "Overrun count of library task: pcx_qemptier_mcp2515"
+      UBYTE
+      CU_MPL_OVRC_PCX_QEMPTIER_MCP250
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d1a
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PCX_QEMPTIER_MCP250
+      "Conversion method for mpl_ovrc_pcx_qemptier_mcp2515"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_pdg_client_task'. */
+    /begin MEASUREMENT mpl_ovrc_pdg_client_task
+      "Overrun count of library task: pdg_client_task"
+      UBYTE
+      CU_MPL_OVRC_PDG_CLIENT_TASK
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d20
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PDG_CLIENT_TASK
+      "Conversion method for mpl_ovrc_pdg_client_task"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_pdtc_client_task'. */
+    /begin MEASUREMENT mpl_ovrc_pdtc_client_task
+      "Overrun count of library task: pdtc_client_task"
+      UBYTE
+      CU_MPL_OVRC_PDTC_CLIENT_TASK
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d22
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PDTC_CLIENT_TASK
+      "Conversion method for mpl_ovrc_pdtc_client_task"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_pfc_task'. */
+    /begin MEASUREMENT mpl_ovrc_pfc_task
+      "Overrun count of library task: pfc_task"
+      UBYTE
+      CU_MPL_OVRC_PFC_TASK
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d19
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PFC_TASK
+      "Conversion method for mpl_ovrc_pfc_task"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_pff_client'. */
+    /begin MEASUREMENT mpl_ovrc_pff_client
+      "Overrun count of library task: pff_client"
+      UBYTE
+      CU_MPL_OVRC_PFF_CLIENT
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d1d
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PFF_CLIENT
+      "Conversion method for mpl_ovrc_pff_client"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_pfs_client'. */
+    /begin MEASUREMENT mpl_ovrc_pfs_client
+      "Overrun count of library task: pfs_client"
+      UBYTE
+      CU_MPL_OVRC_PFS_CLIENT
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d1e
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PFS_CLIENT
+      "Conversion method for mpl_ovrc_pfs_client"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_piso_client_task'. */
+    /begin MEASUREMENT mpl_ovrc_piso_client_task
+      "Overrun count of library task: piso_client_task"
+      UBYTE
+      CU_MPL_OVRC_PISO_CLIENT_TASK
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d1f
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PISO_CLIENT_TASK
+      "Conversion method for mpl_ovrc_piso_client_task"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_pj1939_client'. */
+    /begin MEASUREMENT mpl_ovrc_pj1939_client
+      "Overrun count of library task: pj1939_client"
+      UBYTE
+      CU_MPL_OVRC_PJ1939_CLIENT
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d1c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PJ1939_CLIENT
+      "Conversion method for mpl_ovrc_pj1939_client"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_ppm_task'. */
+    /begin MEASUREMENT mpl_ovrc_ppm_task
+      "Overrun count of library task: ppm_task"
+      UBYTE
+      CU_MPL_OVRC_PPM_TASK
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d18
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PPM_TASK
+      "Conversion method for mpl_ovrc_ppm_task"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_psc_watchdog'. */
+    /begin MEASUREMENT mpl_ovrc_psc_watchdog
+      "Overrun count of library task: psc_watchdog"
+      UBYTE
+      CU_MPL_OVRC_PSC_WATCHDOG
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d26
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PSC_WATCHDOG
+      "Conversion method for mpl_ovrc_psc_watchdog"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_psp_periodic'. */
+    /begin MEASUREMENT mpl_ovrc_psp_periodic
+      "Overrun count of library task: psp_periodic"
+      UBYTE
+      CU_MPL_OVRC_PSP_PERIODIC
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d25
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_PSP_PERIODIC
+      "Conversion method for mpl_ovrc_psp_periodic"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_ovrc_task_100ms'. */
+    /begin MEASUREMENT mpl_ovrc_task_100ms
+      "Overrun count of application task: task_100ms"
+      UBYTE
+      CU_MPL_OVRC_TASK_100MS
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40005d21
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_OVRC_TASK_100MS
+      "Conversion method for mpl_ovrc_task_100ms"
+      RAT_FUNC
+      "%10.0"
+      "count"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_plat_build_day'. */
+    /begin MEASUREMENT mpl_plat_build_day
+      "Platform build day"
+      UWORD
+      CU_MPL_PLAT_BUILD_DAY
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002880
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PLAT_BUILD_DAY
+      "Conversion method for mpl_plat_build_day"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_plat_build_month'. */
+    /begin MEASUREMENT mpl_plat_build_month
+      "Platform build month"
+      UWORD
+      CU_MPL_PLAT_BUILD_MONTH
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002882
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PLAT_BUILD_MONTH
+      "Conversion method for mpl_plat_build_month"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_plat_build_year'. */
+    /begin MEASUREMENT mpl_plat_build_year
+      "Platform build year"
+      UWORD
+      CU_MPL_PLAT_BUILD_YEAR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002884
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PLAT_BUILD_YEAR
+      "Conversion method for mpl_plat_build_year"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_plat_part_num_group'. */
+    /begin MEASUREMENT mpl_plat_part_num_group
+      "Platform Group ID number of the part number"
+      UBYTE
+      CU_MPL_PLAT_PART_NUM_GROUP
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002886
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PLAT_PART_NUM_GROUP
+      "Conversion method for mpl_plat_part_num_group"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_plat_part_num_id'. */
+    /begin MEASUREMENT mpl_plat_part_num_id
+      "Platform Part ID of the part number"
+      ULONG
+      CU_MPL_PLAT_PART_NUM_ID
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40002888
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PLAT_PART_NUM_ID
+      "Conversion method for mpl_plat_part_num_id"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_plat_part_num_issue'. */
+    /begin MEASUREMENT mpl_plat_part_num_issue
+      "Platform Issue number of the part number"
+      UWORD
+      CU_MPL_PLAT_PART_NUM_ISSUE
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x4000288c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PLAT_PART_NUM_ISSUE
+      "Conversion method for mpl_plat_part_num_issue"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_plat_part_num_letter'. */
+    /begin MEASUREMENT mpl_plat_part_num_letter
+      "Platform Group Letter of the part number"
+      UBYTE
+      CU_MPL_PLAT_PART_NUM_LETTER
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002887
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PLAT_PART_NUM_LETTER
+      "Conversion method for mpl_plat_part_num_letter"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_plat_ver_major'. */
+    /begin MEASUREMENT mpl_plat_ver_major
+      "Platform major version number"
+      UWORD
+      CU_MPL_PLAT_VER_MAJOR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x4000287a
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PLAT_VER_MAJOR
+      "Conversion method for mpl_plat_ver_major"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_plat_ver_minor'. */
+    /begin MEASUREMENT mpl_plat_ver_minor
+      "Platform minor version number"
+      UWORD
+      CU_MPL_PLAT_VER_MINOR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x4000287c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PLAT_VER_MINOR
+      "Conversion method for mpl_plat_ver_minor"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_plat_ver_sub'. */
+    /begin MEASUREMENT mpl_plat_ver_sub
+      "Platform sub minor version number"
+      UWORD
+      CU_MPL_PLAT_VER_SUB
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x4000287e
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PLAT_VER_SUB
+      "Conversion method for mpl_plat_ver_sub"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_prg_build_day'. */
+    /begin MEASUREMENT mpl_prg_build_day
+      "PRG build day"
+      UWORD
+      CU_MPL_PRG_BUILD_DAY
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x4000286c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PRG_BUILD_DAY
+      "Conversion method for mpl_prg_build_day"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_prg_build_month'. */
+    /begin MEASUREMENT mpl_prg_build_month
+      "PRG build month"
+      UWORD
+      CU_MPL_PRG_BUILD_MONTH
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x4000286e
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PRG_BUILD_MONTH
+      "Conversion method for mpl_prg_build_month"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_prg_build_year'. */
+    /begin MEASUREMENT mpl_prg_build_year
+      "PRG build year"
+      UWORD
+      CU_MPL_PRG_BUILD_YEAR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002870
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PRG_BUILD_YEAR
+      "Conversion method for mpl_prg_build_year"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_prg_part_num_group'. */
+    /begin MEASUREMENT mpl_prg_part_num_group
+      "PRG Group ID number in the part number"
+      UBYTE
+      CU_MPL_PRG_PART_NUM_GROUP
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002872
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PRG_PART_NUM_GROUP
+      "Conversion method for mpl_prg_part_num_group"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_prg_part_num_id'. */
+    /begin MEASUREMENT mpl_prg_part_num_id
+      "PRG Part ID in the part number"
+      ULONG
+      CU_MPL_PRG_PART_NUM_ID
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40002874
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PRG_PART_NUM_ID
+      "Conversion method for mpl_prg_part_num_id"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_prg_part_num_issue'. */
+    /begin MEASUREMENT mpl_prg_part_num_issue
+      "PRG Issue number in the part number"
+      UWORD
+      CU_MPL_PRG_PART_NUM_ISSUE
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002878
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PRG_PART_NUM_ISSUE
+      "Conversion method for mpl_prg_part_num_issue"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_prg_part_num_letter'. */
+    /begin MEASUREMENT mpl_prg_part_num_letter
+      "PRG Group Letter in the part number"
+      UBYTE
+      CU_MPL_PRG_PART_NUM_LETTER
+      1
+      100
+      0.0
+      255.0
+      ECU_ADDRESS 0x40002873
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PRG_PART_NUM_LETTER
+      "Conversion method for mpl_prg_part_num_letter"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_prg_ver_major'. */
+    /begin MEASUREMENT mpl_prg_ver_major
+      "PRG major version number"
+      UWORD
+      CU_MPL_PRG_VER_MAJOR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002866
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PRG_VER_MAJOR
+      "Conversion method for mpl_prg_ver_major"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_prg_ver_minor'. */
+    /begin MEASUREMENT mpl_prg_ver_minor
+      "PRG minor version number"
+      UWORD
+      CU_MPL_PRG_VER_MINOR
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x40002868
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PRG_VER_MINOR
+      "Conversion method for mpl_prg_ver_minor"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_prg_ver_sub'. */
+    /begin MEASUREMENT mpl_prg_ver_sub
+      "PRG sub minor version number"
+      UWORD
+      CU_MPL_PRG_VER_SUB
+      1
+      100
+      0.0
+      65535.0
+      ECU_ADDRESS 0x4000286a
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_PRG_VER_SUB
+      "Conversion method for mpl_prg_ver_sub"
+      RAT_FUNC
+      "%10.0"
+      "(not defined)"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_reset_count'. */
+    /begin MEASUREMENT mpl_reset_count
+      "Number of resets since power-up."
+      ULONG
+      CU_MPL_RESET_COUNT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x400028a4
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_RESET_COUNT
+      "Conversion method for mpl_reset_count"
+      RAT_FUNC
+      "%10.0"
+      "events"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_run_time'. */
+    /begin MEASUREMENT mpl_run_time
+      "Time since startup"
+      ULONG
+      CU_MPL_RUN_TIME
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x400028ac
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_RUN_TIME
+      "Conversion method for mpl_run_time"
+      RAT_FUNC
+      "%10.0"
+      "seconds"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_pcp_client'. */
+    /begin MEASUREMENT mpl_tt_pcp_client
+      "Duration of library task: pcp_client"
+      ULONG
+      CU_MPL_TT_PCP_CLIENT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c48
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PCP_CLIENT
+      "Conversion method for mpl_tt_pcp_client"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_pcx_can_callback'. */
+    /begin MEASUREMENT mpl_tt_pcx_can_callback
+      "Duration of library task: pcx_can_callback"
+      ULONG
+      CU_MPL_TT_PCX_CAN_CALLBACK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c18
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PCX_CAN_CALLBACK
+      "Conversion method for mpl_tt_pcx_can_callback"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_pcx_periodic'. */
+    /begin MEASUREMENT mpl_tt_pcx_periodic
+      "Duration of library task: pcx_periodic"
+      ULONG
+      CU_MPL_TT_PCX_PERIODIC
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c38
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PCX_PERIODIC
+      "Conversion method for mpl_tt_pcx_periodic"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_pcx_qemptier'. */
+    /begin MEASUREMENT mpl_tt_pcx_qemptier
+      "Duration of library task: pcx_qemptier"
+      ULONG
+      CU_MPL_TT_PCX_QEMPTIER
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c3c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PCX_QEMPTIER
+      "Conversion method for mpl_tt_pcx_qemptier"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_pcx_qemptier_mcp2515'. */
+    /begin MEASUREMENT mpl_tt_pcx_qemptier_mcp2515
+      "Duration of library task: pcx_qemptier_mcp2515"
+      ULONG
+      CU_MPL_TT_PCX_QEMPTIER_MCP2515
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c14
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PCX_QEMPTIER_MCP2515
+      "Conversion method for mpl_tt_pcx_qemptier_mcp2515"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_pdg_client_task'. */
+    /begin MEASUREMENT mpl_tt_pdg_client_task
+      "Duration of library task: pdg_client_task"
+      ULONG
+      CU_MPL_TT_PDG_CLIENT_TASK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c2c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PDG_CLIENT_TASK
+      "Conversion method for mpl_tt_pdg_client_task"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_pdtc_client_task'. */
+    /begin MEASUREMENT mpl_tt_pdtc_client_task
+      "Duration of library task: pdtc_client_task"
+      ULONG
+      CU_MPL_TT_PDTC_CLIENT_TASK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c34
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PDTC_CLIENT_TASK
+      "Conversion method for mpl_tt_pdtc_client_task"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_pfc_task'. */
+    /begin MEASUREMENT mpl_tt_pfc_task
+      "Duration of library task: pfc_task"
+      ULONG
+      CU_MPL_TT_PFC_TASK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c00
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PFC_TASK
+      "Conversion method for mpl_tt_pfc_task"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_pff_client'. */
+    /begin MEASUREMENT mpl_tt_pff_client
+      "Duration of library task: pff_client"
+      ULONG
+      CU_MPL_TT_PFF_CLIENT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c20
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PFF_CLIENT
+      "Conversion method for mpl_tt_pff_client"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_pfs_client'. */
+    /begin MEASUREMENT mpl_tt_pfs_client
+      "Duration of library task: pfs_client"
+      ULONG
+      CU_MPL_TT_PFS_CLIENT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c24
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PFS_CLIENT
+      "Conversion method for mpl_tt_pfs_client"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_piso_client_task'. */
+    /begin MEASUREMENT mpl_tt_piso_client_task
+      "Duration of library task: piso_client_task"
+      ULONG
+      CU_MPL_TT_PISO_CLIENT_TASK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c28
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PISO_CLIENT_TASK
+      "Conversion method for mpl_tt_piso_client_task"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_pj1939_client'. */
+    /begin MEASUREMENT mpl_tt_pj1939_client
+      "Duration of library task: pj1939_client"
+      ULONG
+      CU_MPL_TT_PJ1939_CLIENT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c1c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PJ1939_CLIENT
+      "Conversion method for mpl_tt_pj1939_client"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_ppm_task'. */
+    /begin MEASUREMENT mpl_tt_ppm_task
+      "Duration of library task: ppm_task"
+      ULONG
+      CU_MPL_TT_PPM_TASK
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005bfc
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PPM_TASK
+      "Conversion method for mpl_tt_ppm_task"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_psc_watchdog'. */
+    /begin MEASUREMENT mpl_tt_psc_watchdog
+      "Duration of library task: psc_watchdog"
+      ULONG
+      CU_MPL_TT_PSC_WATCHDOG
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c44
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PSC_WATCHDOG
+      "Conversion method for mpl_tt_psc_watchdog"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_psp_mcp2515_data'. */
+    /begin MEASUREMENT mpl_tt_psp_mcp2515_data
+      "Duration of library task: psp_mcp2515_data"
+      ULONG
+      CU_MPL_TT_PSP_MCP2515_DATA
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c04
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PSP_MCP2515_DATA
+      "Conversion method for mpl_tt_psp_mcp2515_data"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_psp_mcp2515_int'. */
+    /begin MEASUREMENT mpl_tt_psp_mcp2515_int
+      "Duration of library task: psp_mcp2515_int"
+      ULONG
+      CU_MPL_TT_PSP_MCP2515_INT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c10
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PSP_MCP2515_INT
+      "Conversion method for mpl_tt_psp_mcp2515_int"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_psp_mcp2515_spi'. */
+    /begin MEASUREMENT mpl_tt_psp_mcp2515_spi
+      "Duration of library task: psp_mcp2515_spi"
+      ULONG
+      CU_MPL_TT_PSP_MCP2515_SPI
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c0c
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PSP_MCP2515_SPI
+      "Conversion method for mpl_tt_psp_mcp2515_spi"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_psp_periodic'. */
+    /begin MEASUREMENT mpl_tt_psp_periodic
+      "Duration of library task: psp_periodic"
+      ULONG
+      CU_MPL_TT_PSP_PERIODIC
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c40
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PSP_PERIODIC
+      "Conversion method for mpl_tt_psp_periodic"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_psp_receive'. */
+    /begin MEASUREMENT mpl_tt_psp_receive
+      "Duration of library task: psp_receive"
+      ULONG
+      CU_MPL_TT_PSP_RECEIVE
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c08
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_PSP_RECEIVE
+      "Conversion method for mpl_tt_psp_receive"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_tt_task_100ms'. */
+    /begin MEASUREMENT mpl_tt_task_100ms
+      "Duration of application task: task_100ms"
+      ULONG
+      CU_MPL_TT_TASK_100MS
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x40005c30
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_TT_TASK_100MS
+      "Conversion method for mpl_tt_task_100ms"
+      RAT_FUNC
+      "%10.0"
+      "microseconds"
+      COEFFS 0.000000 80.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'mpl_unstable_reset_count'. */
+    /begin MEASUREMENT mpl_unstable_reset_count
+      "Number of resets since power-up, or since the application was last stable."
+      ULONG
+      CU_MPL_UNSTABLE_RESET_COUNT
+      1
+      100
+      0.0
+      4294967295.0
+      ECU_ADDRESS 0x400028a0
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_MPL_UNSTABLE_RESET_COUNT
+      "Conversion method for mpl_unstable_reset_count"
+      RAT_FUNC
+      "%10.0"
+      "events"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* String calibration for DDE 'mpls_app_build_time'. */
+    /begin CHARACTERISTIC mpls_app_build_time
+      "Date and time of app build."
+      ASCII
+      0x40ba0
+      RL_MPLS_APP_BUILD_TIME
+      0
+      CU_MPLS_APP_BUILD_TIME
+      0
+      255
+      NUMBER 26
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_MPLS_APP_BUILD_TIME
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_MPLS_APP_BUILD_TIME
+      "Conversion method for mpls_app_build_time"
+      RAT_FUNC
+      "%10.0"
+      ""
+      COEFFS 0.0 1.0 0.0 0.0 0.0 1.0
+    /end COMPU_METHOD
+
+    /* String calibration for DDE 'mpls_app_copyright'. */
+    /begin CHARACTERISTIC mpls_app_copyright
+      "The application copyright text."
+      ASCII
+      0x42734
+      RL_MPLS_APP_COPYRIGHT
+      0
+      CU_MPLS_APP_COPYRIGHT
+      0
+      255
+      NUMBER 6
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_MPLS_APP_COPYRIGHT
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_MPLS_APP_COPYRIGHT
+      "Conversion method for mpls_app_copyright"
+      RAT_FUNC
+      "%10.0"
+      ""
+      COEFFS 0.0 1.0 0.0 0.0 0.0 1.0
+    /end COMPU_METHOD
+
+    /* String calibration for DDE 'mpls_app_description'. */
+    /begin CHARACTERISTIC mpls_app_description
+      "Description from the application."
+      ASCII
+      0x4272c
+      RL_MPLS_APP_DESCRIPTION
+      0
+      CU_MPLS_APP_DESCRIPTION
+      0
+      255
+      NUMBER 6
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_MPLS_APP_DESCRIPTION
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_MPLS_APP_DESCRIPTION
+      "Conversion method for mpls_app_description"
+      RAT_FUNC
+      "%10.0"
+      ""
+      COEFFS 0.0 1.0 0.0 0.0 0.0 1.0
+    /end COMPU_METHOD
+
+    /* String calibration for DDE 'mpls_app_name'. */
+    /begin CHARACTERISTIC mpls_app_name
+      "The application name."
+      ASCII
+      0x40bbc
+      RL_MPLS_APP_NAME
+      0
+      CU_MPLS_APP_NAME
+      0
+      255
+      NUMBER 25
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_MPLS_APP_NAME
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_MPLS_APP_NAME
+      "Conversion method for mpls_app_name"
+      RAT_FUNC
+      "%10.0"
+      ""
+      COEFFS 0.0 1.0 0.0 0.0 0.0 1.0
+    /end COMPU_METHOD
+
+    /* String calibration for DDE 'mpls_app_version'. */
+    /begin CHARACTERISTIC mpls_app_version
+      "The application version."
+      ASCII
+      0x42724
+      RL_MPLS_APP_VERSION
+      0
+      CU_MPLS_APP_VERSION
+      0
+      255
+      NUMBER 5
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_MPLS_APP_VERSION
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_MPLS_APP_VERSION
+      "Conversion method for mpls_app_version"
+      RAT_FUNC
+      "%10.0"
+      ""
+      COEFFS 0.0 1.0 0.0 0.0 0.0 1.0
+    /end COMPU_METHOD
+
+    /* String calibration for DDE 'mpls_plat_build_time'. */
+    /begin CHARACTERISTIC mpls_plat_build_time
+      "Date and time of platform build."
+      ASCII
+      0x407b4
+      RL_MPLS_PLAT_BUILD_TIME
+      0
+      CU_MPLS_PLAT_BUILD_TIME
+      0
+      255
+      NUMBER 30
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_MPLS_PLAT_BUILD_TIME
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_MPLS_PLAT_BUILD_TIME
+      "Conversion method for mpls_plat_build_time"
+      RAT_FUNC
+      "%10.0"
+      ""
+      COEFFS 0.0 1.0 0.0 0.0 0.0 1.0
+    /end COMPU_METHOD
+
+    /* String calibration for DDE 'mpls_plat_copyright'. */
+    /begin CHARACTERISTIC mpls_plat_copyright
+      "Date and time of platform build."
+      ASCII
+      0x407dc
+      RL_MPLS_PLAT_COPYRIGHT
+      0
+      CU_MPLS_PLAT_COPYRIGHT
+      0
+      255
+      NUMBER 29
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_MPLS_PLAT_COPYRIGHT
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_MPLS_PLAT_COPYRIGHT
+      "Conversion method for mpls_plat_copyright"
+      RAT_FUNC
+      "%10.0"
+      ""
+      COEFFS 0.0 1.0 0.0 0.0 0.0 1.0
+    /end COMPU_METHOD
+
+    /* String calibration for DDE 'mpls_plat_target'. */
+    /begin CHARACTERISTIC mpls_plat_target
+      "Target platform."
+      ASCII
+      0x407d4
+      RL_MPLS_PLAT_TARGET
+      0
+      CU_MPLS_PLAT_TARGET
+      0
+      255
+      NUMBER 4
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_MPLS_PLAT_TARGET
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_MPLS_PLAT_TARGET
+      "Conversion method for mpls_plat_target"
+      RAT_FUNC
+      "%10.0"
+      ""
+      COEFFS 0.0 1.0 0.0 0.0 0.0 1.0
+    /end COMPU_METHOD
+
+    /* String calibration for DDE 'mpls_plat_version'. */
+    /begin CHARACTERISTIC mpls_plat_version
+      "Version of platform."
+      ASCII
+      0x407fc
+      RL_MPLS_PLAT_VERSION
+      0
+      CU_MPLS_PLAT_VERSION
+      0
+      255
+      NUMBER 13
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_MPLS_PLAT_VERSION
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_MPLS_PLAT_VERSION
+      "Conversion method for mpls_plat_version"
+      RAT_FUNC
+      "%10.0"
+      ""
+      COEFFS 0.0 1.0 0.0 0.0 0.0 1.0
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'pj1939c_node_addr_0'. */
+    /begin CHARACTERISTIC pj1939c_node_addr_0
+      "J1939 node address set up during initialisation"
+      VALUE
+      0x407a4
+      RL_PJ1939C_NODE_ADDR_0
+      253.000000
+      CU_PJ1939C_NODE_ADDR_0
+      0.000000
+      253.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_PJ1939C_NODE_ADDR_0
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_PJ1939C_NODE_ADDR_0
+      "Conversion method for pj1939c_node_addr_0"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'soc_pack_actual'. */
+    /begin MEASUREMENT soc_pack_actual
+      "Actual SOC"
+      FLOAT32_IEEE
+      CU_SOC_PACK_ACTUAL
+      1
+      100
+      0.0
+      100.0
+      ECU_ADDRESS 0x400026ec
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_SOC_PACK_ACTUAL
+      "Conversion method for soc_pack_actual"
+      RAT_FUNC
+      "%10.2"
+      "pct"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'soh_C_index'. */
+    /begin MEASUREMENT soh_C_index
+      "(not defined)"
+      FLOAT32_IEEE
+      CU_SOH_C_INDEX
+      1
+      100
+      0.0
+      100.0
+      ECU_ADDRESS 0x400026e8
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_SOH_C_INDEX
+      "Conversion method for soh_C_index"
+      RAT_FUNC
+      "%10.3"
+      "pct"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'soh_R_index'. */
+    /begin MEASUREMENT soh_R_index
+      "(not defined)"
+      FLOAT32_IEEE
+      CU_SOH_R_INDEX
+      1
+      100
+      0.0
+      100.0
+      ECU_ADDRESS 0x400026e4
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_SOH_R_INDEX
+      "Conversion method for soh_R_index"
+      RAT_FUNC
+      "%10.3"
+      "pct"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'sohc_current_threshold'. */
+    /begin CHARACTERISTIC sohc_current_threshold
+      "(not defined)"
+      VALUE
+      0x405d0
+      RL_SOHC_CURRENT_THRESHOLD
+      0.000000
+      CU_SOHC_CURRENT_THRESHOLD
+      0.100000
+      0.100000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOHC_CURRENT_THRESHOLD
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOHC_CURRENT_THRESHOLD
+      "Conversion method for sohc_current_threshold"
+      RAT_FUNC
+      "%10.1"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'sohc_customer_filter_coeff'. */
+    /begin CHARACTERISTIC sohc_customer_filter_coeff
+      "(not defined)"
+      VALUE
+      0x405cc
+      RL_SOHC_CUSTOMER_FILTER_COEFF
+      1.000000
+      CU_SOHC_CUSTOMER_FILTER_COEFF
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOHC_CUSTOMER_FILTER_COEFF
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOHC_CUSTOMER_FILTER_COEFF
+      "Conversion method for sohc_customer_filter_coeff"
+      RAT_FUNC
+      "%10.4"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'sohc_filter_coeff'. */
+    /begin CHARACTERISTIC sohc_filter_coeff
+      "(not defined)"
+      VALUE
+      0x405c8
+      RL_SOHC_FILTER_COEFF
+      1.000000
+      CU_SOHC_FILTER_COEFF
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOHC_FILTER_COEFF
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOHC_FILTER_COEFF
+      "Conversion method for sohc_filter_coeff"
+      RAT_FUNC
+      "%10.4"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'sohc_pct_R_limit'. */
+    /begin CHARACTERISTIC sohc_pct_R_limit
+      "(not defined)"
+      VALUE
+      0x405c4
+      RL_SOHC_PCT_R_LIMIT
+      0.000000
+      CU_SOHC_PCT_R_LIMIT
+      30.000000
+      30.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOHC_PCT_R_LIMIT
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOHC_PCT_R_LIMIT
+      "Conversion method for sohc_pct_R_limit"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Vector/array calibration for DDE 'sohv_factoryInit_sohc'. */
+    /begin CHARACTERISTIC sohv_factoryInit_sohc
+      "(not defined)"
+      VAL_BLK
+      0x40524
+      RL_SOHV_FACTORYINIT_SOHC
+      0.000000
+      CU_SOHV_FACTORYINIT_SOHC
+      1.000000
+      1.000000
+      NUMBER 40
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOHV_FACTORYINIT_SOHC
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOHV_FACTORYINIT_SOHC
+      "Conversion method for sohv_factoryInit_sohc"
+      RAT_FUNC
+      "%10.4"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Vector/array calibration for DDE 'sohv_factoryInit_sohr'. */
+    /begin CHARACTERISTIC sohv_factoryInit_sohr
+      "(not defined)"
+      VAL_BLK
+      0x40484
+      RL_SOHV_FACTORYINIT_SOHR
+      0.000000
+      CU_SOHV_FACTORYINIT_SOHR
+      1.000000
+      1.000000
+      NUMBER 40
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOHV_FACTORYINIT_SOHR
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOHV_FACTORYINIT_SOHR
+      "Conversion method for sohv_factoryInit_sohr"
+      RAT_FUNC
+      "%10.4"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'sop_max_chg_current'. */
+    /begin MEASUREMENT sop_max_chg_current
+      "(not defined)"
+      FLOAT32_IEEE
+      CU_SOP_MAX_CHG_CURRENT
+      1
+      100
+      0.0
+      512.0
+      ECU_ADDRESS 0x400026e0
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_SOP_MAX_CHG_CURRENT
+      "Conversion method for sop_max_chg_current"
+      RAT_FUNC
+      "%10.2"
+      "A"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar measurable for DDE 'sop_max_dischg_current'. */
+    /begin MEASUREMENT sop_max_dischg_current
+      "(not defined)"
+      FLOAT32_IEEE
+      CU_SOP_MAX_DISCHG_CURRENT
+      1
+      100
+      0.0
+      512.0
+      ECU_ADDRESS 0x400026dc
+      BYTE_ORDER MSB_FIRST
+    /end MEASUREMENT
+
+    /begin COMPU_METHOD CU_SOP_MAX_DISCHG_CURRENT
+      "Conversion method for sop_max_dischg_current"
+      RAT_FUNC
+      "%10.2"
+      "A"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'sopc_ChargeDerate'. */
+    /begin CHARACTERISTIC sopc_ChargeDerate
+      "(not defined)"
+      VALUE
+      0x40480
+      RL_SOPC_CHARGEDERATE
+      1.000000
+      CU_SOPC_CHARGEDERATE
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOPC_CHARGEDERATE
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOPC_CHARGEDERATE
+      "Conversion method for sopc_ChargeDerate"
+      RAT_FUNC
+      "%10.2"
+      "pct"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'sopc_ChgFaultDerate'. */
+    /begin CHARACTERISTIC sopc_ChgFaultDerate
+      "(not defined)"
+      VALUE
+      0x4047c
+      RL_SOPC_CHGFAULTDERATE
+      1.000000
+      CU_SOPC_CHGFAULTDERATE
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOPC_CHGFAULTDERATE
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOPC_CHGFAULTDERATE
+      "Conversion method for sopc_ChgFaultDerate"
+      RAT_FUNC
+      "%10.2"
+      "pct"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'sopc_DischargeDerate'. */
+    /begin CHARACTERISTIC sopc_DischargeDerate
+      "(not defined)"
+      VALUE
+      0x40478
+      RL_SOPC_DISCHARGEDERATE
+      1.000000
+      CU_SOPC_DISCHARGEDERATE
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOPC_DISCHARGEDERATE
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOPC_DISCHARGEDERATE
+      "Conversion method for sopc_DischargeDerate"
+      RAT_FUNC
+      "%10.2"
+      "pct"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'sopc_DischgFaultDerate'. */
+    /begin CHARACTERISTIC sopc_DischgFaultDerate
+      "(not defined)"
+      VALUE
+      0x40474
+      RL_SOPC_DISCHGFAULTDERATE
+      1.000000
+      CU_SOPC_DISCHGFAULTDERATE
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_SOPC_DISCHGFAULTDERATE
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_SOPC_DISCHGFAULTDERATE
+      "Conversion method for sopc_DischgFaultDerate"
+      RAT_FUNC
+      "%10.2"
+      "pct"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellPackVolTol'. */
+    /begin CHARACTERISTIC vitc_CellPackVolTol
+      "max difference between sum of cell voltages and pack voltage to trigger pack voltage fault"
+      VALUE
+      0x40470
+      RL_VITC_CELLPACKVOLTOL
+      100.000000
+      CU_VITC_CELLPACKVOLTOL
+      0.000000
+      100.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLPACKVOLTOL
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLPACKVOLTOL
+      "Conversion method for vitc_CellPackVolTol"
+      RAT_FUNC
+      "%10.2"
+      "V"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellTempFaultTimer'. */
+    /begin CHARACTERISTIC vitc_CellTempFaultTimer
+      "time duration to trigger cell temperature fault"
+      VALUE
+      0x4046c
+      RL_VITC_CELLTEMPFAULTTIMER
+      50.000000
+      CU_VITC_CELLTEMPFAULTTIMER
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLTEMPFAULTTIMER
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLTEMPFAULTTIMER
+      "Conversion method for vitc_CellTempFaultTimer"
+      RAT_FUNC
+      "%10.2"
+      "seconds"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellTempFilterC'. */
+    /begin CHARACTERISTIC vitc_CellTempFilterC
+      "the constant for cell temperature filter"
+      VALUE
+      0x40468
+      RL_VITC_CELLTEMPFILTERC
+      1.000000
+      CU_VITC_CELLTEMPFILTERC
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLTEMPFILTERC
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLTEMPFILTERC
+      "Conversion method for vitc_CellTempFilterC"
+      RAT_FUNC
+      "%10.2"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellTempHighFaultReset'. */
+    /begin CHARACTERISTIC vitc_CellTempHighFaultReset
+      "calibration to reset high cell temperature fault"
+      VALUE
+      0x40465
+      RL_VITC_CELLTEMPHIGHFAULTRESET
+      1.000000
+      CU_VITC_CELLTEMPHIGHFAULTRESET
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLTEMPHIGHFAULTRESET
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLTEMPHIGHFAULTRESET
+      "Conversion method for vitc_CellTempHighFaultReset"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellTempLowFaultReset'. */
+    /begin CHARACTERISTIC vitc_CellTempLowFaultReset
+      "calibration to reset low cell temperature fault"
+      VALUE
+      0x40464
+      RL_VITC_CELLTEMPLOWFAULTRESET
+      1.000000
+      CU_VITC_CELLTEMPLOWFAULTRESET
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLTEMPLOWFAULTRESET
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLTEMPLOWFAULTRESET
+      "Conversion method for vitc_CellTempLowFaultReset"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellTempMax'. */
+    /begin CHARACTERISTIC vitc_CellTempMax
+      "minimum allowable cell temperature"
+      VALUE
+      0x40460
+      RL_VITC_CELLTEMPMAX
+      100.000000
+      CU_VITC_CELLTEMPMAX
+      0.000000
+      100.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLTEMPMAX
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLTEMPMAX
+      "Conversion method for vitc_CellTempMax"
+      RAT_FUNC
+      "%10.2"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellTempMin'. */
+    /begin CHARACTERISTIC vitc_CellTempMin
+      "maximum allowable cell temperature"
+      VALUE
+      0x4045c
+      RL_VITC_CELLTEMPMIN
+      100.000000
+      CU_VITC_CELLTEMPMIN
+      -100.000000
+      0.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLTEMPMIN
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLTEMPMIN
+      "Conversion method for vitc_CellTempMin"
+      RAT_FUNC
+      "%10.2"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellVolFilterC'. */
+    /begin CHARACTERISTIC vitc_CellVolFilterC
+      "the constant for cell voltage filter"
+      VALUE
+      0x40458
+      RL_VITC_CELLVOLFILTERC
+      1.000000
+      CU_VITC_CELLVOLFILTERC
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLVOLFILTERC
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLVOLFILTERC
+      "Conversion method for vitc_CellVolFilterC"
+      RAT_FUNC
+      "%10.2"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellVoltageFaultTimer'. */
+    /begin CHARACTERISTIC vitc_CellVoltageFaultTimer
+      "time duration to trigger cell voltage fault"
+      VALUE
+      0x40454
+      RL_VITC_CELLVOLTAGEFAULTTIMER
+      50.000000
+      CU_VITC_CELLVOLTAGEFAULTTIMER
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLVOLTAGEFAULTTIMER
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLVOLTAGEFAULTTIMER
+      "Conversion method for vitc_CellVoltageFaultTimer"
+      RAT_FUNC
+      "%10.2"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellVoltageHighFaultReset'. */
+    /begin CHARACTERISTIC vitc_CellVoltageHighFaultReset
+      "calibration to reset the cell voltage high fault"
+      VALUE
+      0x40451
+      RL_VITC_CELLVOLTAGEHIGHFAULTRE0
+      1.000000
+      CU_VITC_CELLVOLTAGEHIGHFAULTRE0
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLVOLTAGEHIGHFAULTRE0
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLVOLTAGEHIGHFAULTRE0
+      "Conversion method for vitc_CellVoltageHighFaultReset"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellVoltageLowFaultReset'. */
+    /begin CHARACTERISTIC vitc_CellVoltageLowFaultReset
+      "calibration to reset the cell voltage low fault"
+      VALUE
+      0x40450
+      RL_VITC_CELLVOLTAGELOWFAULTRES0
+      1.000000
+      CU_VITC_CELLVOLTAGELOWFAULTRES0
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLVOLTAGELOWFAULTRES0
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLVOLTAGELOWFAULTRES0
+      "Conversion method for vitc_CellVoltageLowFaultReset"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellVoltageMax'. */
+    /begin CHARACTERISTIC vitc_CellVoltageMax
+      "maximum voltage before damage to battery pack."
+      VALUE
+      0x4044c
+      RL_VITC_CELLVOLTAGEMAX
+      5.000000
+      CU_VITC_CELLVOLTAGEMAX
+      0.000000
+      5.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLVOLTAGEMAX
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLVOLTAGEMAX
+      "Conversion method for vitc_CellVoltageMax"
+      RAT_FUNC
+      "%10.2"
+      "V"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CellVoltageMin'. */
+    /begin CHARACTERISTIC vitc_CellVoltageMin
+      "minimum voltage before damage to battery pack."
+      VALUE
+      0x40448
+      RL_VITC_CELLVOLTAGEMIN
+      5.000000
+      CU_VITC_CELLVOLTAGEMIN
+      0.000000
+      5.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_CELLVOLTAGEMIN
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_CELLVOLTAGEMIN
+      "Conversion method for vitc_CellVoltageMin"
+      RAT_FUNC
+      "%10.2"
+      "V"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CoolantInletTFaultReset'. */
+    /begin CHARACTERISTIC vitc_CoolantInletTFaultReset
+      "calibration to reset coolant inlet temperature fault"
+      VALUE
+      0x40444
+      RL_VITC_COOLANTINLETTFAULTRESET
+      1.000000
+      CU_VITC_COOLANTINLETTFAULTRESET
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_COOLANTINLETTFAULTRESET
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_COOLANTINLETTFAULTRESET
+      "Conversion method for vitc_CoolantInletTFaultReset"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CoolantInletTLowerLim'. */
+    /begin CHARACTERISTIC vitc_CoolantInletTLowerLim
+      "minimum allowable coolant inlet temperature"
+      VALUE
+      0x40440
+      RL_VITC_COOLANTINLETTLOWERLIM
+      100.000000
+      CU_VITC_COOLANTINLETTLOWERLIM
+      -100.000000
+      0.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_COOLANTINLETTLOWERLIM
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_COOLANTINLETTLOWERLIM
+      "Conversion method for vitc_CoolantInletTLowerLim"
+      RAT_FUNC
+      "%10.2"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CoolantInletTUpperLim'. */
+    /begin CHARACTERISTIC vitc_CoolantInletTUpperLim
+      "maximum allowable coolant inlet temperature"
+      VALUE
+      0x4043c
+      RL_VITC_COOLANTINLETTUPPERLIM
+      100.000000
+      CU_VITC_COOLANTINLETTUPPERLIM
+      0.000000
+      100.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_COOLANTINLETTUPPERLIM
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_COOLANTINLETTUPPERLIM
+      "Conversion method for vitc_CoolantInletTUpperLim"
+      RAT_FUNC
+      "%10.2"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CoolantOutletTFaultReset'. */
+    /begin CHARACTERISTIC vitc_CoolantOutletTFaultReset
+      "calibration to reset coolant outlet temperature fault"
+      VALUE
+      0x40438
+      RL_VITC_COOLANTOUTLETTFAULTRES0
+      1.000000
+      CU_VITC_COOLANTOUTLETTFAULTRES0
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_COOLANTOUTLETTFAULTRES0
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_COOLANTOUTLETTFAULTRES0
+      "Conversion method for vitc_CoolantOutletTFaultReset"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CoolantOutletTLowerLim'. */
+    /begin CHARACTERISTIC vitc_CoolantOutletTLowerLim
+      "minimum allowable coolant outlet temperature"
+      VALUE
+      0x40434
+      RL_VITC_COOLANTOUTLETTLOWERLIM
+      100.000000
+      CU_VITC_COOLANTOUTLETTLOWERLIM
+      -100.000000
+      0.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_COOLANTOUTLETTLOWERLIM
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_COOLANTOUTLETTLOWERLIM
+      "Conversion method for vitc_CoolantOutletTLowerLim"
+      RAT_FUNC
+      "%10.2"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CoolantOutletTUpperLim'. */
+    /begin CHARACTERISTIC vitc_CoolantOutletTUpperLim
+      "maximum allowable coolant outlet temperature"
+      VALUE
+      0x40430
+      RL_VITC_COOLANTOUTLETTUPPERLIM
+      100.000000
+      CU_VITC_COOLANTOUTLETTUPPERLIM
+      0.000000
+      100.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_COOLANTOUTLETTUPPERLIM
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_COOLANTOUTLETTUPPERLIM
+      "Conversion method for vitc_CoolantOutletTUpperLim"
+      RAT_FUNC
+      "%10.2"
+      "C"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CoolantTFilterC'. */
+    /begin CHARACTERISTIC vitc_CoolantTFilterC
+      "the constant for coolant inlet and outlet tempeature filter"
+      VALUE
+      0x4042c
+      RL_VITC_COOLANTTFILTERC
+      1.000000
+      CU_VITC_COOLANTTFILTERC
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_COOLANTTFILTERC
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_COOLANTTFILTERC
+      "Conversion method for vitc_CoolantTFilterC"
+      RAT_FUNC
+      "%10.2"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_CoolantTempFaultCounter'. */
+    /begin CHARACTERISTIC vitc_CoolantTempFaultCounter
+      "time duration to trigger coolant inlet and outlet temperature fault"
+      VALUE
+      0x40428
+      RL_VITC_COOLANTTEMPFAULTCOUNTER
+      50.000000
+      CU_VITC_COOLANTTEMPFAULTCOUNTER
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_COOLANTTEMPFAULTCOUNTER
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_COOLANTTEMPFAULTCOUNTER
+      "Conversion method for vitc_CoolantTempFaultCounter"
+      RAT_FUNC
+      "%10.2"
+      "seconds"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_HVILFaultCounter'. */
+    /begin CHARACTERISTIC vitc_HVILFaultCounter
+      "(not defined)"
+      VALUE
+      0x40424
+      RL_VITC_HVILFAULTCOUNTER
+      15.000000
+      CU_VITC_HVILFAULTCOUNTER
+      0.000000
+      15.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_HVILFAULTCOUNTER
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_HVILFAULTCOUNTER
+      "Conversion method for vitc_HVILFaultCounter"
+      RAT_FUNC
+      "%10.2"
+      "seconds"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_HVILFaultReset'. */
+    /begin CHARACTERISTIC vitc_HVILFaultReset
+      "(not defined)"
+      VALUE
+      0x40420
+      RL_VITC_HVILFAULTRESET
+      1.000000
+      CU_VITC_HVILFAULTRESET
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_HVILFAULTRESET
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_HVILFAULTRESET
+      "Conversion method for vitc_HVILFaultReset"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_PackCurFilterC'. */
+    /begin CHARACTERISTIC vitc_PackCurFilterC
+      "the constant for pack curent filter"
+      VALUE
+      0x4041c
+      RL_VITC_PACKCURFILTERC
+      1.000000
+      CU_VITC_PACKCURFILTERC
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_PACKCURFILTERC
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_PACKCURFILTERC
+      "Conversion method for vitc_PackCurFilterC"
+      RAT_FUNC
+      "%10.2"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_PackCurrentFaultReset'. */
+    /begin CHARACTERISTIC vitc_PackCurrentFaultReset
+      "calibration to reset the pack current fault"
+      VALUE
+      0x40418
+      RL_VITC_PACKCURRENTFAULTRESET
+      1.000000
+      CU_VITC_PACKCURRENTFAULTRESET
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_PACKCURRENTFAULTRESET
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_PACKCURRENTFAULTRESET
+      "Conversion method for vitc_PackCurrentFaultReset"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_PackCurrentFaultTimer'. */
+    /begin CHARACTERISTIC vitc_PackCurrentFaultTimer
+      "time duration to trigger pack current fault"
+      VALUE
+      0x40414
+      RL_VITC_PACKCURRENTFAULTTIMER
+      20.000000
+      CU_VITC_PACKCURRENTFAULTTIMER
+      0.000000
+      20.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_PACKCURRENTFAULTTIMER
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_PACKCURRENTFAULTTIMER
+      "Conversion method for vitc_PackCurrentFaultTimer"
+      RAT_FUNC
+      "%10.2"
+      "seconds"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_PackCurrentLimit'. */
+    /begin CHARACTERISTIC vitc_PackCurrentLimit
+      "maximum allowable pack current"
+      VALUE
+      0x40410
+      RL_VITC_PACKCURRENTLIMIT
+      300.000000
+      CU_VITC_PACKCURRENTLIMIT
+      0.000000
+      300.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_PACKCURRENTLIMIT
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_PACKCURRENTLIMIT
+      "Conversion method for vitc_PackCurrentLimit"
+      RAT_FUNC
+      "%10.2"
+      "A"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_PackVolFilterC'. */
+    /begin CHARACTERISTIC vitc_PackVolFilterC
+      "the constant for pack voltage filter"
+      VALUE
+      0x4040c
+      RL_VITC_PACKVOLFILTERC
+      1.000000
+      CU_VITC_PACKVOLFILTERC
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_PACKVOLFILTERC
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_PACKVOLFILTERC
+      "Conversion method for vitc_PackVolFilterC"
+      RAT_FUNC
+      "%10.2"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_PackVoltageFaultReset'. */
+    /begin CHARACTERISTIC vitc_PackVoltageFaultReset
+      "calibration to reset the pack voltage fault"
+      VALUE
+      0x40408
+      RL_VITC_PACKVOLTAGEFAULTRESET
+      1.000000
+      CU_VITC_PACKVOLTAGEFAULTRESET
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_PACKVOLTAGEFAULTRESET
+      FNC_VALUES 1 UBYTE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_PACKVOLTAGEFAULTRESET
+      "Conversion method for vitc_PackVoltageFaultReset"
+      RAT_FUNC
+      "%10.0"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_PackVoltageFaultTimer'. */
+    /begin CHARACTERISTIC vitc_PackVoltageFaultTimer
+      "time duration to trigger pack voltage fault"
+      VALUE
+      0x40404
+      RL_VITC_PACKVOLTAGEFAULTTIMER
+      50.000000
+      CU_VITC_PACKVOLTAGEFAULTTIMER
+      0.000000
+      50.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_PACKVOLTAGEFAULTTIMER
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_PACKVOLTAGEFAULTTIMER
+      "Conversion method for vitc_PackVoltageFaultTimer"
+      RAT_FUNC
+      "%10.2"
+      "seconds"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /* Scalar calibration for DDE 'vitc_VehVolFilterC'. */
+    /begin CHARACTERISTIC vitc_VehVolFilterC
+      "the constant for vehicle side voltage filter"
+      VALUE
+      0x40400
+      RL_VITC_VEHVOLFILTERC
+      1.000000
+      CU_VITC_VEHVOLFILTERC
+      0.000000
+      1.000000
+      BYTE_ORDER MSB_FIRST
+    /end CHARACTERISTIC
+
+    /begin RECORD_LAYOUT RL_VITC_VEHVOLFILTERC
+      FNC_VALUES 1 FLOAT32_IEEE COLUMN_DIR DIRECT
+    /end RECORD_LAYOUT
+
+    /begin COMPU_METHOD CU_VITC_VEHVOLFILTERC
+      "Conversion method for vitc_VehVolFilterC"
+      RAT_FUNC
+      "%10.2"
+      "none"
+      COEFFS 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000
+    /end COMPU_METHOD
+
+    /begin FUNCTION bms
+      "Group /ByDataDictionaryPrefix/bms"
+      /begin LOC_MEASUREMENT
+        BMS_CellTemp
+        BMS_CellVoltage
+        BMS_MedFault
+        BMS_RawPackCurrent
+        BMS_RawPackVoltage
+        BMS_RawVehSideVoltage
+        BMS_error
+        BMS_overrun
+        BMS_trig
+      /end LOC_MEASUREMENT
+      /begin REF_CHARACTERISTIC
+        BMSc_airTemperature
+        bmsc_CellMaxVolt
+        bmsc_CellMinVolt
+        bmsc_NumberInPara
+        bmsc_NumberInSeries
+      /end REF_CHARACTERISTIC
+    /end FUNCTION
+
+    /begin FUNCTION bsc
+      "Group /ByDataDictionaryPrefix/bsc"
+      /begin LOC_MEASUREMENT
+        bsc_ChgContactorCmd
+        bsc_FaultType
+        bsc_KeyValue
+        bsc_MainContactorCmd
+        bsc_ReasonToOpen
+        bsc_VehiclePSR
+      /end LOC_MEASUREMENT
+      /begin REF_CHARACTERISTIC
+        bscv_LowFaultType
+        bscv_MediumFaultType
+        bscv_SevereFaultType
+      /end REF_CHARACTERISTIC
+    /end FUNCTION
+
+    /begin FUNCTION btc
+      "Group /ByDataDictionaryPrefix/btc"
+      /begin REF_CHARACTERISTIC
+        btcc_Ki
+        btcc_Kp
+        btcc_ambient_temp_highth
+        btcc_ambient_temp_lowth
+        btcc_cell_temp_diffth
+        btcc_full_soc
+        btcc_max_temp_highth
+        btcc_max_temp_lowth
+        btcc_min_temp_highth
+        btcc_min_temp_lowth
+        btcc_number_in_series
+        btcc_pack_in_parallel
+      /end REF_CHARACTERISTIC
+    /end FUNCTION
+
+    /begin FUNCTION cbl
+      "Group /ByDataDictionaryPrefix/cbl"
+      /begin REF_CHARACTERISTIC
+        cblc_deltaSocThreshBalance
+        cblc_socThreshBalance
+      /end REF_CHARACTERISTIC
+    /end FUNCTION
+
+    /begin FUNCTION soc
+      "Group /ByDataDictionaryPrefix/soc"
+      /begin LOC_MEASUREMENT
+        soc_pack_actual
+      /end LOC_MEASUREMENT
+      /begin REF_CHARACTERISTIC
+        SOCv_InitalSOC
+        SOCv_factoryInitSohC
+      /end REF_CHARACTERISTIC
+    /end FUNCTION
+
+    /begin FUNCTION soh
+      "Group /ByDataDictionaryPrefix/soh"
+      /begin LOC_MEASUREMENT
+        soh_R_index
+      /end LOC_MEASUREMENT
+      /begin REF_CHARACTERISTIC
+        sohc_current_threshold
+        sohc_customer_filter_coeff
+        sohc_filter_coeff
+        sohc_pct_R_limit
+        sohv_factoryInit_sohc
+        sohv_factoryInit_sohr
+      /end REF_CHARACTERISTIC
+    /end FUNCTION
+
+    /begin FUNCTION sop
+      "Group /ByDataDictionaryPrefix/sop"
+      /begin LOC_MEASUREMENT
+        sop_max_dischg_current
+      /end LOC_MEASUREMENT
+      /begin REF_CHARACTERISTIC
+        sopc_ChargeDerate
+        sopc_ChgFaultDerate
+        sopc_DischargeDerate
+        sopc_DischgFaultDerate
+      /end REF_CHARACTERISTIC
+    /end FUNCTION
+
+    /begin FUNCTION vit
+      "Group /ByDataDictionaryPrefix/vit"
+      /begin REF_CHARACTERISTIC
+        vitc_CellTempFaultTimer
+        vitc_CellTempFilterC
+        vitc_CellTempHighFaultReset
+        vitc_CellTempLowFaultReset
+        vitc_CellTempMax
+        vitc_CellTempMin
+        vitc_CellVolFilterC
+        vitc_CellVoltageFaultTimer
+        vitc_CellVoltageHighFaultReset
+        vitc_CellVoltageLowFaultReset
+        vitc_CellVoltageMax
+        vitc_CellVoltageMin
+        vitc_CoolantInletTFaultReset
+        vitc_CoolantInletTLowerLim
+        vitc_CoolantInletTUpperLim
+        vitc_CoolantOutletTFaultReset
+        vitc_CoolantOutletTLowerLim
+        vitc_CoolantOutletTUpperLim
+        vitc_CoolantTFilterC
+        vitc_CoolantTempFaultCounter
+        vitc_HVILFaultCounter
+        vitc_HVILFaultReset
+        vitc_PackCurFilterC
+        vitc_PackCurrentFaultReset
+        vitc_PackCurrentFaultTimer
+        vitc_PackCurrentLimit
+        vitc_PackVolFilterC
+        vitc_PackVoltageFaultReset
+        vitc_PackVoltageFaultTimer
+        vitc_VehVolFilterC
+      /end REF_CHARACTERISTIC
+    /end FUNCTION
+
+    /begin FUNCTION ByDataDictionaryPrefix
+      "Group /ByDataDictionaryPrefix"
+      /begin SUB_FUNCTION
+        bms
+        bsc
+        btc
+        cbl
+        soc
+        soh
+        sop
+        vit
+      /end SUB_FUNCTION
+    /end FUNCTION
+
+    /begin FUNCTION BMS
+      "Group /ByModelHeirarchy/BMShil/BMS"
+      /begin LOC_MEASUREMENT
+        BMS_RawPackCurrent
+        bsc_ChgContactorCmd
+        bsc_FaultType
+        bsc_MainContactorCmd
+        bsc_ReasonToOpen
+        btc_coolant_flow_pct
+        soc_pack_actual
+        soh_C_index
+        soh_R_index
+        sop_max_chg_current
+        sop_max_dischg_current
+      /end LOC_MEASUREMENT
+      /begin REF_CHARACTERISTIC
+        BMSc_airTemperature
+      /end REF_CHARACTERISTIC
+    /end FUNCTION
+
+    /begin FUNCTION Cell_Temperatures
+      "Group /ByModelHeirarchy/BMShil/CAN_Read/Cell_Temperatures"
+      /begin LOC_MEASUREMENT
+        BMS_CellTemp
+      /end LOC_MEASUREMENT
+    /end FUNCTION
+
+    /begin FUNCTION CAN_Read
+      "Group /ByModelHeirarchy/BMShil/CAN_Read"
+      /begin SUB_FUNCTION
+        Cell_Temperatures
+      /end SUB_FUNCTION
+      /begin LOC_MEASUREMENT
+        BMS_error
+        BMS_trig
+        bsc_ChargerValue
+      /end LOC_MEASUREMENT
+    /end FUNCTION
+
+    /begin FUNCTION BMShil
+      "Group /ByModelHeirarchy/BMShil"
+      /begin SUB_FUNCTION
+        BMS
+        CAN_Read
+      /end SUB_FUNCTION
+      /begin LOC_MEASUREMENT
+        BMS_RawVehSideVoltage
+        BMS_overrun
+        bsc_VehiclePSR
+      /end LOC_MEASUREMENT
+    /end FUNCTION
+
+    /begin FUNCTION ByModelHeirarchy
+      "Group /ByModelHeirarchy"
+      /begin SUB_FUNCTION
+        BMShil
+      /end SUB_FUNCTION
+    /end FUNCTION
+
+    /begin FUNCTION Automatic
+      "Group /ByType/Automatic"
+      /begin LOC_MEASUREMENT
+        mpl_app_build_hour
+        mpl_app_build_min
+        mpl_app_build_month
+        mpl_app_build_sec
+        mpl_app_build_year
+        mpl_app_ver_major
+        mpl_app_ver_minor
+        mpl_app_ver_sub
+        mpl_boot_build_day
+        mpl_boot_build_month
+        mpl_boot_build_year
+        mpl_boot_part_num_group
+        mpl_boot_part_num_id
+        mpl_boot_part_num_issue
+        mpl_boot_part_num_letter
+        mpl_boot_ver_major
+        mpl_boot_ver_minor
+        mpl_boot_ver_sub
+        mpl_cpu_loaded
+        mpl_cpu_loaded_1000ms
+        mpl_cpu_loaded_50ms
+        mpl_ecc_flash_address
+        mpl_ecc_ram_address
+        mpl_flp_div_by_zero
+        mpl_flp_inexact
+        mpl_flp_invalid
+        mpl_flp_overflow
+        mpl_flp_underflow
+        mpl_max_cpu_loaded
+        mpl_max_cpu_loaded_1000ms
+        mpl_max_cpu_loaded_50ms
+        mpl_max_used_stack
+        mpl_mtt_pcp_client
+        mpl_mtt_pcx_can_callback
+        mpl_mtt_pcx_periodic
+        mpl_mtt_pcx_qemptier
+        mpl_mtt_pcx_qemptier_mcp2515
+        mpl_mtt_pdg_client_task
+        mpl_mtt_pdtc_client_task
+        mpl_mtt_pfc_task
+        mpl_mtt_pff_client
+        mpl_mtt_pfs_client
+        mpl_mtt_piso_client_task
+        mpl_mtt_pj1939_client
+        mpl_mtt_ppm_task
+        mpl_mtt_psc_watchdog
+        mpl_mtt_psp_mcp2515_data
+        mpl_mtt_psp_mcp2515_int
+        mpl_mtt_psp_mcp2515_spi
+        mpl_mtt_psp_periodic
+        mpl_mtt_psp_receive
+        mpl_mtt_task_100ms
+        mpl_ovrc_pcp_client
+        mpl_ovrc_pcx_can_callback
+        mpl_ovrc_pcx_periodic
+        mpl_ovrc_pcx_qemptier
+        mpl_ovrc_pcx_qemptier_mcp2515
+        mpl_ovrc_pdg_client_task
+        mpl_ovrc_pdtc_client_task
+        mpl_ovrc_pfc_task
+        mpl_ovrc_pff_client
+        mpl_ovrc_pfs_client
+        mpl_ovrc_piso_client_task
+        mpl_ovrc_pj1939_client
+        mpl_ovrc_ppm_task
+        mpl_ovrc_psc_watchdog
+        mpl_ovrc_psp_periodic
+        mpl_ovrc_task_100ms
+        mpl_plat_build_day
+        mpl_plat_build_month
+        mpl_plat_build_year
+        mpl_plat_part_num_group
+        mpl_plat_part_num_id
+        mpl_plat_part_num_issue
+        mpl_plat_part_num_letter
+        mpl_plat_ver_major
+        mpl_plat_ver_minor
+        mpl_plat_ver_sub
+        mpl_prg_build_day
+        mpl_prg_build_month
+        mpl_prg_build_year
+        mpl_prg_part_num_group
+        mpl_prg_part_num_id
+        mpl_prg_part_num_issue
+        mpl_prg_part_num_letter
+        mpl_prg_ver_major
+        mpl_prg_ver_minor
+        mpl_prg_ver_sub
+        mpl_reset_count
+        mpl_run_time
+        mpl_tt_pcp_client
+        mpl_tt_pcx_can_callback
+        mpl_tt_pcx_periodic
+        mpl_tt_pcx_qemptier
+        mpl_tt_pcx_qemptier_mcp2515
+        mpl_tt_pdg_client_task
+        mpl_tt_pdtc_client_task
+        mpl_tt_pfc_task
+        mpl_tt_pff_client
+        mpl_tt_pfs_client
+        mpl_tt_piso_client_task
+        mpl_tt_pj1939_client
+        mpl_tt_ppm_task
+        mpl_tt_psc_watchdog
+        mpl_tt_psp_mcp2515_data
+        mpl_tt_psp_mcp2515_int
+        mpl_tt_psp_mcp2515_spi
+        mpl_tt_psp_periodic
+        mpl_tt_psp_receive
+        mpl_tt_task_100ms
+        mpl_unstable_reset_count
+      /end LOC_MEASUREMENT
+      /begin REF_CHARACTERISTIC
+        mpls_app_build_time
+        mpls_app_copyright
+        mpls_app_description
+        mpls_app_name
+        mpls_app_version
+        mpls_plat_build_time
+        mpls_plat_copyright
+        mpls_plat_target
+        mpls_plat_version
+        pj1939c_node_addr_0
+      /end REF_CHARACTERISTIC
+    /end FUNCTION
+
+    /begin FUNCTION Signals
+      "Group /ByType/Signals"
+      /begin LOC_MEASUREMENT
+        BMS_CellTemp
+        BMS_CellVoltage
+        BMS_MedFault
+        BMS_RawPackCurrent
+        BMS_RawPackVoltage
+        BMS_RawVehSideVoltage
+        BMS_error
+        BMS_overrun
+        BMS_trig
+        bsc_ChargerValue
+        bsc_ChgContactorCmd
+        bsc_FaultType
+        bsc_KeyValue
+        bsc_MainContactorCmd
+        bsc_ReasonToOpen
+        bsc_VehiclePSR
+        btc_coolant_flow_pct
+        soc_pack_actual
+        soh_C_index
+        soh_R_index
+        sop_max_chg_current
+        sop_max_dischg_current
+      /end LOC_MEASUREMENT
+    /end FUNCTION
+
+    /begin FUNCTION ByType
+      "Group /ByType"
+      /begin SUB_FUNCTION
+        Automatic
+        Signals
+      /end SUB_FUNCTION
+    /end FUNCTION
+
+    /begin FUNCTION Others
+      "Group /Others"
+      /begin REF_CHARACTERISTIC
+        SOCv_InitalSOC
+        SOCv_factoryInitSohC
+        bmsc_CellMaxVolt
+        bmsc_CellMinVolt
+        bmsc_NumberInPara
+        bmsc_NumberInSeries
+        bscv_LowFaultType
+        bscv_MediumFaultType
+        bscv_SevereFaultType
+        btcc_Ki
+        btcc_Kp
+        btcc_ambient_temp_highth
+        btcc_ambient_temp_lowth
+        btcc_cell_temp_diffth
+        btcc_full_soc
+        btcc_max_temp_highth
+        btcc_max_temp_lowth
+        btcc_min_temp_highth
+        btcc_min_temp_lowth
+        btcc_number_in_series
+        btcc_pack_in_parallel
+        cblc_battChargingMode
+        cblc_deltaSocThreshBalance
+        cblc_socThreshBalance
+        sohc_current_threshold
+        sohc_customer_filter_coeff
+        sohc_filter_coeff
+        sohc_pct_R_limit
+        sohv_factoryInit_sohc
+        sohv_factoryInit_sohr
+        sopc_ChargeDerate
+        sopc_ChgFaultDerate
+        sopc_DischargeDerate
+        sopc_DischgFaultDerate
+        vitc_CellPackVolTol
+        vitc_CellTempFaultTimer
+        vitc_CellTempFilterC
+        vitc_CellTempHighFaultReset
+        vitc_CellTempLowFaultReset
+        vitc_CellTempMax
+        vitc_CellTempMin
+        vitc_CellVolFilterC
+        vitc_CellVoltageFaultTimer
+        vitc_CellVoltageHighFaultReset
+        vitc_CellVoltageLowFaultReset
+        vitc_CellVoltageMax
+        vitc_CellVoltageMin
+        vitc_CoolantInletTFaultReset
+        vitc_CoolantInletTLowerLim
+        vitc_CoolantInletTUpperLim
+        vitc_CoolantOutletTFaultReset
+        vitc_CoolantOutletTLowerLim
+        vitc_CoolantOutletTUpperLim
+        vitc_CoolantTFilterC
+        vitc_CoolantTempFaultCounter
+        vitc_HVILFaultCounter
+        vitc_HVILFaultReset
+        vitc_PackCurFilterC
+        vitc_PackCurrentFaultReset
+        vitc_PackCurrentFaultTimer
+        vitc_PackCurrentLimit
+        vitc_PackVolFilterC
+        vitc_PackVoltageFaultReset
+        vitc_PackVoltageFaultTimer
+        vitc_VehVolFilterC
+      /end REF_CHARACTERISTIC
+    /end FUNCTION
+
+  /end MODULE
+
+/end PROJECT

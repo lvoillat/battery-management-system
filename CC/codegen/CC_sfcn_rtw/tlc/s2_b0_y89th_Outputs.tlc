@@ -1,0 +1,125 @@
+%implements s2_b0_y89th_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+boolean_T rtb_RelationalOperator5;
+int32_T tmp;
+B_CC_T *_rtB;
+PrevZCX_CC_T *_rtZCE;
+%closefile localVarDecl
+%assign tlcOutputsFcnOfS1B4 = OpaqueTLCBlockFcn("Outputs", 1, 4, 0, 2)
+%<SLibCG_TrackZCEvent(2)>\
+_rtZCE = %<(SLibCG_SE(SLibGetPreviousZCStructPtr()))>;
+%<SLibCG_TrackBlockIO(2)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%<SLibCG_TrackEO(4)>\
+%<SLibCG_TrackEO(3)>\
+%<SLibCG_TrackEO(2)>\
+%<SLibCG_TrackEO(1)>\
+%<SLibCG_TrackEO(0)>\
+%<SLibCG_TrackEI(4)>\
+%<SLibCG_TrackEI(3)>\
+%<SLibCG_TrackEI(2)>\
+%<SLibCG_TrackEI(1)>\
+%<SLibCG_TrackEI(0)>\
+/* Outputs for Atomic SubSystem: '<Root>/CC' */
+/* RelationalOperator: '<S1>/Relational Operator5' incorporates:
+ *  Constant: '<S1>/Constant'
+ *  Inport: '<Root>/Battery Voltage'
+ *  Inport: '<Root>/Vehicle Load Voltage'
+ *  Sum: '<S1>/Subtract'
+ */
+rtb_RelationalOperator5 = (*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 3))[0] >= *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0] - 2.0);
+/* Delay: '<S1>/Resettable Delay' incorporates:
+ *  Constant: '<S1>/Constant10'
+ *  Inport: '<Root>/Precharge Fault Counter Reset'
+ */
+if (%<(SLibCG_SE(SLibCGIRZCFcn("RISING_ZERO_CROSSING", "_rtZCE->ResettableDelay_Reset_ZCE", "*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 4))[0]", 0)))> != NO_ZCEVENT) {
+%<SLibCG_SetDWV(5, 0, 2, 1, "", -1, "", 0, "1U")>\
+}
+if (%<(SLibCG_SE(SLibCG_DWV(5, 0, 2, 1, "", -1, "", 0)))> != 0) {
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "0.0")>\
+}
+/* Switch: '<S1>/Switch1' incorporates:
+ *  Constant: '<S1>/Constant6'
+ *  Delay: '<S1>/Delay2'
+ *  Logic: '<S1>/Logical Operator9'
+ */
+if (%<(SLibCG_DWV(2, 0, 2, 1, "", -1, "", 0))>) {
+    tmp = !rtb_RelationalOperator5;
+} else {
+    tmp = 0;
+}
+/* End of Switch: '<S1>/Switch1' */
+
+/* Sum: '<S1>/Add' incorporates:
+ *  Delay: '<S1>/Resettable Delay'
+ */
+_rtB->Add = (uint16_T)((uint32_T)tmp + (uint16_T)%<(SLibCG_SE(SLibCG_DWV(0, 0, 2, 1, "", -1, "", 0)))>);
+%<tlcOutputsFcnOfS1B4>\
+/* Logic: '<S1>/Logical Operator2' incorporates:
+ *  Inport: '<Root>/Charger Contactor Control Command'
+ *  Inport: '<Root>/Main Contactor Control Command'
+ *  Logic: '<S1>/Logical Operator3'
+ *  Logic: '<S1>/Logical Operator6'
+ */
+_rtB->LogicalOperator2 = (((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[0]) || (*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[0])) && (!rtb_RelationalOperator5));
+/* RelationalOperator: '<S1>/Relational Operator4' incorporates:
+ *  Constant: '<S1>/Constant8'
+ */
+_rtB->RelationalOperator4 = (_rtB->Add >= 1.0 / %<(SLibCG_SE(SLibCGIR_PV(0, 0, 2, 1, "", -1, "", 0)))>);
+/* Outport: '<Root>/Contactor Negative Side Relay ' incorporates:
+ *  Delay: '<S1>/Delay1'
+ *  Inport: '<Root>/Charger Contactor Control Command'
+ *  Inport: '<Root>/Main Contactor Control Command'
+ *  Logic: '<S1>/Logical O perator7'
+ *  Logic: '<S1>/Logical Operator'
+ *  Logic: '<S1>/Logical Operator8'
+ */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 0))[0] = (((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[0]) || (*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[0])) && (!%<(SLibCG_SE(SLibCG_DWV(3, 0, 2, 1, "", -1, "", 0)))>));
+/* Outport: '<Root>/Main Contactor Relay Control ' incorporates:
+ *  Inport: '<Root>/Main Contactor Control Command'
+ *  Logic: '<S1>/Logical Operator1'
+ */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 1))[0] = ((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[0]) && rtb_RelationalOperator5);
+/* Outport: '<Root>/Charger Contactor Relay Control' incorporates:
+ *  Inport: '<Root>/Charger Contactor Control Command'
+ *  Logic: '<S1>/Logical Operator5'
+ */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 2))[0] = ((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[0]) && rtb_RelationalOperator5);
+/* Outport: '<Root>/Precharger Contactor Relay Control ' incorporates:
+ *  Delay: '<S1>/Delay'
+ */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 3))[0] = %<(SLibCG_SE(SLibCG_DWV(4, 0, 2, 1, "", -1, "", 0)))>;
+/* Outport: '<Root>/precharge_fault' incorporates:
+ *  DataTypeConversion: '<S1>/Data Type Conversion2'
+ *  Delay: '<S1>/Delay1'
+ */
+((uint8_T *)ssGetOutputPortSignal(%<tSimStruct>, 4))[0] = %<(SLibCG_SE(SLibCG_DWV(3, 0, 2, 1, "", -1, "", 0)))>;
+/* End of Outputs for SubSystem: '<Root>/CC' */
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(0, 2, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 2, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 2, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 2, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

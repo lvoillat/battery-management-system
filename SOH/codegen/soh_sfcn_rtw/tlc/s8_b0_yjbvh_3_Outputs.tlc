@@ -1,0 +1,215 @@
+%implements s8_b0_yjbvh_3_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+real_T y;
+boolean_T rtb_RelationalOperator3[40];
+boolean_T rtb_LogicalOperator1[40];
+boolean_T rtb_LogicalOperator5[40];
+real_T rtb_Switch2[40];
+int32_T i;
+real_T rtb_Divide4;
+real_T rtb_Switch;
+real_T rtb_Switch2_o;
+B_soh_T *_rtB;
+PrevZCX_soh_T *_rtZCE;
+%closefile localVarDecl
+%<SLibCG_TrackZCEvent(8)>\
+_rtZCE = %<(SLibCG_SE(SLibGetPreviousZCStructPtr()))>;
+%<SLibCG_TrackBlockIO(8)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%<SLibCG_TrackEO(3)>\
+%<SLibCG_TrackEO(2)>\
+%<SLibCG_TrackEO(1)>\
+%<SLibCG_TrackEO(0)>\
+%<SLibCG_TrackEI(6)>\
+for (i = 0; i < 40; i++) {
+    /* RelationalOperator: '<S9>/Relational Operator3' incorporates:
+ *  Constant: '<S9>/Constant3'
+ */
+    rtb_RelationalOperator3[i] = (_rtB->deltaCalc.Subtract[i] > 0.0);
+    /* RelationalOperator: '<S9>/Relational Operator1' incorporates:
+ *  Constant: '<S9>/Constant1'
+ */
+    rtb_LogicalOperator1[i] = (_rtB->deltaCalc.Subtract1[i] > 0.0);
+}
+/* Logic: '<S9>/Logical Operator5' */
+for (i = 0; i < 40; i++) {
+    rtb_LogicalOperator5[i] = (rtb_RelationalOperator3[i] && rtb_LogicalOperator1[0] && rtb_LogicalOperator1[1] && rtb_LogicalOperator1[2] && rtb_LogicalOperator1[3] && rtb_LogicalOperator1[4] && rtb_LogicalOperator1[5] && rtb_LogicalOperator1[6] && rtb_LogicalOperator1[7] && rtb_LogicalOperator1[8] && rtb_LogicalOperator1[9] && rtb_LogicalOperator1[10] && rtb_LogicalOperator1[11] && rtb_LogicalOperator1[12] && rtb_LogicalOperator1[13] && rtb_LogicalOperator1[14] && rtb_LogicalOperator1[15] && rtb_LogicalOperator1[16] && rtb_LogicalOperator1[17] && rtb_LogicalOperator1[18] && rtb_LogicalOperator1[19] && rtb_LogicalOperator1[20] && rtb_LogicalOperator1[21] && rtb_LogicalOperator1[22] && rtb_LogicalOperator1[23] && rtb_LogicalOperator1[24] && rtb_LogicalOperator1[25] && rtb_LogicalOperator1[26] && rtb_LogicalOperator1[27] && rtb_LogicalOperator1[28] && rtb_LogicalOperator1[29] && rtb_LogicalOperator1[30] && rtb_LogicalOperator1[31] && rtb_LogicalOperator1[32] && rtb_LogicalOperator1[33] && rtb_LogicalOperator1[34] && rtb_LogicalOperator1[35] && rtb_LogicalOperator1[36] && rtb_LogicalOperator1[37] && rtb_LogicalOperator1[38] && rtb_LogicalOperator1[39]);
+}
+/* End of Logic: '<S9>/Logical Operator5' */
+
+/* Logic: '<S9>/Logical Operator1' */
+for (i = 0; i < 40; i++) {
+    rtb_LogicalOperator1[i] = !rtb_LogicalOperator1[i];
+}
+/* End of Logic: '<S9>/Logical Operator1' */
+
+/* Logic: '<S9>/Logical Operator4' incorporates:
+ *  Abs: '<S9>/Abs'
+ *  Constant: '<S9>/Constant2'
+ *  Logic: '<S9>/Logical Operator3'
+ *  Logic: '<S9>/Logical Operator6'
+ *  Logic: '<S9>/Logical Operator7'
+ *  RelationalOperator: '<S9>/Relational Operator2'
+ */
+for (i = 0; i < 40; i++) {
+    rtb_LogicalOperator5[i] = ((fabs(_rtB->deltaCalc.Subtract[i]) >= %<(SLibCG_SE(SLibCGIR_PV(3, 0, 4, 1, "", -1, "", 0)))>) && (rtb_LogicalOperator5[i] || ((!rtb_RelationalOperator3[i]) && rtb_LogicalOperator1[0] && rtb_LogicalOperator1[1] && rtb_LogicalOperator1[2] && rtb_LogicalOperator1[3] && rtb_LogicalOperator1[4] && rtb_LogicalOperator1[5] && rtb_LogicalOperator1[6] && rtb_LogicalOperator1[7] && rtb_LogicalOperator1[8] && rtb_LogicalOperator1[9] && rtb_LogicalOperator1[10] && rtb_LogicalOperator1[11] && rtb_LogicalOperator1[12] && rtb_LogicalOperator1[13] && rtb_LogicalOperator1[14] && rtb_LogicalOperator1[15] && rtb_LogicalOperator1[16] && rtb_LogicalOperator1[17] && rtb_LogicalOperator1[18] && rtb_LogicalOperator1[19] && rtb_LogicalOperator1[20] && rtb_LogicalOperator1[21] && rtb_LogicalOperator1[22] && rtb_LogicalOperator1[23] && rtb_LogicalOperator1[24] && rtb_LogicalOperator1[25] && rtb_LogicalOperator1[26] && rtb_LogicalOperator1[27] && rtb_LogicalOperator1[28] && rtb_LogicalOperator1[29] && rtb_LogicalOperator1[30] && rtb_LogicalOperator1[31] && rtb_LogicalOperator1[32] && rtb_LogicalOperator1[33] && rtb_LogicalOperator1[34] && rtb_LogicalOperator1[35] && rtb_LogicalOperator1[36] && rtb_LogicalOperator1[37] && rtb_LogicalOperator1[38] && rtb_LogicalOperator1[39])));
+}
+/* End of Logic: '<S9>/Logical Operator4' */
+
+/* Outputs for Enabled SubSystem: '<S4>/SOHRcalc' incorporates:
+ *  EnablePort: '<S8>/Enable'
+ */
+if (rtb_LogicalOperator5[0] || rtb_LogicalOperator5[1] || rtb_LogicalOperator5[2] || rtb_LogicalOperator5[3] || rtb_LogicalOperator5[4] || rtb_LogicalOperator5[5] || rtb_LogicalOperator5[6] || rtb_LogicalOperator5[7] || rtb_LogicalOperator5[8] || rtb_LogicalOperator5[9] || rtb_LogicalOperator5[10] || rtb_LogicalOperator5[11] || rtb_LogicalOperator5[12] || rtb_LogicalOperator5[13] || rtb_LogicalOperator5[14] || rtb_LogicalOperator5[15] || rtb_LogicalOperator5[16] || rtb_LogicalOperator5[17] || rtb_LogicalOperator5[18] || rtb_LogicalOperator5[19] || rtb_LogicalOperator5[20] || rtb_LogicalOperator5[21] || rtb_LogicalOperator5[22] || rtb_LogicalOperator5[23] || rtb_LogicalOperator5[24] || rtb_LogicalOperator5[25] || rtb_LogicalOperator5[26] || rtb_LogicalOperator5[27] || rtb_LogicalOperator5[28] || rtb_LogicalOperator5[29] || rtb_LogicalOperator5[30] || rtb_LogicalOperator5[31] || rtb_LogicalOperator5[32] || rtb_LogicalOperator5[33] || rtb_LogicalOperator5[34] || rtb_LogicalOperator5[35] || rtb_LogicalOperator5[36] || rtb_LogicalOperator5[37] || rtb_LogicalOperator5[38] || rtb_LogicalOperator5[39]) {
+    /* Delay: '<S8>/Delay3' */
+    if (%<(SLibCG_SE(SLibCGIRZCFcn("RISING_ZERO_CROSSING", "_rtZCE->Delay3_Reset_ZCE", "_rtB->init_keyon_reset", 0)))> != NO_ZCEVENT) {
+%<SLibCG_SetDWV(4, 0, 8, 1, "", -1, "", 0, "1U")>\
+    }
+    /* Gain: '<S8>/Gain8' */
+    y = %<(SLibCG_SE(SLibCGIR_PV(6, 0, 4, 1, "", -1, "", 0)))> / 100.0;
+    for (i = 0; i < 40; i++) {
+        /* Delay: '<S8>/Delay3' */
+        if (%<(SLibCG_SE(SLibCG_DWV(4, 0, 8, 1, "", -1, "", 0)))> != 0) {
+%<SLibCG_SetDWV(0, 0, 8, 40, "", -1, "i", 0, "_rtB->init.DataStoreRead1[i]")>\
+        }
+        /* Product: '<S8>/Divide4' incorporates:
+ *  Product: '<S8>/Divide'
+ */
+        rtb_Divide4 = _rtB->deltaCalc.uDLookupTable1[i] / (_rtB->deltaCalc.Subtract1[i] / _rtB->deltaCalc.Subtract[i]);
+        /* Gain: '<S8>/Gain8' incorporates:
+ *  Delay: '<S8>/Delay3'
+ */
+        rtb_Switch = y * %<(SLibCG_SE(SLibCG_DWV(0, 0, 8, 40, "", -1, "i", 0)))>;
+        /* Sum: '<S8>/Sum4' incorporates:
+ *  Delay: '<S8>/Delay3'
+ */
+        rtb_Switch2_o = rtb_Switch + %<(SLibCG_SE(SLibCG_DWV(0, 0, 8, 40, "", -1, "i", 0)))>;
+        /* Sum: '<S8>/Sum3' incorporates:
+ *  Delay: '<S8>/Delay3'
+ */
+        rtb_Switch = %<(SLibCG_SE(SLibCG_DWV(0, 0, 8, 40, "", -1, "i", 0)))> - rtb_Switch;
+        /* Switch: '<S10>/Switch' incorporates:
+ *  RelationalOperator: '<S10>/UpperRelop'
+ */
+        if (!(rtb_Divide4 < rtb_Switch)) {
+            rtb_Switch = rtb_Divide4;
+        }
+        /* End of Switch: '<S10>/Switch' */
+
+        /* Switch: '<S10>/Switch2' incorporates:
+ *  RelationalOperator: '<S10>/LowerRelop1'
+ */
+        if (!(rtb_Divide4 > rtb_Switch2_o)) {
+            rtb_Switch2_o = rtb_Switch;
+        }
+        /* End of Switch: '<S10>/Switch2' */
+
+        /* Sum: '<S8>/Sum2' incorporates:
+ *  Delay: '<S8>/Delay3'
+ *  Gain: '<S8>/Gain6'
+ *  Gain: '<S8>/Gain7'
+ */
+        rtb_Switch2_o = (1.0 - %<(SLibCG_SE(SLibCGIR_PV(5, 0, 4, 1, "", -1, "", 0)))>) * rtb_Switch2_o + %<(SLibCG_SE(SLibCGIR_PV(5, 0, 4, 1, "", -1, "", 0)))> * %<(SLibCG_SE(SLibCG_DWV(0, 0, 8, 40, "", -1, "i", 0)))>;
+        /* Saturate: '<S8>/Saturation' */
+        if (rtb_Switch2_o > 1.0) {
+            _rtB->Saturation[i] = 1.0;
+        } else if (rtb_Switch2_o < 0.0) {
+            _rtB->Saturation[i] = 0.0;
+        } else {
+            _rtB->Saturation[i] = rtb_Switch2_o;
+        }
+        /* End of Saturate: '<S8>/Saturation' */
+
+        /* Sum: '<S8>/Sum4' */
+        rtb_Switch2[i] = rtb_Switch2_o;
+    }
+    /* MinMax: '<S8>/MinMax' */
+    y = _rtB->Saturation[0];
+    for (i = 0; i < 39; i++) {
+        if (!((y <= _rtB->Saturation[i + 1]) || rtIsNaN(_rtB->Saturation[i + 1]))) {
+            y = _rtB->Saturation[i + 1];
+        }
+    }
+    /* Gain: '<S8>/Gain3' incorporates:
+ *  MinMax: '<S8>/MinMax'
+ */
+    _rtB->Gain3_p = 100.0 * y;
+}
+/* End of Outputs for SubSystem: '<S4>/SOHRcalc' */
+
+/* Gain: '<S4>/Gain' incorporates:
+ *  Inport: '<Root>/soc_C_factors'
+ */
+memcpy(&_rtB->Gain[0], ((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 6))[0], 40U * sizeof(real_T));
+/* MinMax: '<S4>/MinMax' */
+y = _rtB->Gain[0];
+for (i = 0; i < 39; i++) {
+    if (!((y <= _rtB->Gain[i + 1]) || rtIsNaN(_rtB->Gain[i + 1]))) {
+        y = _rtB->Gain[i + 1];
+    }
+}
+/* Saturate: '<S4>/Saturation' incorporates:
+ *  MinMax: '<S4>/MinMax'
+ */
+if (y > 1.0) {
+    y = 1.0;
+} else {
+    if (y < 0.0) {
+        y = 0.0;
+    }
+}
+/* Gain: '<S4>/Gain3' incorporates:
+ *  Saturate: '<S4>/Saturation'
+ */
+_rtB->Gain3 = 100.0 * y;
+/* Outport: '<Root>/soh_R_index' incorporates:
+ *  Outport: '<S4>/soh_R_index'
+ */
+((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 0))[0] = _rtB->Gain3_p;
+/* Outport: '<S4>/soh_C_index' */
+((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 2))[0] = _rtB->Gain3;
+/* Outport: '<Root>/soh_R_factors' incorporates:
+ *  Outport: '<S4>/soh_C_factors'
+ *  Outport: '<S4>/soh_R_factor'
+ */
+memcpy(&((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 1))[0], &_rtB->Saturation[0], 40U * sizeof(real_T));
+/* Outport: '<S4>/soh_C_factors' incorporates:
+ *  Outport: '<Root>/soh_R_factors'
+ *  Outport: '<S4>/soh_R_factor'
+ */
+memcpy(&((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 3))[0], &_rtB->Gain[0], 40U * sizeof(real_T));
+/* Update for Enabled SubSystem: '<S4>/SOHRcalc' incorporates:
+ *  Update for EnablePort: '<S8>/Enable'
+ */
+if (rtb_LogicalOperator5[0] || rtb_LogicalOperator5[1] || rtb_LogicalOperator5[2] || rtb_LogicalOperator5[3] || rtb_LogicalOperator5[4] || rtb_LogicalOperator5[5] || rtb_LogicalOperator5[6] || rtb_LogicalOperator5[7] || rtb_LogicalOperator5[8] || rtb_LogicalOperator5[9] || rtb_LogicalOperator5[10] || rtb_LogicalOperator5[11] || rtb_LogicalOperator5[12] || rtb_LogicalOperator5[13] || rtb_LogicalOperator5[14] || rtb_LogicalOperator5[15] || rtb_LogicalOperator5[16] || rtb_LogicalOperator5[17] || rtb_LogicalOperator5[18] || rtb_LogicalOperator5[19] || rtb_LogicalOperator5[20] || rtb_LogicalOperator5[21] || rtb_LogicalOperator5[22] || rtb_LogicalOperator5[23] || rtb_LogicalOperator5[24] || rtb_LogicalOperator5[25] || rtb_LogicalOperator5[26] || rtb_LogicalOperator5[27] || rtb_LogicalOperator5[28] || rtb_LogicalOperator5[29] || rtb_LogicalOperator5[30] || rtb_LogicalOperator5[31] || rtb_LogicalOperator5[32] || rtb_LogicalOperator5[33] || rtb_LogicalOperator5[34] || rtb_LogicalOperator5[35] || rtb_LogicalOperator5[36] || rtb_LogicalOperator5[37] || rtb_LogicalOperator5[38] || rtb_LogicalOperator5[39]) {
+    /* Update for Delay: '<S8>/Delay3' */
+%<SLibCG_SetDWV(4, 0, 8, 1, "", -1, "", 0, "0U")>\
+    memcpy(%<(SLibCG_DWVAddr(0, 0, 8, 40, "", -1, "", 0))>, &rtb_Switch2[0], 40U * sizeof(real_T));
+}
+/* End of Update for SubSystem: '<S4>/SOHRcalc' */
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[3].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(3, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(3, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(3, 1, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void soh_SOH(\
+%assign comma = ""
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(3, 1, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

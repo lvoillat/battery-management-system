@@ -1,0 +1,188 @@
+%implements s1_b0_24cvh_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+int32_T iU;
+real_T rtb_Product1;
+boolean_T rtb_LogicalOperator;
+real_T rtb_SOCversusOCVtable[40];
+real_T rtb_Divide10[40];
+real_T rtb_Product;
+real_T rtb_Divide10_j;
+%closefile localVarDecl
+%<SLibCG_TrackEO(3)>\
+%<SLibCG_TrackEO(2)>\
+%<SLibCG_TrackEO(1)>\
+%<SLibCG_TrackEO(0)>\
+%<SLibCG_TrackEI(8)>\
+%<SLibCG_TrackEI(7)>\
+%<SLibCG_TrackEI(6)>\
+%<SLibCG_TrackEI(5)>\
+%<SLibCG_TrackEI(4)>\
+%<SLibCG_TrackEI(3)>\
+%<SLibCG_TrackEI(2)>\
+%<SLibCG_TrackEI(1)>\
+%<SLibCG_TrackEI(0)>\
+/* Outputs for Atomic SubSystem: '<Root>/SOP' */
+for (iU = 0; iU < 40; iU++) {
+    /* Lookup_n-D: '<S1>/dischg_internal_resistance_table' incorporates:
+ *  Inport: '<Root>/cell_SOC'
+ *  Inport: '<Root>/cell_temp'
+ */
+    rtb_Product1 = SOP_look2_binlx(*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[iU], *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[iU], %<(SLibCGIR_PVAddr(5, 0, 1, 3, "", -1, "", 0))>, %<(SLibCGIR_PVAddr(6, 0, 1, 101, "", -1, "", 0))>, %<(SLibCGIR_PVAddr(7, 0, 1, 303, "", -1, "", 0))>, SOP_ConstP.pooled3, 3U);
+    /* Product: '<S1>/Divide10' incorporates:
+ *  Inport: '<Root>/Internal_Resis_Scaling_Factor'
+ */
+    rtb_Divide10_j = rtb_Product1 / *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 8))[iU];
+    /* Lookup_n-D: '<S1>/SOC versus OCV table' incorporates:
+ *  Inport: '<Root>/cell_SOC'
+ */
+    rtb_Product1 = SOP_look1_binlx(*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[iU], %<(SLibCGIR_PVAddr(14, 0, 1, 101, "", -1, "", 0))>, %<(SLibCGIR_PVAddr(15, 0, 1, 101, "", -1, "", 0))>, 100U);
+    /* Product: '<S1>/Divide4' incorporates:
+ *  Constant: '<S1>/Constant4'
+ *  Sum: '<S1>/Sum'
+ */
+    rtb_Divide10_j = 1.0 / rtb_Divide10_j * (rtb_Product1 - %<(SLibCG_SE(SLibCGIR_PV(1, 0, 1, 1, "", -1, "", 0)))>);
+    /* Lookup_n-D: '<S1>/dischg_internal_resistance_table' */
+    rtb_SOCversusOCVtable[iU] = rtb_Product1;
+    /* Product: '<S1>/Divide10' */
+    rtb_Divide10[iU] = rtb_Divide10_j;
+}
+/* MinMax: '<S1>/MinMax' */
+rtb_Product1 = rtb_Divide10[0];
+for (iU = 0; iU < 39; iU++) {
+    if (!((rtb_Product1 <= rtb_Divide10[iU + 1]) || rtIsNaN(rtb_Divide10[iU + 1]))) {
+        rtb_Product1 = rtb_Divide10[iU + 1];
+    }
+}
+/* Logic: '<S1>/Logical Operator' incorporates:
+ *  DataTypeConversion: '<S1>/Data Type Conversion'
+ *  DataTypeConversion: '<S1>/Data Type Conversion1'
+ *  DataTypeConversion: '<S1>/Data Type Conversion2'
+ *  DataTypeConversion: '<S1>/Data Type Conversion3'
+ *  Inport: '<Root>/cellTmepHighFault'
+ *  Inport: '<Root>/low_fault'
+ *  Inport: '<Root>/pack_current_fault'
+ *  Inport: '<Root>/pack_voltage_fault'
+ */
+rtb_LogicalOperator = ((*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 4))[0] != 0) || (*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 5))[0] != 0) || (*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 6))[0] != 0) || (*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 7))[0] != 0));
+/* Switch: '<S1>/Switch' incorporates:
+ *  Constant: '<S1>/Constant12'
+ *  Constant: '<S1>/Constant13'
+ *  Inport: '<Root>/discharging_status'
+ *  Logic: '<S1>/Logical Operator1'
+ */
+if ((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 3))[0]) && rtb_LogicalOperator) {
+    rtb_Divide10_j = %<(SLibCG_SE(SLibCGIR_PV(13, 0, 1, 1, "", -1, "", 0)))>;
+} else {
+    rtb_Divide10_j = 1.0;
+}
+/* End of Switch: '<S1>/Switch' */
+
+/* Product: '<S1>/Product1' incorporates:
+ *  Constant: '<S1>/Constant5'
+ *  Constant: '<S1>/Constant6'
+ *  Constant: '<S1>/Constant7'
+ *  Gain: '<S1>/Gain'
+ *  MinMax: '<S1>/MinMax'
+ *  Product: '<S1>/Divide5'
+ *  Product: '<S1>/Divide6'
+ */
+rtb_Product1 = rtb_Product1 * %<(SLibCG_SE(SLibCGIR_PV(1, 0, 1, 1, "", -1, "", 0)))> * %<(SLibCG_SE(SLibCGIR_PV(9, 0, 1, 1, "", -1, "", 0)))> * %<(SLibCG_SE(SLibCGIR_PV(8, 0, 1, 1, "", -1, "", 0)))> * %<(SLibCG_SE(SLibCGIR_PV(12, 0, 1, 1, "", -1, "", 0)))> * rtb_Divide10_j;
+for (iU = 0; iU < 40; iU++) {
+    /* Lookup_n-D: '<S1>/chg_internal_resistance_table' incorporates:
+ *  Inport: '<Root>/cell_SOC'
+ *  Inport: '<Root>/cell_temp'
+ */
+    rtb_Divide10_j = SOP_look2_binlx(*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[iU], *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[iU], %<(SLibCGIR_PVAddr(2, 0, 1, 3, "", -1, "", 0))>, %<(SLibCGIR_PVAddr(3, 0, 1, 101, "", -1, "", 0))>, %<(SLibCGIR_PVAddr(4, 0, 1, 303, "", -1, "", 0))>, SOP_ConstP.pooled3, 3U);
+    /* Product: '<S1>/Divide7' incorporates:
+ *  Constant: '<S1>/Constant8'
+ *  Inport: '<Root>/Internal_Resis_Scaling_Factor'
+ *  Product: '<S1>/Divide11'
+ *  Sum: '<S1>/Sum1'
+ */
+    rtb_Divide10_j = (rtb_SOCversusOCVtable[iU] - %<(SLibCG_SE(SLibCGIR_PV(0, 0, 1, 1, "", -1, "", 0)))>) / (rtb_Divide10_j / *((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 8))[iU]);
+    /* Lookup_n-D: '<S1>/chg_internal_resistance_table' */
+    rtb_Divide10[iU] = rtb_Divide10_j;
+}
+/* MinMax: '<S1>/MinMax1' */
+rtb_Product = rtb_Divide10[0];
+for (iU = 0; iU < 39; iU++) {
+    if (!((rtb_Product >= rtb_Divide10[iU + 1]) || rtIsNaN(rtb_Divide10[iU + 1]))) {
+        rtb_Product = rtb_Divide10[iU + 1];
+    }
+}
+/* Switch: '<S1>/Switch1' incorporates:
+ *  Constant: '<S1>/Constant14'
+ *  Constant: '<S1>/Constant15'
+ *  Inport: '<Root>/charging_status'
+ *  Logic: '<S1>/Logical Operator2'
+ */
+if ((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0]) && rtb_LogicalOperator) {
+    rtb_Divide10_j = %<(SLibCG_SE(SLibCGIR_PV(11, 0, 1, 1, "", -1, "", 0)))>;
+} else {
+    rtb_Divide10_j = 1.0;
+}
+/* End of Switch: '<S1>/Switch1' */
+
+/* Product: '<S1>/Product' incorporates:
+ *  Constant: '<S1>/Constant10'
+ *  Constant: '<S1>/Constant11'
+ *  Constant: '<S1>/Constant9'
+ *  Gain: '<S1>/Gain1'
+ *  MinMax: '<S1>/MinMax1'
+ *  Product: '<S1>/Divide8'
+ *  Product: '<S1>/Divide9'
+ */
+rtb_Product = rtb_Product * %<(SLibCG_SE(SLibCGIR_PV(0, 0, 1, 1, "", -1, "", 0)))> * %<(SLibCG_SE(SLibCGIR_PV(9, 0, 1, 1, "", -1, "", 0)))> * %<(SLibCG_SE(SLibCGIR_PV(8, 0, 1, 1, "", -1, "", 0)))> * %<(SLibCG_SE(SLibCGIR_PV(10, 0, 1, 1, "", -1, "", 0)))> * rtb_Divide10_j;
+/* End of Outputs for SubSystem: '<Root>/SOP' */
+
+/* Outport: '<Root>/discharge_power_limit' */
+((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 0))[0] = rtb_Product1;
+/* Outputs for Atomic SubSystem: '<Root>/SOP' */
+/* Outport: '<Root>/discharge_current_limit' incorporates:
+ *  Constant: '<S1>/Constant'
+ *  Constant: '<S1>/Constant1'
+ *  Product: '<S1>/Divide'
+ *  Product: '<S1>/Divide1'
+ */
+((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 1))[0] = rtb_Product1 / (%<(SLibCG_SE(SLibCGIR_PV(9, 0, 1, 1, "", -1, "", 0)))> * %<(SLibCG_SE(SLibCGIR_PV(8, 0, 1, 1, "", -1, "", 0)))>) / %<(SLibCG_SE(SLibCGIR_PV(1, 0, 1, 1, "", -1, "", 0)))>;
+/* Outport: '<Root>/charge_power_limit' incorporates:
+ *  Gain: '<S1>/Gain3'
+ */
+((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 2))[0] = -rtb_Product;
+/* Outport: '<Root>/charge_current_limit' incorporates:
+ *  Constant: '<S1>/Constant2'
+ *  Constant: '<S1>/Constant3'
+ *  Gain: '<S1>/Gain2'
+ *  Product: '<S1>/Divide2'
+ *  Product: '<S1>/Divide3'
+ */
+((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 3))[0] = -(rtb_Product / (%<(SLibCG_SE(SLibCGIR_PV(9, 0, 1, 1, "", -1, "", 0)))> * %<(SLibCG_SE(SLibCGIR_PV(8, 0, 1, 1, "", -1, "", 0)))>) / %<(SLibCG_SE(SLibCGIR_PV(0, 0, 1, 1, "", -1, "", 0)))>);
+/* End of Outputs for SubSystem: '<Root>/SOP' */
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(0, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 1, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

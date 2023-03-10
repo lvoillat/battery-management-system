@@ -1,0 +1,82 @@
+%implements s13_b0_etgpi_2_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+int8_T rtb_Compare_j[7];
+int32_T i;
+uint8_T rtb_Compare_c_idx_0;
+B_BSC_T *_rtB;
+P_BSC_T *_rtP;
+%closefile localVarDecl
+%<SLibCG_TrackParam(13)>\
+_rtP = %<(SLibCG_SE(SLibGetParamStructPtr()))>;
+%<SLibCG_TrackBlockIO(13)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%<SLibCG_TrackEO(6)>\
+/* RelationalOperator: '<S10>/Compare' incorporates:
+ *  Constant: '<S10>/Constant'
+ */
+rtb_Compare_c_idx_0 = (uint8_T)(_rtB->check_type.type_of_fault == _rtP->bscv_MediumFaultType[0]);
+/* RelationalOperator: '<S11>/Compare' incorporates:
+ *  Constant: '<S11>/Constant'
+ */
+for (i = 0; i < 7; i++) {
+    rtb_Compare_j[i] = (int8_T)(_rtB->check_type.type_of_fault == _rtP->bscv_LowFaultType[i]);
+}
+/* End of RelationalOperator: '<S11>/Compare' */
+
+/* MinMax: '<S3>/MinMax' incorporates:
+ *  Constant: '<S9>/Constant'
+ *  RelationalOperator: '<S9>/Compare'
+ */
+_rtB->MinMax = (uint8_T)(_rtB->check_type.type_of_fault == _rtP->bscv_SevereFaultType);
+/* MinMax: '<S3>/MinMax1' incorporates:
+ *  Constant: '<S10>/Constant'
+ *  RelationalOperator: '<S10>/Compare'
+ */
+if (!(rtb_Compare_c_idx_0 >= (_rtB->check_type.type_of_fault == _rtP->bscv_MediumFaultType[1]))) {
+    rtb_Compare_c_idx_0 = 1U;
+}
+if (!(rtb_Compare_c_idx_0 >= (_rtB->check_type.type_of_fault == _rtP->bscv_MediumFaultType[2]))) {
+    rtb_Compare_c_idx_0 = 1U;
+}
+_rtB->MinMax1 = rtb_Compare_c_idx_0;
+/* End of MinMax: '<S3>/MinMax1' */
+
+/* MinMax: '<S3>/MinMax2' */
+rtb_Compare_c_idx_0 = (uint8_T)rtb_Compare_j[0];
+for (i = 0; i < 6; i++) {
+    if (!(rtb_Compare_c_idx_0 >= (uint8_T)rtb_Compare_j[i + 1])) {
+        rtb_Compare_c_idx_0 = 1U;
+    }
+}
+_rtB->MinMax2 = rtb_Compare_c_idx_0;
+/* End of MinMax: '<S3>/MinMax2' */
+
+/* Outport: '<S3>/low level fault' */
+((uint8_T *)ssGetOutputPortSignal(%<tSimStruct>, 6))[0] = _rtB->MinMax2;
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[2].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(2, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(2, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(2, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void BSC_Fault_level(\
+%assign comma = ""
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(2, 0, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

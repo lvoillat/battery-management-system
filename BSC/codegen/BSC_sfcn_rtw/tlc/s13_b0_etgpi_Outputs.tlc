@@ -1,0 +1,533 @@
+%implements s13_b0_etgpi_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+B_BSC_T *_rtB;
+PrevZCX_BSC_T *_rtZCE;
+%closefile localVarDecl
+%assign _modelSS = ""
+
+_rtZCE = %<(SLibCG_SE(SLibGetPreviousZCStructPtr()))>;
+%<SLibCG_TrackBlockIO(13)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%<SLibCG_TrackEO(7)>\
+%<SLibCG_TrackEO(4)>\
+%<SLibCG_TrackEO(0)>\
+%<SLibCG_TrackEI(1)>\
+%<SLibCG_TrackEI(0)>\
+/* Outputs for Atomic SubSystem: '<Root>/BSC' */
+/* Chart: '<S1>/Chart2' incorporates:
+ *  Inport: '<Root>/cc_PrechargeFault[Type11]'
+ *  Inport: '<Root>/high level fault[Type1]'
+ *  Inport: '<Root>/key'
+ *  Inport: '<Root>/low level fault[Type3]'
+ *  Inport: '<Root>/medium level fault[Type2]'
+ *  Inport: '<Root>/vitm_CellsTemperatureHighFault[Type5]'
+ *  Inport: '<Root>/vitm_CellsTemperatureLowFault[Type4]'
+ *  Inport: '<Root>/vitm_CellsVoltageHightFault[Type7]'
+ *  Inport: '<Root>/vitm_CellsVoltageLowFault[Type6]'
+ *  Inport: '<Root>/vitm_HVILFault[Type10]'
+ *  Inport: '<Root>/vitm_PackCurrentFault[Type9]'
+ *  Inport: '<Root>/vitm_PackVoltageFault[Type8]'
+ */
+/* Gateway: BSC/Chart2 */
+/* During: BSC/Chart2 */
+if (%<(SLibCG_SE(SLibCG_DWV(0, 0, 13, 1, "", -1, "", 0)))> == 0U) {
+    /* Entry: BSC/Chart2 */
+%<SLibCG_SetDWV(0, 0, 13, 1, "", -1, "", 0, "1U")>\
+    /* Entry Internal: BSC/Chart2 */
+%<SLibCG_SetDWV(1, 0, 13, 1, "", -1, "", 0, "BSC_IN_main")>\
+%assign   Outputs_open_check_type_11_1 = ""
+%openfile Outputs_open_check_type_11_1
+
+    /* Outputs for Function Call SubSystem: '<S1>/check_type' */
+%closefile Outputs_open_check_type_11_1
+
+%assign    Outputs_body_check_type_11_1 = ""
+%openfile  Outputs_body_check_type_11_1
+
+    /* Entry Internal 'main': '<S2>:2' */
+    /* Transition: '<S2>:12' */
+    /* Transition: '<S2>:4' */
+    /* Event: '<S2>:43' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[1], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,1)
+%<SLibCG_TrackEI(4)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,2)
+%<SLibCG_TrackEI(5)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,3)
+%<SLibCG_TrackEI(6)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,4)
+%<SLibCG_TrackEI(7)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,5)
+%<SLibCG_TrackEI(8)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,6)
+%<SLibCG_TrackEI(9)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,7)
+%<SLibCG_TrackEI(10)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,8)
+%<SLibCG_TrackEI(11)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,9)
+%<SLibCG_TrackEI(12)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,10)
+%<SLibCG_TrackEI(13)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,11)
+%<SLibCG_TrackEI(14)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_check_type", ["%<tSimStruct>", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 4))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 5))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 6))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 7))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 8))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 9))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 10))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 11))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 12))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 13))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 14))[0]", "&_rtB->check_type"], 1, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_check_type_11_1
+
+%assign    Outputs_close_check_type_11_1 = ""
+%openfile  Outputs_close_check_type_11_1
+
+    /* End of Outputs for SubSystem: '<S1>/check_type' */
+%closefile Outputs_close_check_type_11_1
+%<SLibCG_DumpSSCode(Outputs_open_check_type_11_1, Outputs_body_check_type_11_1, Outputs_close_check_type_11_1)>
+
+
+%assign   Outputs_open_Fault_level_11_2 = ""
+%openfile Outputs_open_Fault_level_11_2
+
+    /* Outputs for Function Call SubSystem: '<S1>/Fault_level' */
+%closefile Outputs_open_Fault_level_11_2
+
+%assign    Outputs_body_Fault_level_11_2 = ""
+%openfile  Outputs_body_Fault_level_11_2
+
+    /* Transition: '<S2>:15' */
+    /* Event: '<S2>:37' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[2], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_Fault_level",2,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_Fault_level", ["%<tSimStruct>"], 2, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_Fault_level_11_2
+
+%assign    Outputs_close_Fault_level_11_2 = ""
+%openfile  Outputs_close_Fault_level_11_2
+
+    /* End of Outputs for SubSystem: '<S1>/Fault_level' */
+%closefile Outputs_close_Fault_level_11_2
+%<SLibCG_DumpSSCode(Outputs_open_Fault_level_11_2, Outputs_body_Fault_level_11_2, Outputs_close_Fault_level_11_2)>
+
+
+%assign   Outputs_open_key_cycle_11_3 = ""
+%openfile Outputs_open_key_cycle_11_3
+
+    /* Outputs for Function Call SubSystem: '<S1>/key_cycle' */
+%closefile Outputs_open_key_cycle_11_3
+
+%assign    Outputs_body_key_cycle_11_3 = ""
+%openfile  Outputs_body_key_cycle_11_3
+
+    /* Transition: '<S2>:30' */
+    /* Event: '<S2>:39' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_key_cycle",4,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_key_cycle",4,2)
+%<SLibCG_TrackEI(2)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_key_cycle",4,4)
+%<SLibCG_TrackZCEvent(13)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_key_cycle", ["%<tSimStruct>", "_rtB->MinMax1", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0]", "&_rtB->key_cycle", "&_rtZCE->key_cycle"], 4, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_key_cycle_11_3
+
+%assign    Outputs_close_key_cycle_11_3 = ""
+%openfile  Outputs_close_key_cycle_11_3
+
+    /* End of Outputs for SubSystem: '<S1>/key_cycle' */
+%closefile Outputs_close_key_cycle_11_3
+%<SLibCG_DumpSSCode(Outputs_open_key_cycle_11_3, Outputs_body_key_cycle_11_3, Outputs_close_key_cycle_11_3)>
+
+
+%assign   Outputs_open_sleepCheck_11_4 = ""
+%openfile Outputs_open_sleepCheck_11_4
+
+    /* Outputs for Function Call SubSystem: '<S1>/sleepCheck' */
+%closefile Outputs_open_sleepCheck_11_4
+
+%assign    Outputs_body_sleepCheck_11_4 = ""
+%openfile  Outputs_body_sleepCheck_11_4
+
+    /* Transition: '<S2>:33' */
+    /* Event: '<S2>:41' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_sleepCheck",5,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_sleepCheck", ["%<tSimStruct>"], 5, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_sleepCheck_11_4
+
+%assign    Outputs_close_sleepCheck_11_4 = ""
+%openfile  Outputs_close_sleepCheck_11_4
+
+    /* End of Outputs for SubSystem: '<S1>/sleepCheck' */
+%closefile Outputs_close_sleepCheck_11_4
+%<SLibCG_DumpSSCode(Outputs_open_sleepCheck_11_4, Outputs_body_sleepCheck_11_4, Outputs_close_sleepCheck_11_4)>
+
+
+%assign   Outputs_open_cc_cmd_11_5 = ""
+%openfile Outputs_open_cc_cmd_11_5
+
+    /* Outputs for Function Call SubSystem: '<S1>/cc_c  md' */
+%closefile Outputs_open_cc_cmd_11_5
+
+%assign    Outputs_body_cc_cmd_11_5 = ""
+%openfile  Outputs_body_cc_cmd_11_5
+
+    /* Transition: '<S2>:8' */
+    /* Event: '<S2>:40' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[6], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_cc_cmd",6,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_cc_cmd", ["%<tSimStruct>"], 6, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_cc_cmd_11_5
+
+%assign    Outputs_close_cc_cmd_11_5 = ""
+%openfile  Outputs_close_cc_cmd_11_5
+
+    /* End of Outputs for SubSystem: '<S1>/cc_c  md' */
+%closefile Outputs_close_cc_cmd_11_5
+%<SLibCG_DumpSSCode(Outputs_open_cc_cmd_11_5, Outputs_body_cc_cmd_11_5, Outputs_close_cc_cmd_11_5)>
+
+
+%assign   Outputs_open_rsnToOpenCC_11_6 = ""
+%openfile Outputs_open_rsnToOpenCC_11_6
+
+    /* Outputs for Function Call SubSystem: '<S1>/rsnToOpenCC' */
+%closefile Outputs_open_rsnToOpenCC_11_6
+
+%assign    Outputs_body_rsnToOpenCC_11_6 = ""
+%openfile  Outputs_body_rsnToOpenCC_11_6
+
+    /* Transition: '<S2>:10' */
+    /* Event: '<S2>:38' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[10], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_rsnToOpenCC",10,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_rsnToOpenCC", ["%<tSimStruct>"], 10, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_rsnToOpenCC_11_6
+
+%assign    Outputs_close_rsnToOpenCC_11_6 = ""
+%openfile  Outputs_close_rsnToOpenCC_11_6
+
+    /* End of Outputs for SubSystem: '<S1>/rsnToOpenCC' */
+%closefile Outputs_close_rsnToOpenCC_11_6
+%<SLibCG_DumpSSCode(Outputs_open_rsnToOpenCC_11_6, Outputs_body_rsnToOpenCC_11_6, Outputs_close_rsnToOpenCC_11_6)>
+
+} else {
+%assign   Outputs_open_check_type_11_1 = ""
+%openfile Outputs_open_check_type_11_1
+
+    /* Outputs for Function Call SubSystem: '<S1>/check_type' */
+%closefile Outputs_open_check_type_11_1
+
+%assign    Outputs_body_check_type_11_1 = ""
+%openfile  Outputs_body_check_type_11_1
+
+    /* During 'main': '<S2>:2' */
+    /* Transition: '<S2>:12' */
+    /* Transition: '<S2>:4' */
+    /* Event: '<S2>:43' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[1], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,1)
+%<SLibCG_TrackEI(4)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,2)
+%<SLibCG_TrackEI(5)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,3)
+%<SLibCG_TrackEI(6)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,4)
+%<SLibCG_TrackEI(7)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,5)
+%<SLibCG_TrackEI(8)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,6)
+%<SLibCG_TrackEI(9)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,7)
+%<SLibCG_TrackEI(10)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,8)
+%<SLibCG_TrackEI(11)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,9)
+%<SLibCG_TrackEI(12)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,10)
+%<SLibCG_TrackEI(13)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_check_type",1,11)
+%<SLibCG_TrackEI(14)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_check_type", ["%<tSimStruct>", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 4))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 5))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 6))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 7))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 8))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 9))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 10))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 11))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 12))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 13))[0]", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 14))[0]", "&_rtB->check_type"], 1, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_check_type_11_1
+
+%assign    Outputs_close_check_type_11_1 = ""
+%openfile  Outputs_close_check_type_11_1
+
+    /* End of Outputs for SubSystem: '<S1>/check_type' */
+%closefile Outputs_close_check_type_11_1
+%<SLibCG_DumpSSCode(Outputs_open_check_type_11_1, Outputs_body_check_type_11_1, Outputs_close_check_type_11_1)>
+
+
+%assign   Outputs_open_Fault_level_11_2 = ""
+%openfile Outputs_open_Fault_level_11_2
+
+    /* Outputs for Function Call SubSystem: '<S1>/Fault_level' */
+%closefile Outputs_open_Fault_level_11_2
+
+%assign    Outputs_body_Fault_level_11_2 = ""
+%openfile  Outputs_body_Fault_level_11_2
+
+    /* Transition: '<S2>:15' */
+    /* Event: '<S2>:37' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[2], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_Fault_level",2,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_Fault_level", ["%<tSimStruct>"], 2, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_Fault_level_11_2
+
+%assign    Outputs_close_Fault_level_11_2 = ""
+%openfile  Outputs_close_Fault_level_11_2
+
+    /* End of Outputs for SubSystem: '<S1>/Fault_level' */
+%closefile Outputs_close_Fault_level_11_2
+%<SLibCG_DumpSSCode(Outputs_open_Fault_level_11_2, Outputs_body_Fault_level_11_2, Outputs_close_Fault_level_11_2)>
+
+
+%assign   Outputs_open_key_cycle_11_3 = ""
+%openfile Outputs_open_key_cycle_11_3
+
+    /* Outputs for Function Call SubSystem: '<S1>/key_cycle' */
+%closefile Outputs_open_key_cycle_11_3
+
+%assign    Outputs_body_key_cycle_11_3 = ""
+%openfile  Outputs_body_key_cycle_11_3
+
+    /* Transition: '<S2>:30' */
+    /* Event: '<S2>:39' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_key_cycle",4,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_key_cycle",4,2)
+%<SLibCG_TrackEI(2)>
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("BSC_key_cycle",4,4)
+%<SLibCG_TrackZCEvent(13)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_key_cycle", ["%<tSimStruct>", "_rtB->MinMax1", "*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0]", "&_rtB->key_cycle", "&_rtZCE->key_cycle"], 4, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_key_cycle_11_3
+
+%assign    Outputs_close_key_cycle_11_3 = ""
+%openfile  Outputs_close_key_cycle_11_3
+
+    /* End of Outputs for SubSystem: '<S1>/key_cycle' */
+%closefile Outputs_close_key_cycle_11_3
+%<SLibCG_DumpSSCode(Outputs_open_key_cycle_11_3, Outputs_body_key_cycle_11_3, Outputs_close_key_cycle_11_3)>
+
+
+%assign   Outputs_open_sleepCheck_11_4 = ""
+%openfile Outputs_open_sleepCheck_11_4
+
+    /* Outputs for Function Call SubSystem: '<S1>/sleepCheck' */
+%closefile Outputs_open_sleepCheck_11_4
+
+%assign    Outputs_body_sleepCheck_11_4 = ""
+%openfile  Outputs_body_sleepCheck_11_4
+
+    /* Transition: '<S2>:33' */
+    /* Event: '<S2>:41' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[5], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_sleepCheck",5,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_sleepCheck", ["%<tSimStruct>"], 5, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_sleepCheck_11_4
+
+%assign    Outputs_close_sleepCheck_11_4 = ""
+%openfile  Outputs_close_sleepCheck_11_4
+
+    /* End of Outputs for SubSystem: '<S1>/sleepCheck' */
+%closefile Outputs_close_sleepCheck_11_4
+%<SLibCG_DumpSSCode(Outputs_open_sleepCheck_11_4, Outputs_body_sleepCheck_11_4, Outputs_close_sleepCheck_11_4)>
+
+
+%assign   Outputs_open_cc_cmd_11_5 = ""
+%openfile Outputs_open_cc_cmd_11_5
+
+    /* Outputs for Function Call SubSystem: '<S1>/cc_c  md' */
+%closefile Outputs_open_cc_cmd_11_5
+
+%assign    Outputs_body_cc_cmd_11_5 = ""
+%openfile  Outputs_body_cc_cmd_11_5
+
+    /* Transition: '<S2>:8' */
+    /* Event: '<S2>:40' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[6], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_cc_cmd",6,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_cc_cmd", ["%<tSimStruct>"], 6, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_cc_cmd_11_5
+
+%assign    Outputs_close_cc_cmd_11_5 = ""
+%openfile  Outputs_close_cc_cmd_11_5
+
+    /* End of Outputs for SubSystem: '<S1>/cc_c  md' */
+%closefile Outputs_close_cc_cmd_11_5
+%<SLibCG_DumpSSCode(Outputs_open_cc_cmd_11_5, Outputs_body_cc_cmd_11_5, Outputs_close_cc_cmd_11_5)>
+
+
+%assign   Outputs_open_rsnToOpenCC_11_6 = ""
+%openfile Outputs_open_rsnToOpenCC_11_6
+
+    /* Outputs for Function Call SubSystem: '<S1>/rsnToOpenCC' */
+%closefile Outputs_open_rsnToOpenCC_11_6
+
+%assign    Outputs_body_rsnToOpenCC_11_6 = ""
+%openfile  Outputs_body_rsnToOpenCC_11_6
+
+    /* Transition: '<S2>:10' */
+    /* Event: '<S2>:38' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[10], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("BSC_rsnToOpenCC",10,0)
+%<SLibCG_AccessArg(6 ,1, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("BSC_rsnToOpenCC", ["%<tSimStruct>"], 10, 0, 7, 0, 7, 13)>\
+
+%endif
+%closefile Outputs_body_rsnToOpenCC_11_6
+
+%assign    Outputs_close_rsnToOpenCC_11_6 = ""
+%openfile  Outputs_close_rsnToOpenCC_11_6
+
+    /* End of Outputs for SubSystem: '<S1>/rsnToOpenCC' */
+%closefile Outputs_close_rsnToOpenCC_11_6
+%<SLibCG_DumpSSCode(Outputs_open_rsnToOpenCC_11_6, Outputs_body_rsnToOpenCC_11_6, Outputs_close_rsnToOpenCC_11_6)>
+
+}
+/* End of Chart: '<S1>/Chart2' */
+
+/* Outport: '<Root>/CVTN supply signal' incorporates:
+ *  Inport: '<Root>/Charger PSR'
+ *  Inport: '<Root>/Vehicle PSR'
+ *  Logic: '<S1>/Logical Operator5'
+ */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 0))[0] = ((*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 0))[0] != 0) || (*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[0] != 0));
+/* End of Outputs for SubSystem: '<Root>/BSC' */
+
+/* Outport: '<Root>/Reason to open contactor to CAN' */
+((uint8_T *)ssGetOutputPortSignal(%<tSimStruct>, 4))[0] = _rtB->Merge;
+/* Outport: '<Root>/Fault Type' */
+((uint8_T *)ssGetOutputPortSignal(%<tSimStruct>, 7))[0] = _rtB->check_type.type_of_fault;
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[6].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(6, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(6, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(6, 1, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(6, 1, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

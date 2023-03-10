@@ -1,0 +1,54 @@
+%implements s2_b0_y89th_Start "C"
+
+%function Start(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+B_CC_T *_rtB;
+%closefile localVarDecl
+%assign tlcStartFcnOfS1B4 = OpaqueTLCBlockFcn("Start", 1, 4, 0, 0)
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%assign   Start_open_CC_n_2_0 = ""
+%openfile Start_open_CC_n_2_0
+
+/* Start for Atomic SubSystem: '<Root>/CC' */
+%closefile Start_open_CC_n_2_0
+
+%assign    Start_body_CC_n_2_0 = ""
+%openfile  Start_body_CC_n_2_0
+
+%<tlcStartFcnOfS1B4>\
+%closefile Start_body_CC_n_2_0
+
+%assign    Start_close_CC_n_2_0 = ""
+%openfile  Start_close_CC_n_2_0
+
+/* End of Start for SubSystem: '<Root>/CC' */
+%closefile Start_close_CC_n_2_0
+%<SLibCG_DumpSSCode(Start_open_CC_n_2_0, Start_body_CC_n_2_0, Start_close_CC_n_2_0)>
+
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Start", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Start"))
+%<SLibCG_AccessArg(0, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Start", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Start"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Start(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 0, 0)
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 0, fcnProtoType)>
+%<LibSetSystemField(system, "CachedStartLocalVars", localVarDecl)>
+%endfunction

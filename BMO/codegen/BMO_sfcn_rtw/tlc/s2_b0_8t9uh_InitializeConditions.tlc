@@ -1,0 +1,45 @@
+%implements s2_b0_8t9uh_InitializeConditions "C"
+
+%function InitializeConditions(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+B_BMO_T *_rtB;
+%closefile localVarDecl
+%<SLibCG_TrackBlockIO(2)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%<SLibInsertAsyncTaskInitializeCode(system)>
+%<SLibWriteMachineInitialize()>
+/* InitializeConditions for Atomic SubSystem: '<Root>/BMO' */
+/* InitializeConditions for Chart: '<S1>/Chart' */
+%<SLibCG_SetDWV(1, 0, 2, 1, "", -1, "", 0, "BMO_IN_NO_ACTIVE_CHILD")>\
+%<SLibCG_SetDWV(2, 0, 2, 1, "", -1, "", 0, "0U")>\
+%<SLibCG_SetDWV(0, 0, 2, 1, "", -1, "", 0, "BMO_IN_NO_ACTIVE_CHILD")>\
+_rtB->battery_mode = 0U;
+/* End of InitializeConditions for SubSystem: '<Root>/BMO' */
+%<SLibInsertInitPeriodicCStatesFcn(system)>
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Initialize", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Initialize"))
+%<SLibCG_AccessArg(0, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Initialize", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Initialize"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void InitializeConditions(\
+%assign comma = ""
+%if SLibCG_ArgAccessed(0, 0, 0)
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%endif
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 0, fcnProtoType)>
+%<LibSetSystemField(system, "CachedInitializeLocalVars", localVarDecl)>
+%endfunction

@@ -1,0 +1,210 @@
+%implements s13_b0_etgpi_0_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%<SLibCG_TrackEO(7)>\
+/* Chart: '<S5>/check_faults' */
+/* Gateway: BSC/check_type/check_faults */
+/* During: BSC/check_type/check_faults */
+/* Entry Internal: BSC/check_type/check_faults */
+/* Transition: '<S12>:170' */
+if (rtu_In1 != 0) {
+    /* Transition: '<S12>:75' */
+    /* Transition: '<S12>:77' */
+    localB->type_of_fault = 1U;
+    /* Transition: '<S12>:142' */
+    /* Transition: '<S12>:139' */
+    /* Transition: '<S12>:146' */
+    /* Transition: '<S12>:151' */
+    /* Transition: '<S12>:156' */
+    /* Transition: '<S12>:157' */
+    /* Transition: '<S12>:136' */
+    /* Transition: '<S12>:135' */
+    /* Transition: '<S12>:177' */
+    /* Transition: '<S12>:190' */
+    /* Transition: '<S12>:189' */
+} else {
+    /* Transition: '<S12>:76' */
+    if (rtu_In2 != 0) {
+        /* Transition: '<S12>:78' */
+        /* Transition: '<S12>:126' */
+        localB->type_of_fault = 2U;
+        /* Transition: '<S12>:139' */
+        /* Transition: '<S12>:146' */
+        /* Transition: '<S12>:151' */
+        /* Transition: '<S12>:156' */
+        /* Transition: '<S12>:157' */
+        /* Transition: '<S12>:136' */
+        /* Transition: '<S12>:135' */
+        /* Transition: '<S12>:177' */
+        /* Transition: '<S12>:190' */
+        /* Transition: '<S12>:189' */
+    } else {
+        /* Transition: '<S12>:79' */
+        if (rtu_In3 != 0) {
+            /* Transition: '<S12>:81' */
+            /* Transition: '<S12>:127' */
+            localB->type_of_fault = 3U;
+            /* Transition: '<S12>:146' */
+            /* Transition: '<S12>:151' */
+            /* Transition: '<S12>:156' */
+            /* Transition: '<S12>:157' */
+            /* Transition: '<S12>:136' */
+            /* Transition: '<S12>:135' */
+            /* Transition: '<S12>:177' */
+            /* Transition: '<S12>:190' */
+            /* Transition: '<S12>:189' */
+        } else {
+            /* Transition: '<S12>:108' */
+            if (rtu_In4 != 0) {
+                /* Transition: '<S12>:101' */
+                /* Transition: '<S12>:128' */
+                localB->type_of_fault = 4U;
+                /* Transition: '<S12>:151' */
+                /* Transition: '<S12>:156' */
+                /* Transition: '<S12>:157' */
+                /* Transition: '<S12>:136' */
+                /* Transition: '<S12>:135' */
+                /* Transition: '<S12>:177' */
+                /* Transition: '<S12>:190' */
+                /* Transition: '<S12>:189' */
+            } else {
+                /* Transition: '<S12>:109' */
+                if (rtu_In5 != 0) {
+                    /* Transition: '<S12>:105' */
+                    /* Transition: '<S12>:129' */
+                    localB->type_of_fault = 5U;
+                    /* Transition: '<S12>:156' */
+                    /* Transition: '<S12>:157' */
+                    /* Transition: '<S12>:136' */
+                    /* Transition: '<S12>:135' */
+                    /* Transition: '<S12>:177' */
+                    /* Transition: '<S12>:190' */
+                    /* Transition: '<S12>:189' */
+                } else {
+                    /* Transition: '<S12>:122' */
+                    if (rtu_In6 != 0) {
+                        /* Transition: '<S12>:111' */
+                        /* Transition: '<S12>:130' */
+                        localB->type_of_fault = 6U;
+                        /* Transition: '<S12>:157' */
+                        /* Transition: '<S12>:136' */
+                        /* Transition: '<S12>:135' */
+                        /* Transition: '<S12>:177' */
+                        /* Transition: '<S12>:190' */
+                        /* Transition: '<S12>:189' */
+                    } else {
+                        /* Transition: '<S12>:123' */
+                        if (rtu_In7 != 0) {
+                            /* Transition: '<S12>:114' */
+                            /* Transition: '<S12>:131' */
+                            localB->type_of_fault = 7U;
+                            /* Transition: '<S12>:136' */
+                            /* Transition: '<S12>:135' */
+                            /* Transition: '<S12>:177' */
+                            /* Transition: '<S12>:190' */
+                            /* Transition: '<S12>:189' */
+                        } else {
+                            /* Transition: '<S12>:124' */
+                            if (rtu_In8 != 0) {
+                                /* Transition: '<S12>:118' */
+                                /* Transition: '<S12>:132' */
+                                localB->type_of_fault = 8U;
+                                /* Transition: '<S12>:135' */
+                                /* Transition: '<S12>:177' */
+                                /* Transition: '<S12>:190' */
+                                /* Transition: '<S12>:189' */
+                            } else {
+                                /* Transition: '<S12>:125' */
+                                if (rtu_In9 != 0) {
+                                    /* Transition: '<S12>:121' */
+                                    /* Transition: '<S12>:133' */
+                                    localB->type_of_fault = 9U;
+                                    /* Transition: '<S12>:177' */
+                                    /* Transition: '<S12>:190' */
+                                    /* Transition: '<S12>:189' */
+                                } else {
+                                    /* Transition: '<S12>:174' */
+                                    if (rtu_In10 != 0) {
+                                        /* Transition: '<S12>:176' */
+                                        /* Transition: '<S12>:175' */
+                                        localB->type_of_fault = 10U;
+                                        /* Transition: '<S12>:190' */
+                                        /* Transition: '<S12>:189' */
+                                    } else {
+                                        /* Transition: '<S12>:187' */
+                                        if (rtu_In11 != 0) {
+                                            /* Transition: '<S12>:185' */
+                                            /* Transition: '<S12>:186' */
+                                            localB->type_of_fault = 11U;
+                                            /* Transition: '<S12>:189' */
+                                        } else {
+                                            /* Transition: '<S12>:188' */
+                                            /* Transition: '<S12>:165' */
+                                            localB->type_of_fault = 0U;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+/* End of Chart: '<S5>/check_faults' */
+
+/* Outport: '<Root>/Fault Type' incorporates:
+ *  Outport: '<S5>/Out1'
+ */
+/* Transition: '<S12>:181' */
+((uint8_T *)ssGetOutputPortSignal(%<tSimStruct>, 7))[0] = localB->type_of_fault;
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[0].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(0, 1, 0)>
+%endif
+%if SLibCG_ArgAccessed(0, 1, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(0, 1, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void BSC_check_type(\
+%assign comma = ""
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%<comma>uint8_T rtu_In1\
+%assign comma = ", "
+%<comma>uint8_T rtu_In2\
+%assign comma = ", "
+%<comma>uint8_T rtu_In3\
+%assign comma = ", "
+%<comma>uint8_T rtu_In4\
+%assign comma = ", "
+%<comma>uint8_T rtu_In5\
+%assign comma = ", "
+%<comma>uint8_T rtu_In6\
+%assign comma = ", "
+%<comma>uint8_T rtu_In7\
+%assign comma = ", "
+%<comma>uint8_T rtu_In8\
+%assign comma = ", "
+%<comma>uint8_T rtu_In9\
+%assign comma = ", "
+%<comma>uint8_T rtu_In10\
+%assign comma = ", "
+%<comma>uint8_T rtu_In11\
+%assign comma = ", "
+%<comma>B_check_type_BSC_T *localB\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(0, 1, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

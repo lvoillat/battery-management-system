@@ -1,0 +1,7 @@
+rt_logging.obj
+SOC_codegen.obj
+SOC_codegen_data.obj
+rtGetInf.obj
+rtGetNaN.obj
+rt_nonfinite.obj
+rt_main.obj

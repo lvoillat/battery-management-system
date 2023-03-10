@@ -1,0 +1,40 @@
+%implements s13_b0_etgpi_3_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%<SLibCG_TrackEO(3)>\
+%<SLibCG_TrackEI(3)>\
+%<SLibCG_TrackEI(1)>\
+/* Logic: '<S8>/Logical Operator3' incorporates:
+ *  Constant: '<S17>/Constant'
+ *  Inport: '<Root>/Charger PSR'
+ *  Inport: '<Root>/SOC'
+ *  RelationalOperator: '<S17>/Compare'
+ */
+%<SLibCG_SetBOV(7, 0, 13, 1, "", -1, "", 0, "((*((const uint8_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 1))[0] != 0) && (*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 3))[0] >= 95.0))")>\
+/* Outport: '<S8>/Sleep Mode' */
+((boolean_T *)ssGetOutputPortSignal(%<tSimStruct>, 3))[0] = %<(SLibCG_SE(SLibCG_BOV(7, 0, 13, 1, "", -1, "", 0)))>;
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[3].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(3, 0, 0)>
+%endif
+%if SLibCG_ArgAccessed(3, 0, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(3, 0, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void BSC_sleepCheck(\
+%assign comma = ""
+%<comma>%<tSimStructType> * const %<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(3, 0, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction

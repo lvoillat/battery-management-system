@@ -1,0 +1,700 @@
+%implements s8_b0_yjbvh_Outputs "C"
+
+%function Outputs(block, system) Output
+%assign cfgTxt = ""
+%openfile cfgTxt
+%assign localVarDecl = ""
+%openfile localVarDecl
+boolean_T rtb_LogicalOperator;
+B_soh_T *_rtB;
+%closefile localVarDecl
+%assign _modelSS = ""
+
+%<SLibCG_TrackBlockIO(8)>\
+_rtB = %<(SLibCG_SE(SLibGetBlockIOStructPtr()))>;
+%<SLibCG_TrackEO(1)>\
+%<SLibCG_TrackEO(0)>\
+%<SLibCG_TrackEI(9)>\
+%<SLibCG_TrackEI(8)>\
+%<SLibCG_TrackEI(7)>\
+/* Outputs for Atomic SubSystem: '<Root>/soh' */
+/* Logic: '<S1>/Logical Operator' incorporates:
+ *  Inport: '<Root>/charger_contactor'
+ *  Inport: '<Root>/main_contactor'
+ */
+rtb_LogicalOperator = ((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 7))[0]) || (*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 8))[0]));
+/* Chart: '<S1>/Chart' incorporates:
+ *  Inport: '<Root>/Cell SOC'
+ *  Inport: '<Root>/Cell Temp'
+ *  Inport: '<Root>/Cell Voltages'
+ *  Inport: '<Root>/Pack Current'
+ *  Inport: '<Root>/cb_cmds'
+ *  Inport: '<Root>/pre_chg_contactor'
+ *  Inport: '<Root>/soc_C_factors'
+ */
+/* Gateway: soh/Chart */
+/* During: soh/Chart */
+if (%<(SLibCG_SE(SLibCG_DWV(6, 0, 8, 1, "", -1, "", 0)))> == 0U) {
+    /* Entry: soh/Chart */
+%<SLibCG_SetDWV(6, 0, 8, 1, "", -1, "", 0, "1U")>\
+    /* Entry Internal: soh/Chart */
+    /* Transition: '<S2>:68' */
+%<SLibCG_SetDWV(5, 0, 8, 1, "", -1, "", 0, "soh_IN_key_ON")>\
+    /* Entry 'key_ON': '<S2>:14' */
+    _rtB->init_keyon_reset = 1.0;
+%assign   Outputs_open_init_6_2 = ""
+%openfile Outputs_open_init_6_2
+
+    /* Outputs for Function Call SubSystem: '<S1>/init' */
+%closefile Outputs_open_init_6_2
+
+%assign    Outputs_body_init_6_2 = ""
+%openfile  Outputs_body_init_6_2
+
+    /* Entry Internal 'key_ON': '<S2>:14' */
+    /* Transition: '<S2>:64' */
+    /* Transition: '<S2>:63' */
+    /* Event: '<S2>:50' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[0], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_init",0,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_init",0,1)
+%<SLibCG_TrackEI(6)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_init", ["%<tSimStruct>", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 6))[0]", "&_rtB->init", "%<(SLibCG_DWVAddr(3, 0, 8, 40, "", -1, "", 0))>"], 0, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_init_6_2
+
+%assign    Outputs_close_init_6_2 = ""
+%openfile  Outputs_close_init_6_2
+
+    /* End of Outputs for SubSystem: '<S1>/init' */
+%closefile Outputs_close_init_6_2
+%<SLibCG_DumpSSCode(Outputs_open_init_6_2, Outputs_body_init_6_2, Outputs_close_init_6_2)>
+
+
+%assign   Outputs_open_key_on_6_4 = ""
+%openfile Outputs_open_key_on_6_4
+
+    /* Outputs for Function Call SubSystem: '<S1>/key_on' */
+%closefile Outputs_open_key_on_6_4
+
+%assign    Outputs_body_key_on_6_4 = ""
+%openfile  Outputs_body_key_on_6_4
+
+    /* Transition: '<S2>:32' */
+    /* Event: '<S2>:52' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[2], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_key_on",2,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_key_on", ["%<tSimStruct>"], 2, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_key_on_6_4
+
+%assign    Outputs_close_key_on_6_4 = ""
+%openfile  Outputs_close_key_on_6_4
+
+    /* End of Outputs for SubSystem: '<S1>/key_on' */
+%closefile Outputs_close_key_on_6_4
+%<SLibCG_DumpSSCode(Outputs_open_key_on_6_4, Outputs_body_key_on_6_4, Outputs_close_key_on_6_4)>
+
+
+%assign   Outputs_open_deltaCalc_6_3 = ""
+%openfile Outputs_open_deltaCalc_6_3
+
+    /* Outputs for Function Call SubSystem: '<S1>/deltaCalc' */
+%closefile Outputs_open_deltaCalc_6_3
+
+%assign    Outputs_body_deltaCalc_6_3 = ""
+%openfile  Outputs_body_deltaCalc_6_3
+
+    /* Transition: '<S2>:38' */
+    /* Event: '<S2>:51' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[1], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,1)
+%<SLibCG_TrackEI(2)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,2)
+%<SLibCG_TrackEI(3)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,3)
+%<SLibCG_TrackEI(4)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,4)
+%<SLibCG_TrackEI(5)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,5)
+%<SLibCG_TrackEI(10)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_deltaCalc", ["%<tSimStruct>", "*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 3))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 4))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 5))[0]", "((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 10))[0]", "&_rtB->deltaCalc"], 1, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_deltaCalc_6_3
+
+%assign    Outputs_close_deltaCalc_6_3 = ""
+%openfile  Outputs_close_deltaCalc_6_3
+
+    /* End of Outputs for SubSystem: '<S1>/deltaCalc' */
+%closefile Outputs_close_deltaCalc_6_3
+%<SLibCG_DumpSSCode(Outputs_open_deltaCalc_6_3, Outputs_body_deltaCalc_6_3, Outputs_close_deltaCalc_6_3)>
+
+
+%assign   Outputs_open_SOH_6_5 = ""
+%openfile Outputs_open_SOH_6_5
+
+    /* Outputs for Function Call SubSystem: '<S1>/SOH' */
+%closefile Outputs_open_SOH_6_5
+
+%assign    Outputs_body_SOH_6_5 = ""
+%openfile  Outputs_body_SOH_6_5
+
+    /* Transition: '<S2>:62' */
+    /* Event: '<S2>:53' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_SOH",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_SOH", ["%<tSimStruct>"], 4, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_SOH_6_5
+
+%assign    Outputs_close_SOH_6_5 = ""
+%openfile  Outputs_close_SOH_6_5
+
+    /* End of Outputs for SubSystem: '<S1>/SOH' */
+%closefile Outputs_close_SOH_6_5
+%<SLibCG_DumpSSCode(Outputs_open_SOH_6_5, Outputs_body_SOH_6_5, Outputs_close_SOH_6_5)>
+
+} else {
+    switch (%<(SLibCG_DWV(5, 0, 8, 1, "", -1, "", 0))>) {
+      case soh_IN_dataStore:
+        /* During 'dataStore': '<S2>:16' */
+        /* Transition: '<S2>:70' */
+%<SLibCG_SetDWV(5, 0, 8, 1, "", -1, "", 0, "soh_IN_end")>\
+        /* Entry 'end': '<S2>:69' */
+        break;
+      case soh_IN_end:
+        /* During 'end': '<S2>:69' */
+        if ((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 9))[0]) || rtb_LogicalOperator) {
+            /* Transition: '<S2>:26' */
+%<SLibCG_SetDWV(5, 0, 8, 1, "", -1, "", 0, "soh_IN_key_ON")>\
+            /* Entry 'key_ON': '<S2>:14' */
+            _rtB->init_keyon_reset = 1.0;
+%assign   Outputs_open_init_6_2 = ""
+%openfile Outputs_open_init_6_2
+
+            /* Outputs for Function Call SubSystem: '<S1>/init' */
+%closefile Outputs_open_init_6_2
+
+%assign    Outputs_body_init_6_2 = ""
+%openfile  Outputs_body_init_6_2
+
+            /* Entry Internal 'key_ON': '<S2>:14' */
+            /* Transition: '<S2>:64' */
+            /* Transition: '<S2>:63' */
+            /* Event: '<S2>:50' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[0], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_init",0,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_init",0,1)
+%<SLibCG_TrackEI(6)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_init", ["%<tSimStruct>", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 6))[0]", "&_rtB->init", "%<(SLibCG_DWVAddr(3, 0, 8, 40, "", -1, "", 0))>"], 0, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_init_6_2
+
+%assign    Outputs_close_init_6_2 = ""
+%openfile  Outputs_close_init_6_2
+
+            /* End of Outputs for SubSystem: '<S1>/init' */
+%closefile Outputs_close_init_6_2
+%<SLibCG_DumpSSCode(Outputs_open_init_6_2, Outputs_body_init_6_2, Outputs_close_init_6_2)>
+
+
+%assign   Outputs_open_key_on_6_4 = ""
+%openfile Outputs_open_key_on_6_4
+
+            /* Outputs for Function Call SubSystem: '<S1>/key_on' */
+%closefile Outputs_open_key_on_6_4
+
+%assign    Outputs_body_key_on_6_4 = ""
+%openfile  Outputs_body_key_on_6_4
+
+            /* Transition: '<S2>:32' */
+            /* Event: '<S2>:52' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[2], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_key_on",2,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_key_on", ["%<tSimStruct>"], 2, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_key_on_6_4
+
+%assign    Outputs_close_key_on_6_4 = ""
+%openfile  Outputs_close_key_on_6_4
+
+            /* End of Outputs for SubSystem: '<S1>/key_on' */
+%closefile Outputs_close_key_on_6_4
+%<SLibCG_DumpSSCode(Outputs_open_key_on_6_4, Outputs_body_key_on_6_4, Outputs_close_key_on_6_4)>
+
+
+%assign   Outputs_open_deltaCalc_6_3 = ""
+%openfile Outputs_open_deltaCalc_6_3
+
+            /* Outputs for Function Call SubSystem: '<S1>/deltaCalc' */
+%closefile Outputs_open_deltaCalc_6_3
+
+%assign    Outputs_body_deltaCalc_6_3 = ""
+%openfile  Outputs_body_deltaCalc_6_3
+
+            /* Transition: '<S2>:38' */
+            /* Event: '<S2>:51' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[1], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,1)
+%<SLibCG_TrackEI(2)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,2)
+%<SLibCG_TrackEI(3)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,3)
+%<SLibCG_TrackEI(4)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,4)
+%<SLibCG_TrackEI(5)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,5)
+%<SLibCG_TrackEI(10)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_deltaCalc", ["%<tSimStruct>", "*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 3))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 4))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 5))[0]", "((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 10))[0]", "&_rtB->deltaCalc"], 1, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_deltaCalc_6_3
+
+%assign    Outputs_close_deltaCalc_6_3 = ""
+%openfile  Outputs_close_deltaCalc_6_3
+
+            /* End of Outputs for SubSystem: '<S1>/deltaCalc' */
+%closefile Outputs_close_deltaCalc_6_3
+%<SLibCG_DumpSSCode(Outputs_open_deltaCalc_6_3, Outputs_body_deltaCalc_6_3, Outputs_close_deltaCalc_6_3)>
+
+
+%assign   Outputs_open_SOH_6_5 = ""
+%openfile Outputs_open_SOH_6_5
+
+            /* Outputs for Function Call SubSystem: '<S1>/SOH' */
+%closefile Outputs_open_SOH_6_5
+
+%assign    Outputs_body_SOH_6_5 = ""
+%openfile  Outputs_body_SOH_6_5
+
+            /* Transition: '<S2>:62' */
+            /* Event: '<S2>:53' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_SOH",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_SOH", ["%<tSimStruct>"], 4, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_SOH_6_5
+
+%assign    Outputs_close_SOH_6_5 = ""
+%openfile  Outputs_close_SOH_6_5
+
+            /* End of Outputs for SubSystem: '<S1>/SOH' */
+%closefile Outputs_close_SOH_6_5
+%<SLibCG_DumpSSCode(Outputs_open_SOH_6_5, Outputs_body_SOH_6_5, Outputs_close_SOH_6_5)>
+
+        }
+        break;
+      case soh_IN_key_ON:
+        /* During 'key_ON': '<S2>:14' */
+        if ((*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 9))[0]) || rtb_LogicalOperator) {
+            /* Transition: '<S2>:9' */
+%<SLibCG_SetDWV(5, 0, 8, 1, "", -1, "", 0, "soh_IN_sohr")>\
+            /* Entry 'sohr': '<S2>:7' */
+            _rtB->init_keyon_reset = 0.0;
+%assign   Outputs_open_deltaCalc_6_3 = ""
+%openfile Outputs_open_deltaCalc_6_3
+
+            /* Outputs for Function Call SubSystem: '<S1>/deltaCalc' */
+%closefile Outputs_open_deltaCalc_6_3
+
+%assign    Outputs_body_deltaCalc_6_3 = ""
+%openfile  Outputs_body_deltaCalc_6_3
+
+            /* Entry Internal 'sohr': '<S2>:7' */
+            /* Transition: '<S2>:19' */
+            /* Transition: '<S2>:15' */
+            /* Event: '<S2>:51' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[1], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,1)
+%<SLibCG_TrackEI(2)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,2)
+%<SLibCG_TrackEI(3)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,3)
+%<SLibCG_TrackEI(4)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,4)
+%<SLibCG_TrackEI(5)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,5)
+%<SLibCG_TrackEI(10)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_deltaCalc", ["%<tSimStruct>", "*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 3))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 4))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 5))[0]", "((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 10))[0]", "&_rtB->deltaCalc"], 1, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_deltaCalc_6_3
+
+%assign    Outputs_close_deltaCalc_6_3 = ""
+%openfile  Outputs_close_deltaCalc_6_3
+
+            /* End of Outputs for SubSystem: '<S1>/deltaCalc' */
+%closefile Outputs_close_deltaCalc_6_3
+%<SLibCG_DumpSSCode(Outputs_open_deltaCalc_6_3, Outputs_body_deltaCalc_6_3, Outputs_close_deltaCalc_6_3)>
+
+
+%assign   Outputs_open_SOH_6_5 = ""
+%openfile Outputs_open_SOH_6_5
+
+            /* Outputs for Function Call SubSystem: '<S1>/SOH' */
+%closefile Outputs_open_SOH_6_5
+
+%assign    Outputs_body_SOH_6_5 = ""
+%openfile  Outputs_body_SOH_6_5
+
+            /* Transition: '<S2>:40' */
+            /* Event: '<S2>:53' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_SOH",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_SOH", ["%<tSimStruct>"], 4, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_SOH_6_5
+
+%assign    Outputs_close_SOH_6_5 = ""
+%openfile  Outputs_close_SOH_6_5
+
+            /* End of Outputs for SubSystem: '<S1>/SOH' */
+%closefile Outputs_close_SOH_6_5
+%<SLibCG_DumpSSCode(Outputs_open_SOH_6_5, Outputs_body_SOH_6_5, Outputs_close_SOH_6_5)>
+
+        } else {
+%assign   Outputs_open_init_6_2 = ""
+%openfile Outputs_open_init_6_2
+
+            /* Outputs for Function Call SubSystem: '<S1>/init' */
+%closefile Outputs_open_init_6_2
+
+%assign    Outputs_body_init_6_2 = ""
+%openfile  Outputs_body_init_6_2
+
+            /* Transition: '<S2>:64' */
+            /* Transition: '<S2>:63' */
+            /* Event: '<S2>:50' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[0], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_init",0,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_init",0,1)
+%<SLibCG_TrackEI(6)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_init", ["%<tSimStruct>", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 6))[0]", "&_rtB->init", "%<(SLibCG_DWVAddr(3, 0, 8, 40, "", -1, "", 0))>"], 0, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_init_6_2
+
+%assign    Outputs_close_init_6_2 = ""
+%openfile  Outputs_close_init_6_2
+
+            /* End of Outputs for SubSystem: '<S1>/init' */
+%closefile Outputs_close_init_6_2
+%<SLibCG_DumpSSCode(Outputs_open_init_6_2, Outputs_body_init_6_2, Outputs_close_init_6_2)>
+
+
+%assign   Outputs_open_key_on_6_4 = ""
+%openfile Outputs_open_key_on_6_4
+
+            /* Outputs for Function Call SubSystem: '<S1>/key_on' */
+%closefile Outputs_open_key_on_6_4
+
+%assign    Outputs_body_key_on_6_4 = ""
+%openfile  Outputs_body_key_on_6_4
+
+            /* Transition: '<S2>:32' */
+            /* Event: '<S2>:52' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[2], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_key_on",2,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_key_on", ["%<tSimStruct>"], 2, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_key_on_6_4
+
+%assign    Outputs_close_key_on_6_4 = ""
+%openfile  Outputs_close_key_on_6_4
+
+            /* End of Outputs for SubSystem: '<S1>/key_on' */
+%closefile Outputs_close_key_on_6_4
+%<SLibCG_DumpSSCode(Outputs_open_key_on_6_4, Outputs_body_key_on_6_4, Outputs_close_key_on_6_4)>
+
+
+%assign   Outputs_open_deltaCalc_6_3 = ""
+%openfile Outputs_open_deltaCalc_6_3
+
+            /* Outputs for Function Call SubSystem: '<S1>/deltaCalc' */
+%closefile Outputs_open_deltaCalc_6_3
+
+%assign    Outputs_body_deltaCalc_6_3 = ""
+%openfile  Outputs_body_deltaCalc_6_3
+
+            /* Transition: '<S2>:38' */
+            /* Event: '<S2>:51' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[1], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,1)
+%<SLibCG_TrackEI(2)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,2)
+%<SLibCG_TrackEI(3)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,3)
+%<SLibCG_TrackEI(4)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,4)
+%<SLibCG_TrackEI(5)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,5)
+%<SLibCG_TrackEI(10)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_deltaCalc", ["%<tSimStruct>", "*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 3))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 4))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 5))[0]", "((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 10))[0]", "&_rtB->deltaCalc"], 1, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_deltaCalc_6_3
+
+%assign    Outputs_close_deltaCalc_6_3 = ""
+%openfile  Outputs_close_deltaCalc_6_3
+
+            /* End of Outputs for SubSystem: '<S1>/deltaCalc' */
+%closefile Outputs_close_deltaCalc_6_3
+%<SLibCG_DumpSSCode(Outputs_open_deltaCalc_6_3, Outputs_body_deltaCalc_6_3, Outputs_close_deltaCalc_6_3)>
+
+
+%assign   Outputs_open_SOH_6_5 = ""
+%openfile Outputs_open_SOH_6_5
+
+            /* Outputs for Function Call SubSystem: '<S1>/SOH' */
+%closefile Outputs_open_SOH_6_5
+
+%assign    Outputs_body_SOH_6_5 = ""
+%openfile  Outputs_body_SOH_6_5
+
+            /* Transition: '<S2>:62' */
+            /* Event: '<S2>:53' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_SOH",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_SOH", ["%<tSimStruct>"], 4, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_SOH_6_5
+
+%assign    Outputs_close_SOH_6_5 = ""
+%openfile  Outputs_close_SOH_6_5
+
+            /* End of Outputs for SubSystem: '<S1>/SOH' */
+%closefile Outputs_close_SOH_6_5
+%<SLibCG_DumpSSCode(Outputs_open_SOH_6_5, Outputs_body_SOH_6_5, Outputs_close_SOH_6_5)>
+
+        }
+        break;
+      default:
+        /* During 'sohr': '<S2>:7' */
+        if ((!rtb_LogicalOperator) && (!*((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 9))[0])) {
+            /* Transition: '<S2>:34' */
+%<SLibCG_SetDWV(5, 0, 8, 1, "", -1, "", 0, "soh_IN_dataStore")>\
+            /* Entry 'dataStore': '<S2>:16' */
+            _rtB->init_keyon_reset = 0.0;
+            /* Outputs for Function Call SubSystem: '<S1>/DataStore' */
+            /* DataStoreWrite: '<S3>/Data Store Write1' */
+            /* Entry Internal 'dataStore': '<S2>:16' */
+            /* Transition: '<S2>:43' */
+            /* Transition: '<S2>:44' */
+            /* Event: '<S2>:54' */
+            memcpy(%<(SLibCG_DWVAddr(3, 0, 8, 40, "", -1, "", 0))>, &_rtB->Saturation[0], 40U * sizeof(real_T));
+            /* End of Outputs for SubSystem: '<S1>/DataStore' */
+        } else {
+%assign   Outputs_open_deltaCalc_6_3 = ""
+%openfile Outputs_open_deltaCalc_6_3
+
+            /* Outputs for Function Call SubSystem: '<S1>/deltaCalc' */
+%closefile Outputs_open_deltaCalc_6_3
+
+%assign    Outputs_body_deltaCalc_6_3 = ""
+%openfile  Outputs_body_deltaCalc_6_3
+
+            /* Transition: '<S2>:19' */
+            /* Transition: '<S2>:15' */
+            /* Event: '<S2>:51' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[1], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,1)
+%<SLibCG_TrackEI(2)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,2)
+%<SLibCG_TrackEI(3)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,3)
+%<SLibCG_TrackEI(4)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,4)
+%<SLibCG_TrackEI(5)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+%if SLibCG_SystemFcnArgAccessed("soh_deltaCalc",1,5)
+%<SLibCG_TrackEI(10)>
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_deltaCalc", ["%<tSimStruct>", "*((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 2))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 3))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 4))[0]", "((const real_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 5))[0]", "((const boolean_T **)ssGetInputPortSignalPtrs(%<tSimStruct>, 10))[0]", "&_rtB->deltaCalc"], 1, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_deltaCalc_6_3
+
+%assign    Outputs_close_deltaCalc_6_3 = ""
+%openfile  Outputs_close_deltaCalc_6_3
+
+            /* End of Outputs for SubSystem: '<S1>/deltaCalc' */
+%closefile Outputs_close_deltaCalc_6_3
+%<SLibCG_DumpSSCode(Outputs_open_deltaCalc_6_3, Outputs_body_deltaCalc_6_3, Outputs_close_deltaCalc_6_3)>
+
+
+%assign   Outputs_open_SOH_6_5 = ""
+%openfile Outputs_open_SOH_6_5
+
+            /* Outputs for Function Call SubSystem: '<S1>/SOH' */
+%closefile Outputs_open_SOH_6_5
+
+%assign    Outputs_body_SOH_6_5 = ""
+%openfile  Outputs_body_SOH_6_5
+
+            /* Transition: '<S2>:40' */
+            /* Event: '<S2>:53' */
+%if !SLibCGSysFcnIsEmptyForTid(CompiledModel.System[4], "Output",0)
+%if SLibCG_SystemFcnArgAccessed("soh_SOH",4,0)
+%<SLibCG_AccessArg(4 ,2, 0)>
+%endif
+
+%<SLibCGIRGenReusableSysCall("soh_SOH", ["%<tSimStruct>"], 4, 0, 7, 0, 7, 8)>\
+
+%endif
+%closefile Outputs_body_SOH_6_5
+
+%assign    Outputs_close_SOH_6_5 = ""
+%openfile  Outputs_close_SOH_6_5
+
+            /* End of Outputs for SubSystem: '<S1>/SOH' */
+%closefile Outputs_close_SOH_6_5
+%<SLibCG_DumpSSCode(Outputs_open_SOH_6_5, Outputs_body_SOH_6_5, Outputs_close_SOH_6_5)>
+
+        }
+        break;
+    }
+}
+/* End of Chart: '<S1>/Chart' */
+/* End of Outputs for SubSystem: '<Root>/soh' */
+
+/* Outport: '<Root>/soh_R_index' */
+((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 0))[0] = _rtB->Gain3_p;
+/* Outport: '<Root>/soh_R_factors' */
+memcpy(&((real_T *)ssGetOutputPortSignal(%<tSimStruct>, 1))[0], &_rtB->Saturation[0], 40U * sizeof(real_T));
+%<SLibInsertSolverResetCode()>\
+%closefile cfgTxt
+%<cfgTxt>
+%assign rtmArgSys = ::CompiledModel.System[::CompiledModel.System[::CompiledModel.RTWCGModules.RTWCGModule[4].CGSystemIdx].NonInlinedParentSystemIdx]
+%if SysFcnArgNeeded("Output", rtmArgSys.Interface.RTMArgDef, rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))
+%<SLibCG_AccessArg(4, 2, 0)>
+%endif
+%if SLibCG_ArgAccessed(4, 2, 0)
+%<SLibAccessArg(rtmArgSys.Interface.RTMArgDef, "Output", rtmArgSys.CurrentTID, SLibSystemFcnPeriodicRateGrouping(rtmArgSys, "Output"))>
+%endif
+%if (IsModelReferenceBaseSys(rtmArgSys) && (IsModelRefScalableBuild() || GenerateClassInterface))
+%<SLibCG_UndoAccessArg(4, 2, 0)>
+%endif
+%assign fcnProtoType = ""
+%openfile fcnProtoType
+static void Outputs(\
+%assign comma = ""
+%<comma>%<tSimStructType> *%<tSimStruct>\
+%assign comma = ", "
+%closefile fcnProtoType
+%<SLibCG_SetFcnProtoType(4, 2, fcnProtoType)>
+%<LibSetSystemField(system, "CachedOutputLocalVars", localVarDecl)>
+%endfunction
