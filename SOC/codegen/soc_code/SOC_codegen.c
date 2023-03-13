@@ -400,6 +400,7 @@ void SOC_codegen_step(void)
    * Block requirements for '<Root>/soc':
    *  1. @wi BMS-619 SOC Accuracy for Charging/Discharging
    */
+    
   /* Logic: '<S1>/Logical Operator' incorporates:
    *  Inport: '<Root>/cc_chg_contactor'
    *  Inport: '<Root>/cc_main_contactor'
