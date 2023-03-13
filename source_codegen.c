@@ -398,7 +398,7 @@ void SOC_codegen_step(void)
   /* Outputs for Atomic SubSystem: '<Root>/soc'
    *
    * Block requirements for '<Root>/soc':
-   *  1. @wi.implements BMS-619 SOC Accuracy for Charging/Discharging
+   *  @wi.implements BMS-619 SOC Accuracy for Charging/Discharging
    */
   /* Logic: '<S1>/Logical Operator' incorporates:
    *  Inport: '<Root>/cc_chg_contactor'
@@ -463,7 +463,7 @@ void SOC_codegen_step(void)
         /* Outputs for Function Call SubSystem: '<S1>/key_on'
          *
          * Block requirements for '<S1>/key_on':
-         *  1. @wi.implements BMS-618 Power ON SOC Definition
+         *  @wi.implements BMS-618 Power ON SOC Definition
          */
         SOC_codegen_key_on(SOC_codegen_U.vitm_cell_voltages,
                            SOC_codegen_U.bsc_chg_cc_cmd, SOC_codegen_B.Merge2,
@@ -485,7 +485,7 @@ void SOC_codegen_step(void)
         /* Outputs for Function Call SubSystem: '<S1>/key_on'
          *
          * Block requirements for '<S1>/key_on':
-         *  1. @wi.implements BMS-618 Power ON SOC Definition
+         *  @wi.implements BMS-618 Power ON SOC Definition
          */
         SOC_codegen_key_on(SOC_codegen_U.vitm_cell_voltages,
                            SOC_codegen_U.bsc_chg_cc_cmd, SOC_codegen_B.Merge2,
@@ -523,7 +523,7 @@ void SOC_codegen_step(void)
         /* Outputs for Function Call SubSystem: '<S1>/key_on'
          *
          * Block requirements for '<S1>/key_on':
-         *  1. @wi.implements BMS-618 Power ON SOC Definition
+         *  @wi.implements BMS-618 Power ON SOC Definition
          */
         SOC_codegen_key_on(SOC_codegen_U.vitm_cell_voltages,
                            SOC_codegen_U.bsc_chg_cc_cmd, SOC_codegen_B.Merge2,
@@ -598,13 +598,13 @@ void SOC_codegen_step(void)
    *  RelationalOperator: '<S1>/RelationalOperator'
    *
    * Block requirements for '<S1>/Switch':
-   *  1. @wi.implements BMS-623 SOC shown to driver
+   *  @wi.implements BMS-623 SOC shown to driver
    *
    * Block requirements for '<S1>/Constant2':
-   *  1. @wi.implements BMS-622 Min Max SOC Values
+   *  @wi.implements BMS-622 Min Max SOC Values
    *
    * Block requirements for '<S1>/RelationalOperator':
-   *  1. @wi.implements BMS-622 Min Max SOC Values
+   *  @wi.implements BMS-622 Min Max SOC Values
    */
   if (SOC_codegen_Y.soc_cells_max < 80.0) {
     /* Switch: '<S1>/Switch1' incorporates:
@@ -613,20 +613,20 @@ void SOC_codegen_step(void)
      *  RelationalOperator: '<S1>/RelationalOperator1'
      *
      * Block requirements for '<S1>/Switch1':
-     *  1. @wi.implements BMS-623 SOC shown to driver
+     *  @wi.implements BMS-623 SOC shown to driver
      *
      * Block requirements for '<S1>/Constant4':
-     *  1. @wi.implements BMS-622 Min Max SOC Values
+     *  @wi.implements BMS-622 Min Max SOC Values
      *
      * Block requirements for '<S1>/RelationalOperator1':
-     *  1. @wi.implements BMS-622 Min Max SOC Values
+     *  @wi.implements BMS-622 Min Max SOC Values
      */
     if (SOC_codegen_Y.soc_cells_min <= 20.0) {
       /* Outport: '<Root>/soc_pack_customer' incorporates:
        *  Constant: '<S1>/Constant5'
        *
        * Block requirements for '<S1>/Constant5':
-       *  1. @wi.implements BMS-623 SOC shown to driver
+       *  @wi.implements BMS-623 SOC shown to driver
        */
       SOC_codegen_Y.soc_pack_customer = 0.0;
     } else {
@@ -646,7 +646,7 @@ void SOC_codegen_step(void)
      *  Constant: '<S1>/Constant6'
      *
      * Block requirements for '<S1>/Constant6':
-     *  1. @wi.implements BMS-623 SOC shown to driver
+     *  @wi.implements BMS-623 SOC shown to driver
      */
     SOC_codegen_Y.soc_pack_customer = 100.0;
   }
@@ -673,7 +673,7 @@ void SOC_codegen_step(void)
   /* Outputs for Atomic SubSystem: '<Root>/soc'
    *
    * Block requirements for '<Root>/soc':
-   *  1. @wi.implements BMS-619 SOC Accuracy for Charging/Discharging
+   *  @wi.implements BMS-619 SOC Accuracy for Charging/Discharging
    */
   /* Outport: '<Root>/soc_rate_high' incorporates:
    *  Constant: '<S1>/Constant1'
@@ -687,7 +687,7 @@ void SOC_codegen_step(void)
    *  Add in CPU
    *
    * Block requirements for '<S1>/Constant1':
-   *  1. @wi.implements BMS-617 Discharging SOC Slew Rate Limit
+   *  @wi.implements BMS-617 Discharging SOC Slew Rate Limit
    */
   SOC_codegen_Y.soc_rate_high = ((SOC_codegen_Y.soc_pack_actual - rtb_Uk1) / 0.1
     <= -1.0);
