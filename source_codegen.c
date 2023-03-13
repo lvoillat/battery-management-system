@@ -692,6 +692,7 @@ void SOC_codegen_step(void)
    *
    * Block requirements for '<S1>/Constant1':
    *  1. @wi BMS-617 Discharging SOC Slew Rate Limit
+   @wi.implements BMS-617 Discharging SOC Slew Rate Limit
    */
   SOC_codegen_Y.soc_rate_high = ((SOC_codegen_Y.soc_pack_actual - rtb_Uk1) / 0.1
     <= -1.0);
